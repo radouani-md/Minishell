@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/13 10:27:15 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:12:04 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ t_env	*ft_lstnew(char *env_key, char *env_value)
 	ptr->next = NULL;
 	return (ptr);
 }
+
+// t_cmds	*ft_lstnw(char *command)
+// {
+// 	t_cmds	*ptr;
+
+// 	ptr = (t_cmds *) malloc(sizeof(t_cmds));
+// 	if (!ptr)
+// 		return (NULL);
+// 	ptr->cmd = command;
+// 	ptr->next = NULL;
+// 	return (ptr);
+// }
 
 t_list	*ft_lstneww(char *lst, int typ_e)
 {
@@ -47,6 +59,16 @@ t_env	*ft_lstlast(t_env *lst)
 		last = last->next;
 	return (last);
 }
+
+// t_cmds	*ft_lstlas(t_cmds *lst)
+// {
+// 	t_cmds	*last;
+
+// 	last = lst;
+// 	while (last->next)
+// 		last = last->next;
+// 	return (last);
+// }
 
 t_list	*ft_lstlastt(t_list *lst)
 {
@@ -82,6 +104,21 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 		last->next = new;
 	}
 }
+
+// void	ft_lstadd_bck(t_cmds **lst, t_cmds *new)
+// {
+// 	t_cmds	*last;
+
+// 	if (new == NULL)
+// 	return ;
+// 	if (*lst == NULL)
+// 		*lst = new;
+// 	else
+// 	{
+// 		last = ft_lstlas(*lst);
+// 		last->next = new;
+// 	}
+// }
 
 void	ft_lstadd_backk(t_list **lst, t_list *new)
 {
