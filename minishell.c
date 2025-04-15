@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 14:21:56 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/14 19:25:15 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:02:40 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ char	**create_full_cmd(t_list *nodes)
 		nodes = nodes->next;
 	}
 	full_cmd = md_split(tmp, ' ');
+	int i = 0;
+	while (full_cmd[i])
+	{
+		printf("{%s},", full_cmd[i++]);
+	}
 	free(tmp);
 	return (full_cmd);
 }
@@ -144,6 +149,7 @@ char	**helper_loop(char **cmd, t_list *nodes)
 
 	i = 0;
 	head = nodes;
+	num_cmd = 0;
 	while (head)
 	{
 		if (nodes->type == 0)
@@ -159,9 +165,11 @@ char	**helper_loop(char **cmd, t_list *nodes)
 			cmd[i++] = nodes->data;
 		nodes = nodes->next;
 	}
-	cmd[i] = '\0';
+	cmd[i] = NULL;
 	return (cmd);
 }
+
+void	redirection(t_list *nodes);
 
 char	**loop_through_node(t_list *nodes, char **cmd)
 {
@@ -169,44 +177,60 @@ char	**loop_through_node(t_list *nodes, char **cmd)
 	t_list *head;
 
 	head = nodes;
+	cmd = NULL;
 	while (head)
 	{
 		if (head->type == 1)
 		{
 			fd = open(head->data, O_RDONLY);
-			if (fd == -1 || access(head->data, F_OK) == -1)
+			if (fd == -1)
 	   			return (NULL);
-			close(fd);
 		}
 		else if (head->type == 2)
 		{
 			fd = open(head->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 			if (fd == -1)
 	   			return (NULL);
-			close(fd);
+			dup2(fd, STDOUT_FILENO);
 		}
 		head = head->next;
 	}
+	// redirection(nodes);
 	cmd = helper_loop(cmd, nodes);
 	return (cmd);
 }
 
+int	count_pipes(t_list *nodes)
+{
+	int num_pipes;
+
+	num_pipes = 0;
+	while (nodes)
+	{
+		if (nodes->type == 5)
+			num_pipes++;
+		nodes = nodes->next;
+	}
+	return (num_pipes);
+}
 
 void exec_commands(t_list *nodes, t_env *my_env)
 {
-	int i;
 	char **path;
 	char *cmd_path;
 	char **cmd;
 	char **envirment;
 	char **full_cmd;
+	int id;
+	int num_pipes;
 
-	i = 0;
-	ft_lstadd_backk(&nodes, ft_lstneww("ls", 0));
-	ft_lstadd_backk(&nodes, ft_lstneww("-la", 0));
-	ft_lstadd_backk(&nodes, ft_lstneww("aut", 2));
+	ft_lstadd_backk(&nodes, ft_lstneww("marn", 1));
+	// ft_lstadd_backk(&nodes, ft_lstneww("lst_functions.c", 0));
+	// ft_lstadd_backk(&nodes, ft_lstneww("mari", 2));
+	// ft_lstadd_backk(&nodes, ft_lstneww("maro", 2));
+	ft_lstadd_backk(&nodes, ft_lstneww("cat", 0));
 	ft_lstadd_backk(&nodes, ft_lstneww("|", 5));
-	ft_lstadd_backk(&nodes, ft_lstneww("yous", 0));
+	ft_lstadd_backk(&nodes, ft_lstneww("moha", 0));
 	ft_lstadd_backk(&nodes, ft_lstneww("uy", 0));
 	cmd = loop_through_node(nodes, cmd);
 	if (!cmd)
@@ -214,6 +238,7 @@ void exec_commands(t_list *nodes, t_env *my_env)
 		perror("Minishell");
 		exit(1);
 	}
+	num_pipes = count_pipes(nodes);
 	path = fetch_path(my_env);
 	cmd_path = is_accessable(path, cmd[0]);
 	if (!cmd_path)
