@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/13 11:08:29 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:36:17 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ size_t	ft_strlcpy(char *src, size_t dstsize)
 	return (i);
 }
 // --------------------------------------------------------
-size_t	count_word(char const *s, char c)
+int	count_word(char const *s, char c)
 {
 	size_t	i;
-	size_t	count;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -180,14 +180,14 @@ char	**put_in(char **ptr, const char *s, char c, size_t count)
 char	**md_split(char const *s, char c)
 {
 	char	**ptr;
-	size_t	count;
+	int	count;
 
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	count = count_word(s, c);
 	ptr = malloc((count + 1) * sizeof(char *));
 	if (!ptr)
-		return (NULL);
+	return (NULL);
 	ptr = put_in(ptr, s, c, count);
 	return (ptr);
 }

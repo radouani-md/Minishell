@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 14:21:56 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/15 18:02:40 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:02:45 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 // 		return (0);
 // 	return (1);
 // }
+
+void	md_free(int **num)
+{
+	int i;
+
+	i = 0;
+	while (num[i])
+		free(num[i++]);
+	free(num);
+}
 
 void filling_tmp(char *key,char *env, int size)
 {
@@ -97,17 +107,15 @@ char	**create_full_cmd(t_list *nodes)
 		if (nodes->type == 5)
 			break ;
 		if (nodes->type == 1 || nodes->type == 2 || nodes->type == 3 || nodes->type == 4)
-			break ;
+		{
+            nodes = nodes->next;
+            continue ; 
+        }
 		tmp = md_strjoin(tmp, nodes->data);
 		tmp = md_strjoin(tmp, " ");
 		nodes = nodes->next;
 	}
 	full_cmd = md_split(tmp, ' ');
-	int i = 0;
-	while (full_cmd[i])
-	{
-		printf("{%s},", full_cmd[i++]);
-	}
 	free(tmp);
 	return (full_cmd);
 }
@@ -152,7 +160,7 @@ char	**helper_loop(char **cmd, t_list *nodes)
 	num_cmd = 0;
 	while (head)
 	{
-		if (nodes->type == 0)
+		if (head->type == 0)
 			num_cmd++;
 		head = head->next;
 	}
@@ -214,6 +222,87 @@ int	count_pipes(t_list *nodes)
 	return (num_pipes);
 }
 
+char **each_group_cmd(t_list *nodes)
+{
+	char *tmp;
+	char **full_group_cmd;
+
+	full_group_cmd = NULL;
+	tmp = NULL;
+	while (nodes)
+	{
+		if (nodes->type == 5)
+		{
+			tmp = md_strjoin(tmp, nodes->data);
+			nodes = nodes->next;
+			continue ;
+		}
+		
+		tmp = md_strjoin(tmp, nodes->data);
+		tmp = md_strjoin(tmp, " ");
+		nodes = nodes->next;
+	}
+	full_group_cmd = md_split(tmp, '|');
+	free(tmp);
+	return (full_group_cmd);
+}
+
+int	piping_forking(char **cmd_path, char **full_cmd, char **envirment, int num_pipes)
+{
+	int pip_fd[2];
+	t_list *cmd_start;
+	t_list *cmd_end;
+	int prev_fd = -1;
+	int i = 0;
+	pid_t	id;
+	
+	// pip_fd = malloc(num_pipes * sizeof(int));
+	// if (!pip_fd)
+	// 		return (NULL);
+	// while (num_pipes > i)
+	// {
+	// 	pip_fd[i] = malloc(2 * sizeof(int));
+	// 	i++;
+	// 	if (!pip_fd[i])
+	// 		return (md_free(pip_fd), NULL);
+	// }
+	while (num_pipes)
+	{
+		if (pipe(pip_fd[i] == -1))
+			return (-1);
+		id = fork();
+		if (id == -1)
+			return (-1);
+		if (id == 0)
+		{
+			if (prev_fd != -1)
+			{
+				dup2(prev_fd, STDIN_FILENO);
+				close(prev_fd);
+			}
+			if (cmd_end)
+			{
+				dup2(pip_fd[1], STDOUT_FILENO);
+				close(pip_fd[0]);
+				close(pip_fd[1]);
+			}
+			
+		}
+		else
+		{
+			if (prev_fd != -1)
+				close(prev_fd);
+			close(pip_fd[1]);
+			prev_fd = pip_fd[0];
+			if (cmd_end)
+				cmd_start = cmd_end->next;
+			else
+				break ;
+		}
+		wait(NULL);
+	}
+}
+
 void exec_commands(t_list *nodes, t_env *my_env)
 {
 	char **path;
@@ -221,14 +310,16 @@ void exec_commands(t_list *nodes, t_env *my_env)
 	char **cmd;
 	char **envirment;
 	char **full_cmd;
+	char **group_cmd;
 	int id;
 	int num_pipes;
 
-	ft_lstadd_backk(&nodes, ft_lstneww("marn", 1));
+	ft_lstadd_backk(&nodes, ft_lstneww("cat", 0));
 	// ft_lstadd_backk(&nodes, ft_lstneww("lst_functions.c", 0));
 	// ft_lstadd_backk(&nodes, ft_lstneww("mari", 2));
 	// ft_lstadd_backk(&nodes, ft_lstneww("maro", 2));
-	ft_lstadd_backk(&nodes, ft_lstneww("cat", 0));
+	ft_lstadd_backk(&nodes, ft_lstneww("minishell.h", 0));
+	ft_lstadd_backk(&nodes, ft_lstneww("cat", 2));
 	ft_lstadd_backk(&nodes, ft_lstneww("|", 5));
 	ft_lstadd_backk(&nodes, ft_lstneww("moha", 0));
 	ft_lstadd_backk(&nodes, ft_lstneww("uy", 0));
@@ -238,7 +329,6 @@ void exec_commands(t_list *nodes, t_env *my_env)
 		perror("Minishell");
 		exit(1);
 	}
-	num_pipes = count_pipes(nodes);
 	path = fetch_path(my_env);
 	cmd_path = is_accessable(path, cmd[0]);
 	if (!cmd_path)
@@ -248,6 +338,9 @@ void exec_commands(t_list *nodes, t_env *my_env)
 	}
 	full_cmd = create_full_cmd(nodes);
 	envirment = load_env(my_env);
+	group_cmd = each_group_cmd(nodes);
+	num_pipes = count_pipes(nodes);
+	piping_forking(cmd_path, full_cmd, envirment, num_pipes);
 	execve(cmd_path, full_cmd, envirment);
 	perror("execeve (cmd2)");
 	exit(1);
