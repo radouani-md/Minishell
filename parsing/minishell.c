@@ -127,7 +127,7 @@ void ft_dapel_qotichin(t_node *lst)
     int m;
     int t;
     char *str;
-    t_node *tmp = lst;
+    // t_node *tmp = lst;
 
     while(lst)
     {
@@ -170,20 +170,33 @@ void ft_dapel_qotichin(t_node *lst)
         str = NULL;
         lst = lst->next;
     }
-    while (tmp)
-    {
-        printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
-        tmp = tmp->next;
-    }
+    // while (tmp)
+    // {
+    //     printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
+    //     tmp = tmp->next;
+    // }
 }
 
-void print_node(t_env *my_env)
+void exec_commands(t_node *nodes, t_env *my_env)
 {
-	while (my_env)
+	char *cmd_path;
+	char **cmd;
+	char **group_cmd;
+
+    cmd_path = NULL;
+    cmd = NULL;
+	// if (!cmd)
+	// {
+	// 	perror("Minishell");
+	// 	exit(1);
+	// }	
+	group_cmd = each_group_cmd(nodes);
+	if (piping_forking(cmd_path, cmd, group_cmd, nodes, my_env) == -1)
 	{
-		printf("{%s} = {%s}\n", my_env->key, my_env->value);
-		my_env = my_env->next;
-	}
+		perror("Minishell");
+		exit(1);
+	}	
+	return ;	
 }
 
 int main(int argc, char **argv, char **envp)
@@ -201,22 +214,25 @@ int main(int argc, char **argv, char **envp)
     {
         lst = NULL;
         input = readline("minishell> ");
+        if (!input)
+            exit(0);
         if (input[0] == '\0')
         {
             free(input);
             continue;
         }
         add_history(input);
-        if(ft_fun(input,&lst))
+        if (ft_fun(input,&lst))
         {
-            if(lst == NULL)
+            if (lst == NULL)
                 continue;
-            if(ft_syntax_erorr(lst))
+            if (ft_syntax_erorr(lst))
             {
                 arg = ft_type_comente_in_out_put(lst);
                 claiming_env(envp, &my_envp);
                 ft_expand_variables(arg, my_envp);
                 ft_dapel_qotichin(arg);
+                exec_commands(arg, my_envp);
             }
         }
     } 

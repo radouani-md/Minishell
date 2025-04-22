@@ -7,6 +7,12 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_list
 {
@@ -89,5 +95,46 @@ char *ft_strlen_key(int *i,char *str);
 void ft_copy55(char *str, int *a);
 void ft_copy(char *dap, char *str, int *a);
 
+// MOHAMMED --> PROTOTYPES (MAT9ARABCH HNA) -----------------------------------------------
 
+// typedef struct s_env
+// {
+// 	char *key;
+// 	char *value;
+// 	struct s_env *next;
+// }				t_env;
+
+// t_env		*ft_lstnew_m(char *env_key, char *env_value);
+// void		ft_lstadd_front(t_env **lst, t_env *new_l);
+// int			ft_lstsize(t_env *lst);
+// void		ft_lstadd_back_m(t_env **lst, t_env *new);
+// void		ft_lstclear(t_env **lst);
+
+
+size_t	ft_strlcpy(char *src, size_t dstsize);
+size_t	md_strlen(char *s);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*md_strdup(char *src);
+char	*md_strjoin(char *s1, char *s2);
+char	**md_split(char const *s, char c);
+
+void	md_free(int **num);
+
+char 	**each_group_cmd(t_node *nodes);
+t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
+char	**loop_through_node(t_node *nodes, char **cmd);
+char 	*is_accessable(char **path, char *cmd);
+void 	filling_tmp(char *key,char *env, int size);
+
+char **fetch_path(t_env *my_env);
+
+int	piping_forking(char *cmd_path, char **cmd, char **group_cmd, t_node *nodes, t_env *my_env);
+
+
+/////////////////
+t_node	*ft_lstneww(char *lst, int typ_e);
+t_node	*ft_lstlastt(t_node *lst);
+void	ft_lstadd_back_m(t_env **lst, t_env *new);
+void	ft_lstadd_backk(t_node **lst, t_node *new);
+void	ft_lstadd_front(t_env **lst, t_env *new);
 #endif

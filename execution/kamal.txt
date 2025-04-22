@@ -1,3 +1,0 @@
-mohammd;nsdl
-int 
-int my
