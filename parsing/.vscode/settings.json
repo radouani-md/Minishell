@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "history.h": "c",
+        "random": "c",
+        "minishell.h": "c"
+    }
+}
