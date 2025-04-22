@@ -55,7 +55,7 @@ int ft_handle_double_single(char *input, int *i, t_list **lst);
 int ft_handle_string(char *input, int *i, t_list **lst);
 
 t_env	*ft_lstnewt(char *env_key, char *env_value);
-void	claiming_env(char **env_p, t_env *my_env);
+void	claiming_env(char **env_p, t_env **my_env);
 void	ft_lstadd_back12(t_env **lst, t_env *new);
 
 //ft_fun

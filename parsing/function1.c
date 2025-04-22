@@ -78,14 +78,14 @@ t_env	*ft_lstnewt(char *env_key, char *env_value)
 	return (ptr);
 }
 
-void	claiming_env(char **env_p, t_env *my_env)
+
+void	claiming_env(char **env_p, t_env **my_env)
 {
 	char	*tmp_key;
 	char	*tmp_value;
 	int		in_equal;
 	int		i;
 
-	// my_env = NULL;
 	i = 0;
 	while (env_p[i])
 	{
@@ -95,9 +95,7 @@ void	claiming_env(char **env_p, t_env *my_env)
 		tmp_value = malloc(((md_strlen(env_p[i]) - in_equal) * sizeof(char)) + 1);
 		if (env_p[i][in_equal] == '=')
 			tmp_value = env_p[i] + (in_equal + 1);
-		ft_lstadd_back12(&my_env, ft_lstnewt(tmp_key, tmp_value));
+		ft_lstadd_back12(my_env, ft_lstnewt(tmp_key, tmp_value));
 		i++;
 	}
-	// print_node(my_env);
-	return ;
 }

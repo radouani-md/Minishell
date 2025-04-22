@@ -119,41 +119,6 @@ void ft_expand_variables(t_node *lst, t_env *my_env)
         lst = lst->next;
     }
 }
-//////////////////
-t_env *ft_lstnew19(void)
-{
-    t_env *new_node = malloc(sizeof(t_env));
-    if (!new_node)
-        return NULL;
-    new_node->key = "HOME";
-    new_node->value = "yousseflagzouli";
-    new_node->next = NULL;
-    return new_node;
-}
-t_env *ft_lstnew18(void)
-{
-    t_env *new_node = malloc(sizeof(t_env));
-    if (!new_node)
-        return NULL;
-    new_node->key = "PATH";
-    new_node->value = "one two";
-    new_node->next = NULL;
-    return new_node;
-}
-
-void ft_lstadd_back19(t_env **lst, t_env *new_node)
-{
-    if (!*lst)
-    {
-        *lst = new_node;
-        return;
-    }
-    t_env *temp = *lst;
-    while (temp->next)
-        temp = temp->next;
-    temp->next = new_node;
-}
-//////////////
 
 void ft_dapel_qotichin(t_node *lst)
 {
@@ -212,6 +177,14 @@ void ft_dapel_qotichin(t_node *lst)
     }
 }
 
+void print_node(t_env *my_env)
+{
+	while (my_env)
+	{
+		printf("{%s} = {%s}\n", my_env->key, my_env->value);
+		my_env = my_env->next;
+	}
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -223,6 +196,7 @@ int main(int argc, char **argv, char **envp)
     lst = NULL;
     arg = NULL;
     input = NULL;
+    my_envp = NULL;
     while (1)
     {
         lst = NULL;
@@ -240,9 +214,7 @@ int main(int argc, char **argv, char **envp)
             if(ft_syntax_erorr(lst))
             {
                 arg = ft_type_comente_in_out_put(lst);
-                // claiming_env(envp, my_envp);
-                ft_lstadd_back19(&my_envp, ft_lstnew19());
-                ft_lstadd_back19(&my_envp, ft_lstnew18());
+                claiming_env(envp, &my_envp);
                 ft_expand_variables(arg, my_envp);
                 ft_dapel_qotichin(arg);
             }
