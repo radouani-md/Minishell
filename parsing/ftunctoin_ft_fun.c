@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void ft_lstadd_back(t_list **lst, t_list *new_node)
 {
@@ -54,6 +54,7 @@ int ft_pips(char *input, int *i, t_list **lst)
     temp[a] = '\0';
     ft_lstadd_back(lst, ft_lstnew(temp));
     (*i)++;
+    return(1);
 }
 
 int ft_handle_double_single(char *input, int *i, t_list **lst)

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void ft_lstadd_back1(t_node **lst, t_node *new_node)
 {

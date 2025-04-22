@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 int ft_fun(char *input,t_list **lst)
 {
@@ -96,7 +96,7 @@ void ft_expand_variables(t_node *lst, t_env *my_env)
     a = 0;
     j = 0;
     t = 0;
-    t_node *tmp = lst;
+    // t_node *tmp = lst;
     while(lst)
     {
         i = 0;

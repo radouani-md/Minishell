@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void ft_strlen_$(int *i,char *lst)
 {
@@ -50,7 +50,6 @@ int ft_strlen_envd(t_node *lst, t_env *my_env)
 {
 	int a;
 	int i;
-	int y;
 	int j;
 	int m;
 

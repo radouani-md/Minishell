@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 t_handel *ft_lstnew_handl(int i)
 {

@@ -1,0 +1,26 @@
+cc = cc
+CFLAGS = -Wall 
+NAME = minishell
+HEADER = minishell.h 
+READ_LINE = -lreadline
+SRC = parsing/ft_function_type.c parsing/ftunctoin_ft_fun.c parsing/function1.c parsing/function_expand_va.c parsing/function_expand_va2.c parsing/function_free.c parsing/function_ft_ha_do_si.c parsing/minishell.c \
+	# execution/lst_functions.c execution/utils_func.c 
+
+OBJ = $(SRC:%.c=%.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(SRC) $(READ_LINE) -o $@
+
+%.o : %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
+ 
+clean :
+	rm -rf $(OBJ)
+
+fclean : clean
+	rm -f $(NAME)
+
+re : fclean all
+
