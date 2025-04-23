@@ -46,7 +46,7 @@ typedef struct t_handel
 	struct t_handel *next;
 }				t_handel;
 
-
+void ft_functin_$(char *dap,int *a);
 
 int ft_fun(char *input,t_list **lst);
 t_node *ft_type_comente_in_out_put(t_list *lst);

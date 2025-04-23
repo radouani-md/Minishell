@@ -96,7 +96,6 @@ void ft_expand_variables(t_node *lst, t_env *my_env)
     a = 0;
     j = 0;
     t = 0;
-    // t_node *tmp = lst;
     while(lst)
     {
         i = 0;
@@ -127,7 +126,7 @@ void ft_dapel_qotichin(t_node *lst)
     int m;
     int t;
     char *str;
-    // t_node *tmp = lst;
+    t_node *tmp = lst;
 
     while(lst)
     {
@@ -170,11 +169,11 @@ void ft_dapel_qotichin(t_node *lst)
         str = NULL;
         lst = lst->next;
     }
-    // while (tmp)
-    // {
-    //     printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
-    //     tmp = tmp->next;
-    // }
+    while (tmp)
+    {
+        printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
+        tmp = tmp->next;
+    }
 }
 
 void exec_commands(t_node *nodes, t_env *my_env)
@@ -232,7 +231,7 @@ int main(int argc, char **argv, char **envp)
                 claiming_env(envp, &my_envp);
                 ft_expand_variables(arg, my_envp);
                 ft_dapel_qotichin(arg);
-                exec_commands(arg, my_envp);
+                // exec_commands(arg, my_envp);
             }
         }
     } 
