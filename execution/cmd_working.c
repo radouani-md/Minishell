@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/22 18:02:08 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:46:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,18 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	cmd = NULL;
 	while (head)
 	{
-		if (head->type == 1)
+		if (head->type == 4)
+		{
+			fd = open(head->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			if (fd == -1)
+	   			return (NULL);
+			dup2(fd, STDOUT_FILENO);
+		}
+		else if (head->type == 3)
+		{
+			implement_her_doc(nodes->data);
+		}
+		else if (head->type == 1)
 		{
 			fd = open(head->data, O_RDONLY);
 			if (fd == -1)
