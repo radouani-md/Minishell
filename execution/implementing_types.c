@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/24 16:14:17 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/24 16:22:44 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ void    implement_her_doc(char *delimeter)
 		if (ft_strcmp(trimmed, delimeter) == 0)
 		{
 			free(trimmed);
+			free(line);
 			break ;
 		}
 		write(fd, line, md_strlen(line));
 		free(trimmed);
         free(line);
 	}
-	if (line)
-		free(line);
 	helper_her_doc(&fd);
 }
