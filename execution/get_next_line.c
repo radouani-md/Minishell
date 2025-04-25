@@ -6,13 +6,13 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:16:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/25 16:41:25 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:47:17 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*check_read(int fd, char *buffer, char *static_v)
+char	* check_read(int fd, char *buffer, char *static_v)
 {
 	char	*joined;
 	ssize_t	read_bytes;
@@ -26,7 +26,6 @@ char	*check_read(int fd, char *buffer, char *static_v)
 		joined = md_strjoin(static_v, buffer);
 		if (!joined)
 			return (free(buffer), free(static_v), NULL);
-		free(static_v);
 		static_v = joined;
 		if (ft_strchr(static_v, '\n'))
 			break ;

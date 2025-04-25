@@ -1,4 +1,4 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall 
 NAME = minishell
 HEADER = minishell.h 

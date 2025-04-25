@@ -132,8 +132,7 @@ void ft_dapel_qotichin(t_node *lst)
     while(lst)
     {
         j = 0;
-        t = 0;
-        i = 0;
+        t = 0; i = 0;
         m = 0;
         while(lst->data[i])
         {
