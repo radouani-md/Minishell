@@ -60,12 +60,6 @@ int	implement_her_doc(t_node *nodes)
 	fd = open(".tmp_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (-1);
-	while (nodes)
-	{
-		if (nodes->type == 3)
-			break ;
-		nodes = nodes->next;
-	}
 	if (helper_her_doc(nodes->data, fd) == -1)
 		return (-1);
 	return (0);

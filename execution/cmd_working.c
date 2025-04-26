@@ -123,7 +123,7 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 		if (head->type == 4)
 			implement_appending(head);
 		else if (head->type == 3)
-			implement_her_doc(nodes);
+			implement_her_doc(head);
 		else if (head->type == 1)
 			implement_outfile(head);
 		else if (head->type == 2)
