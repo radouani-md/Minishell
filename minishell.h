@@ -20,17 +20,17 @@
 
 typedef struct s_list
 {
-    char            *content;
-    int             type;
-    // int             eroor;
-    struct s_list   *next;
+	char            *content;
+	int             type;
+	// int             eroor;
+	struct s_list   *next;
 }                   t_list;
 
 typedef struct t_node
 {
-    char            *data;
-    int             type;
-    struct t_node   *next;
+	char            *data;
+	int             type;
+	struct t_node   *next;
 }                   t_node;
 
 typedef struct t_env
@@ -42,11 +42,11 @@ typedef struct t_env
 
 typedef struct t_handel
 {
-    int t;
+	int t;
 	char *temp;
-    int q;
-    int quote_count;
-    int a;
+	int q;
+	int quote_count;
+	int a;
 	struct t_handel *next;
 }				t_handel;
 
@@ -123,6 +123,11 @@ void 	filling_tmp(char *key,char *env, int size);
 char **fetch_path(t_env *my_env);
 
 int	piping_forking(char *cmd_path, char **cmd, char **group_cmd, t_node *nodes, t_env *my_env);
-void    implement_her_doc(char *node);
+int	implement_her_doc(t_node *nodes);
+int	implement_appending(t_node *nodes);
+int	implement_infile(t_node *nodes);
+int	implement_outfile(t_node *nodes);
+
+
 
 #endif

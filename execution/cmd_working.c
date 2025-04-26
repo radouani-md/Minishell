@@ -114,7 +114,6 @@ char	**helper_loop(char **cmd, t_node *nodes)
 
 char	**loop_through_node(t_node *nodes, char **cmd)
 {
-	int fd;
 	t_node *head;
 
 	head = nodes;
@@ -122,29 +121,13 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	while (head)
 	{
 		if (head->type == 4)
-		{
-			fd = open(head->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
-			if (fd == -1)
-	   			return (NULL);
-			dup2(fd, STDOUT_FILENO);
-		}
+			implement_appending(head);
 		else if (head->type == 3)
-		{
-			implement_her_doc(nodes->data);
-		}
+			implement_her_doc(nodes);
 		else if (head->type == 1)
-		{
-			fd = open(head->data, O_RDONLY);
-			if (fd == -1)
-	   			return (NULL);
-		}
+			implement_outfile(head);
 		else if (head->type == 2)
-		{
-			fd = open(head->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			if (fd == -1)
-	   			return (NULL);
-			dup2(fd, STDOUT_FILENO);
-		}
+			implement_infile(head);
 		head = head->next;
 	}
 	cmd = helper_loop(cmd, nodes);

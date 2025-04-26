@@ -12,31 +12,24 @@
 
 #include "../minishell.h"
 
-void	helper_her_doc(int *fd)
+int	helper_her()
 {
 	int infile;
 	
-	close(*fd);
 	infile = open(".tmp_file", O_RDONLY);
 	if (infile == -1)
-	{
-		perror("open heredoc");
-		exit(1);
-	}
+		return (-1);
 	dup2(infile, STDIN_FILENO);
 	close(infile);
 	unlink(".tmp_file");
+	return (0);
 }
 
-void    implement_her_doc(char *delimeter)
+int helper_her_doc(char *del, int fd)
 {
-	char *line;
-	char *trimmed;
-	int fd;
+	char	*line;
+	char	*trimmed;
 
-	fd = open(".tmp_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd == -1)
-		return (perror("heredoc : open failed"));
 	while (1)
 	{
 		write(1, "> ", 2);
@@ -44,9 +37,7 @@ void    implement_her_doc(char *delimeter)
 		if (!line)
 			break ;
 		trimmed = md_strtrim(line, "\n");
-		printf("%zu\n", md_strlen(trimmed));
-		printf("%s\n", delimeter);
-		if (ft_strcmp(trimmed, delimeter) == 0)
+		if (ft_strcmp(trimmed, del) == 0)
 		{
 			free(trimmed);
 			free(line);
@@ -56,5 +47,48 @@ void    implement_her_doc(char *delimeter)
 		free(trimmed);
         free(line);
 	}
-	helper_her_doc(&fd);
+	close(fd);
+	if (helper_her() == -1)
+		return (-1);
+	return (0);
 }
+
+int	implement_her_doc(t_node *nodes)
+{
+	int fd;
+
+	fd = open(".tmp_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+		return (-1);
+	while (nodes)
+	{
+		if (nodes->type == 3)
+			break ;
+		nodes = nodes->next;
+	}
+	if (helper_her_doc(nodes->data, fd) == -1)
+		return (-1);
+	return (0);
+}
+int	implement_appending(t_node *nodes)
+{
+	int	fd;
+
+	fd = open(nodes->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fd == -1)
+		   return (-1);
+	dup2(fd, STDOUT_FILENO);
+	return (0);
+}
+
+int	implement_infile(t_node *nodes)
+{
+	int	fd;
+
+	fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+		   return (-1);
+	dup2(fd, STDOUT_FILENO);
+	return (0);
+}
+
