@@ -13,6 +13,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <linux/limits.h>
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
@@ -101,6 +102,7 @@ void ft_copy(char *dap, char *str, int *a);
 
 // MOHAMMED --> PROTOTYPES (MAT9ARABCH HNA) -----------------------------------------------
 
+// export, cd, exit
 size_t	ft_strlcpy(char *src, size_t dstsize);
 size_t	md_strlen(char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -111,23 +113,32 @@ char	**md_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
 void	md_free(int **num);
+void	safe_free(char **ptr);
 
 char	*get_next_line(int fd);
 
 char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
 char	**loop_through_node(t_node *nodes, char **cmd);
+char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
 void 	filling_tmp(char *key,char *env, int size);
 
 char **fetch_path(t_env *my_env);
 
-int	piping_forking(char *cmd_path, char **cmd, char **group_cmd, t_node *nodes, t_env *my_env);
+int	piping_forking(char *cmd_path, char **cmd, t_node *nodes, t_env **my_env);
 int	implement_her_doc(t_node *nodes);
 int	implement_appending(t_node *nodes);
 int	implement_infile(t_node *nodes);
 int	implement_outfile(t_node *nodes);
 
+void	md_free_char(char **str);
+void 	free_group(t_node *group);
 
+int 	is_builtin(char *cmd);
+int 	exec_builtin(char **cmd, t_env **my_env, t_node *nodes);
+void    implement_env(t_env *env);
+int		implement_pwd();
+int		implement_cd(t_env **env, t_node *nodes);
 
 #endif

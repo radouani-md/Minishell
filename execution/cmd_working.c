@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/24 15:46:57 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:52:33 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int help_split_node(t_node *nodes)
 	{
 		if (head->type == 5)
 			num_groups++;
-		head = head->next;	
+		head = head->next;
 	}
 	head = nodes;
 	return (num_groups);
@@ -64,10 +64,10 @@ t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups)
 	i = 0;
 	*num_groups = help_split_node(nodes);
 	groups = malloc((*num_groups + 1) * sizeof(t_node *));
-	group = NULL;
-	head = nodes;
 	if (!groups)
 		return (NULL);
+	group = NULL;
+	head = nodes;
 	while (head)
 	{
 		if (head->type == 5)
@@ -134,6 +134,15 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	return (cmd);
 }
 
+char	**loop_through_node_cmd(t_node *nodes)
+{
+	char **cmd;
+
+	cmd = NULL;
+	cmd = helper_loop(cmd, nodes);
+	return (cmd);
+}
+
 char *is_accessable(char **path, char *cmd)
 {
 	int i;
@@ -143,6 +152,8 @@ char *is_accessable(char **path, char *cmd)
 	i = 0;
 	while (path[i])
 	{
+		if (access(cmd, X_OK) == 0)
+			return (md_strdup(cmd));
 		temp = md_strjoin(path[i], "/");
 		full_path = md_strjoin(temp, cmd);
 		if (access(full_path, X_OK) == 0)
