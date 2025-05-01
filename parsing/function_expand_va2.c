@@ -33,8 +33,7 @@ char *ft_strlen_key(int *i,char *str)
     len_key = 0;
     a = *i;
     j = 0;
-    while((str[a] >= 97 && str[a] <= 122) 
-        || (str[a] >= 65 && str[a] <= 90) || (str[a] == 95) || (str[a] >= 48 && str[a] <= 57) || str[a] == '?')
+    while(ft_Check_after_dollar(str[a]))
     {
         len_key++;
         if(str[a - 1] == '$' && ((str[a] >= 48 && str[a] <= 57) || str[a] == '?'))
@@ -42,8 +41,9 @@ char *ft_strlen_key(int *i,char *str)
         a++;
     }
     src = malloc(sizeof(char) * (len_key + 1));
-    while((str[*i] >= 97 && str[*i] <= 122) 
-        || (str[*i] >= 65 && str[*i] <= 90) || (str[*i] == 95) || (str[*i] >= 48 && str[*i] <= 57) || str[*i] == '?')
+    if(!src)
+        return(NULL);
+    while(ft_Check_after_dollar(str[*i]))
     {
         src[j++] = str[(*i)++];
         if(((str[*i - 1] >= 48 && str[*i - 1] <= 57) || str[*i - 1] == '?') && str[*i - 2] == '$')
@@ -59,8 +59,7 @@ void ft_exp55(t_node *lst, t_env *my_env,int *i, int *a)
     char *src;
 
     (*i)++;
-    if((lst->data[*i] >= 97 && lst->data[*i] <= 122) 
-        || (lst->data[*i] >= 65 && lst->data[*i] <= 90) || (lst->data[*i] == 95)|| (lst->data[*i] >= 48 && lst->data[*i] <= 57) || lst->data[*i] == '?')
+    if(ft_Check_after_dollar(lst->data[*i]))
     {
         src = ft_strlen_key(i,lst->data);
     }
@@ -82,8 +81,6 @@ void ft_exp55(t_node *lst, t_env *my_env,int *i, int *a)
         }
     }
     if(src[0] == '?')
-    {
-        // حساب عدد pid اضافته على a
-        a = a + 3;
-    }
+        *a = *a + ft_strlen_num_err(); // حساب عدد pid اضافته على a
+    free(src);
 }

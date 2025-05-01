@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/30 20:54:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:03:19 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ char	*fetch_home(t_env **env)
 int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 {
 	t_env *head;
-	
 	head = *env;
-	while (*env)
+	while (head)
 	{
 		if (ft_strcmp(head->key, pwd_searched) == 0)
 		{

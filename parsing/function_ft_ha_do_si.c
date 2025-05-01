@@ -26,7 +26,10 @@ int ft_handle2(char *input,int i,t_handel *handel)
             (q)++;
         if((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0'))
             || (q % 2 == 1 && input[handel->a] == '\'' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
+        {
+            n++;
             break ;
+        }
         i++;
         n++;
     }

@@ -51,7 +51,14 @@ typedef struct t_handel
 	struct t_handel *next;
 }				t_handel;
 
-void ft_functin_$(char *dap,int *a);
+
+// void ft_functin_$(char *dap,int *a);
+void ft_functin_env(char *dap, int *a);
+int ft_Check_dollar(t_node *lst, int i, int j);
+int ft_Check_after_dollar(char c);
+int ft_strlen_num_err(void);
+void ft_free1(t_node **arg);
+int	ft_strncmp1(const char *s1, const char *s2, size_t n);
 
 int ft_fun(char *input,t_list **lst);
 t_node *ft_type_comente_in_out_put(t_list *lst);
