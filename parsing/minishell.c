@@ -126,7 +126,7 @@ void ft_dapel_qotichin(t_node *arg)
     int m;
     int t;
     char *str;
-    // t_node *tmp = arg;
+    t_node *tmp = arg;
 
     while(arg)
     {
@@ -168,11 +168,11 @@ void ft_dapel_qotichin(t_node *arg)
         arg->data = str;
         arg = arg->next;
     }
-    // while (tmp)
-    // {
-    //     printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
-    //     tmp = tmp->next;
-    // }
+    while (tmp)
+    {
+        printf("Toooo: [%s]--->%d\n", tmp->data, tmp->type);
+        tmp = tmp->next;
+    }
 }
 
 void exec_commands(t_node *nodes, t_env **my_env)
@@ -186,7 +186,7 @@ void exec_commands(t_node *nodes, t_env **my_env)
 	{
 		perror("Minishell");
 		exit(1);
-	}	
+	}
 	return ;	
 }
 

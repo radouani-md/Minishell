@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/01 14:33:01 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:39:03 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int is_builtin(char *cmd)
         return (1);
     if (ft_strcmp(cmd, "pwd") == 0)
         return (1);
+    if (ft_strcmp(cmd, "export") == 0)
+        return (1);
     return (0);
 }
 
@@ -57,5 +59,10 @@ int exec_builtin(char **cmd, t_env **my_env, t_node *nodes)
         if (implement_pwd() == 0)
             return (1);
     }
+    // if (ft_strcmp(cmd[0], "export") == 0)
+    // {
+    //     if (implement_export() == 0)
+    //         return (1);
+    // }
     return (0);
 }

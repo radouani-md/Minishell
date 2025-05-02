@@ -1,15 +1,41 @@
 #include "../minishell.h"
 
+int ft_strlen(int a,char *dap)
+{
+    int t;
+    int len;
+    len = 0;
+    t = 0;
+    while(t < a)
+    {
+        if(dap[t] == '\"')
+            len++;
+        t++;
+    }
+    return(len);
+}
 void ft_copy(char *dap, char *str, int *a)
 {
     int i;
+    int m;
 
     i = 0;
+    m = ft_strlen(*a,dap);
     while(str[i])
     {
-        dap[*a] = str[i];
-        i++;
-        (*a)++;
+        if(m % 2 == 0)
+        {
+            while(str[i] == ' ')
+                i++;
+            if(str[i] != ' ')
+            {
+                if(str[i - 1] == ' ')
+                    dap[(*a)++] = str[i - 1];
+                dap[(*a)++] = str[i++];
+            }
+        }
+        else
+            dap[(*a)++] = str[i++];
     }
 }
 
