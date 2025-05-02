@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/02 12:39:03 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:19:50 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,62 @@
 
 void safe_free(char **ptr)
 {
-    if (*ptr)
-        free(*ptr);
-    *ptr = NULL;
+	if (*ptr)
+		free(*ptr);
+	*ptr = NULL;
 }
 
 int implement_outfile(t_node *nodes)
 {
-    int fd;
+	int fd;
 
-    fd = open(nodes->data, O_RDONLY);
-    if (fd == -1)
-        return (-1);
-    return (0);
+	fd = open(nodes->data, O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	return (0);
 }
 
 int is_builtin(char *cmd)
 {
-    if (ft_strcmp(cmd, "env") == 0)
-        return (1);
-    if (ft_strcmp(cmd, "cd") == 0)
-        return (1);
-    if (ft_strcmp(cmd, "pwd") == 0)
-        return (1);
-    if (ft_strcmp(cmd, "export") == 0)
-        return (1);
-    return (0);
+	if (ft_strcmp(cmd, "env") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "pwd") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (1);
+	return (0);
 }
 
 int exec_builtin(char **cmd, t_env **my_env, t_node *nodes)
 {
-    if (ft_strcmp(cmd[0], "env") == 0)
-    {
-        implement_env(*my_env);
-            return (1);
-    }				
-    if (ft_strcmp(cmd[0], "cd") == 0)
-    {
-        if (implement_cd(my_env, nodes) == 1)
-            return (1);
-    }
-    if (ft_strcmp(cmd[0], "pwd") == 0)
-    {
-        if (implement_pwd() == 0)
-            return (1);
-    }
-    // if (ft_strcmp(cmd[0], "export") == 0)
-    // {
-    //     if (implement_export() == 0)
-    //         return (1);
-    // }
-    return (0);
+	if (ft_strcmp(cmd[0], "env") == 0)
+	{
+		implement_env(*my_env);
+			return (1);
+	}				
+	if (ft_strcmp(cmd[0], "cd") == 0)
+	{
+		if (implement_cd(my_env, nodes) == 1)
+			return (1);
+	}
+	if (ft_strcmp(cmd[0], "pwd") == 0)
+	{
+		if (implement_pwd() == 0)
+			return (1);
+	}
+	if (ft_strcmp(cmd[0], "echo") == 0)
+	{
+		if (implement_echo(*my_env, nodes) == 0)
+			return (1);
+	}
+	// if (ft_strcmp(cmd[0], "export") == 0)
+	// {
+	//     if (implement_export() == 0)
+	//         return (1);
+	// }
+	return (0);
 }

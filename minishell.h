@@ -147,6 +147,7 @@ int 	exec_builtin(char **cmd, t_env **my_env, t_node *nodes);
 void    implement_env(t_env *env);
 int		implement_pwd();
 int		implement_cd(t_env **env, t_node *nodes);
+int		implement_echo(t_env *env, t_node *nodes);
 int 	implement_export();
 
 #endif
