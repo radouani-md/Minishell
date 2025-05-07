@@ -121,6 +121,7 @@ char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
 void	md_free(int **num);
 void	safe_free(char **ptr);
+void	ft_free2(t_env **my_envp);
 
 char	*get_next_line(int fd);
 
@@ -133,21 +134,23 @@ void 	filling_tmp(char *key,char *env, int size);
 
 char **fetch_path(t_env *my_env);
 
-int	piping_forking(char *cmd_path, char **cmd, t_node *nodes, t_env **my_env);
+int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env);
 int	implement_her_doc(t_node *nodes);
 int	implement_appending(t_node *nodes);
 int	implement_infile(t_node *nodes);
 int	implement_outfile(t_node *nodes);
 
 void	md_free_char(char **str);
+char	*random_num();
 void 	free_group(t_node *group);
 
 int 	is_builtin(char *cmd);
-int 	exec_builtin(char **cmd, t_env **my_env, t_node *nodes);
+int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes);
 void    implement_env(t_env *env);
 int		implement_pwd();
 int		implement_cd(t_env **env, t_node *nodes);
 int		implement_echo(t_env *env, t_node *nodes);
+int		implement_exit(t_env **my_env, t_node **nodes);
 int 	implement_export();
 
 #endif

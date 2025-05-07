@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/02 21:10:09 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/03 09:26:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,13 @@ int	implement_echo(t_env *env, t_node *nodes)
 	}
 	if (newline)
 		printf("\n");
+	return (0);
+}
+
+int	implement_exit(t_env **my_env, t_node **nodes)
+{
+	ft_free2(my_env);
+	ft_free1(nodes);
+	exit(0);
 	return (0);
 }

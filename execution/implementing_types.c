@@ -6,22 +6,23 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/25 17:52:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:02:13 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	helper_her()
+int	helper_her(char *tmp_name)
 {
 	int infile;
 	
-	infile = open(".tmp_file", O_RDONLY);
+	infile = open(tmp_name, O_RDONLY);
+	printf("{%s}\n", tmp_name);
 	if (infile == -1)
-		return (-1);
+		return (1);
 	dup2(infile, STDIN_FILENO);
 	close(infile);
-	unlink(".tmp_file");
+	unlink(tmp_name);
 	return (0);
 }
 
@@ -48,22 +49,34 @@ int helper_her_doc(char *del, int fd)
         free(line);
 	}
 	close(fd);
-	if (helper_her() == -1)
-		return (-1);
 	return (0);
 }
 
 int	implement_her_doc(t_node *nodes)
 {
 	int fd;
+	int i;
+	char *tmp_name;
 
-	fd = open(".tmp_file", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd == -1)
-		return (-1);
-	if (helper_her_doc(nodes->data, fd) == -1)
-		return (-1);
+	i = 1;
+	while (nodes)
+	{
+		if (nodes->type == 3)
+		{
+			tmp_name = random_num();
+			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			if (fd == -1 || helper_her_doc(nodes->data, fd) == -1)
+				return (1);
+		}
+		nodes = nodes->next;
+	}
+	printf("{%s}\n", tmp_name);
+	if (helper_her(tmp_name) == 1)
+		return (1);
+	free(tmp_name);
 	return (0);
 }
+
 int	implement_appending(t_node *nodes)
 {
 	int	fd;

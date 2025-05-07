@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/30 18:17:35 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:45:58 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char **load_env(t_env *my_env)
 	return (enverment);
 }
 
-int	piping_forking(char *cmd_path, char **cmd, t_node *nodes, t_env **my_env)
+int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env)
 {
 	int pip_fd[2];
 	int prev_fd = -1;
@@ -51,7 +51,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node *nodes, t_env **my_env)
 	int i = 0;
 	pid_t	id;
 	
-	groups = split_nodes_by_pipe(nodes, &num_groups);
+	groups = split_nodes_by_pipe(*nodes, &num_groups);
 	while (i < num_groups)
 	{
 		cmd2 = loop_through_node_cmd(groups[i]);

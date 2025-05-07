@@ -175,7 +175,7 @@ void ft_dapel_qotichin(t_node *arg)
     // }
 }
 
-void exec_commands(t_node *nodes, t_env **my_env)
+void exec_commands(t_node **nodes, t_env **my_env)
 {
 	char *cmd_path;
 	char **cmd;
@@ -223,7 +223,7 @@ int main(int argc, char **argv, char **envp)
 					claiming_env(envp, &my_envp);
                 ft_expand_variables(arg, my_envp);
                 ft_dapel_qotichin(arg);
-                exec_commands(arg, &my_envp);
+                exec_commands(&arg, &my_envp);
                 ft_free(&lst);
                 ft_free1(&arg);
                 // ft_free(&my_envp);
