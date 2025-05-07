@@ -158,7 +158,7 @@ void expanding_function(t_node *lst, t_env *my_env)
 		}
 	}
 	dap[a] = '\0';
-	ft_print_node(dap, lst);
+	fill_up_node(dap, lst);
 	free(dap);
 }
 
