@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void ft_strlen_$(int *i,char *lst)
+void count_dollare(int *i,char *lst)
 {
 	int t;
 	t = 0;
@@ -15,13 +15,13 @@ void ft_strlen_$(int *i,char *lst)
 	}
 }
 
-void ft_exp2(t_node *lst, t_env *my_env,char *dap,int *i, int *a)
+void copy_env_value(t_node *lst, t_env *my_env,char *dap,int *i, int *a)
 {
 	int b;
 	char *src;
 
 	(*i)++;
-	src = ft_strlen_key(i,lst->data);
+	src = env_key(i,lst->data);
 	while(my_env)
 	{
 		b = 0;
@@ -35,7 +35,7 @@ void ft_exp2(t_node *lst, t_env *my_env,char *dap,int *i, int *a)
 			my_env = my_env->next;
 		else
 		{
-			ft_copy(dap, my_env->value, a);
+			copy_to_dap(dap, my_env->value, a);
 			break ;
 		}
 	}
@@ -44,7 +44,7 @@ void ft_exp2(t_node *lst, t_env *my_env,char *dap,int *i, int *a)
 	// free(src);
 }
 
-int ft_strlen_envd(t_node *lst, t_env *my_env)
+int count_cmd(t_node *lst, t_env *my_env)
 {
 	int a;
 	int i;
@@ -65,9 +65,9 @@ int ft_strlen_envd(t_node *lst, t_env *my_env)
 		if(ft_Check_dollar(lst, i, j))
 		{
 			if(m % 2 == 1)
-				ft_exp51(lst, my_env, &i, &a);
+				numstr_expand_with_quote(lst, my_env, &i, &a);
 			else
-				ft_exp55(lst, my_env, &i, &a);
+				numstr_expand_without_quote(lst, my_env, &i, &a);
 		}
 		else
 		{
@@ -77,7 +77,7 @@ int ft_strlen_envd(t_node *lst, t_env *my_env)
 	}
 	return(a);
 }
-void ft_print_node(char *dap,t_node *lst)
+void fill_up_node(char *dap,t_node *lst)
 {
 	int i = 0;
 	int n = 0;
@@ -116,7 +116,7 @@ void ft_print_node(char *dap,t_node *lst)
 }
 
 
-void ft_exp(t_node *lst, t_env *my_env)
+void expanding_function(t_node *lst, t_env *my_env)
 {
 	char *dap;
 	int a;
@@ -129,7 +129,7 @@ void ft_exp(t_node *lst, t_env *my_env)
 	i = 0;
 	j = 0;
 	m = 0;
-	dap = malloc(sizeof(char) * (ft_strlen_envd(lst,my_env) + 1));
+	dap = malloc(sizeof(char) * (count_cmd(lst,my_env) + 1));
 	while(lst->data[i])
 	{
 		if(lst->data[i] == '\'' && m % 2 == 0)
@@ -137,11 +137,11 @@ void ft_exp(t_node *lst, t_env *my_env)
 		else if(lst->data[i] == '\"' && j % 2 == 0)
 			m++;
 		if(ft_Check_dollar(lst, i, j))
-				ft_exp2(lst, my_env,dap, &i, &a);
+				copy_env_value(lst, my_env,dap, &i, &a);
 		else
 		{
 			if(lst->data[i] == '$' && lst->data[i+1] == '$')
-				ft_strlen_$(&i,lst->data);
+				count_dollare(&i,lst->data);
 			else if(lst->data[i] == '$' && (lst->data[i + 1] == '\"' || lst->data[i + 1] == '\''))
 			{
 				if(lst->data[i+1] == '\'' && m % 2 == 0)

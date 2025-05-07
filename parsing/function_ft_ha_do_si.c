@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_handel *ft_lstnew_handl(int i)
+t_handel *helper_variables(int i)
 {
     t_handel *new_node = malloc(sizeof(t_handel));
     if (!new_node)
@@ -13,7 +13,7 @@ t_handel *ft_lstnew_handl(int i)
     return new_node;
 }
 
-int ft_handle2(char *input,int i,t_handel *handel)
+int count_string(char *input,int i,t_handel *handel)
 {
     int n = 0;
     int q = 1;
@@ -36,7 +36,7 @@ int ft_handle2(char *input,int i,t_handel *handel)
     return(n);
 }
 
-int ft_handle1(char *input,int *i,t_handel *handel)
+int handel_qoutation(char *input,int *i,t_handel *handel) // handel_qoutation
 {
     if (input[handel->a] == '\"' && input[*i] == '\"')
         (handel->quote_count)++;
@@ -57,7 +57,7 @@ int ft_handle1(char *input,int *i,t_handel *handel)
     return(1);
 }
 
-void ft_handle3(char *input,int *i,t_handel *handel)
+void handle_multiple_quotes(char *input,int *i,t_handel *handel)
 {
     if (((input[*i] == '\"') || input[*i] == '\'') && input[*i])
     {

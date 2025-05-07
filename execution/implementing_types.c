@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:13 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:39:05 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ int helper_her_doc(char *del, int fd)
 int	implement_her_doc(t_node *nodes)
 {
 	int fd;
-	int i;
 	char *tmp_name;
 
-	i = 1;
 	while (nodes)
 	{
 		if (nodes->type == 3)

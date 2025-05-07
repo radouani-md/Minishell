@@ -14,7 +14,7 @@ int ft_strlen(int a,char *dap)
     }
     return(len);
 }
-void ft_copy(char *dap, char *str, int *a)
+void copy_to_dap(char *dap, char *str, int *a)
 {
     int i;
     int m;
@@ -41,7 +41,7 @@ void ft_copy(char *dap, char *str, int *a)
     }
 }
 
-void ft_copy55(char *str, int *a)
+void len_env_value_without_space(char *str, int *a)
 {
     int i;
 
@@ -55,7 +55,7 @@ void ft_copy55(char *str, int *a)
     }
 }
 
-void ft_copy51(char *str, int *a)
+void len_env_value(char *str, int *a)
 {
     int i;
 
@@ -66,7 +66,7 @@ void ft_copy51(char *str, int *a)
         (*a)++;
     }
 }
-char *ft_strlen_key(int *i,char *str)
+char *env_key(int *i,char *str)
 {
     int a;
     int j;
@@ -95,16 +95,14 @@ char *ft_strlen_key(int *i,char *str)
     return (src);
 }
 
-void ft_exp55(t_node *lst, t_env *my_env,int *i, int *a)
+void numstr_expand_without_quote(t_node *lst, t_env *my_env,int *i, int *a)
 {
     int b;
     char *src;
 
     (*i)++;
     if(ft_Check_after_dollar(lst->data[*i]))
-    {
-        src = ft_strlen_key(i,lst->data);
-    }
+        src = env_key(i,lst->data);
     while(my_env)
     {
         b = 0;
@@ -118,7 +116,7 @@ void ft_exp55(t_node *lst, t_env *my_env,int *i, int *a)
             my_env = my_env->next;
         else
         {
-            ft_copy55(my_env->value, a);
+            len_env_value_without_space(my_env->value, a);
             break ;
         }
     }
@@ -127,16 +125,14 @@ void ft_exp55(t_node *lst, t_env *my_env,int *i, int *a)
     free(src);
 }
 
-void ft_exp51(t_node *lst, t_env *my_env,int *i, int *a)
+void numstr_expand_with_quote(t_node *lst, t_env *my_env,int *i, int *a)
 {
     int b;
     char *src;
 
     (*i)++;
     if(ft_Check_after_dollar(lst->data[*i]))
-    {
-        src = ft_strlen_key(i,lst->data);
-    }
+        src = env_key(i,lst->data);
     while(my_env)
     {
         b = 0;
@@ -150,7 +146,7 @@ void ft_exp51(t_node *lst, t_env *my_env,int *i, int *a)
             my_env = my_env->next;
         else
         {
-            ft_copy51(my_env->value, a);
+            len_env_value(my_env->value, a);
             break ;
         }
     }

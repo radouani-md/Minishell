@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int ft_fun(char *input,t_list **lst)
+int read_and_filling_node(char *input, t_list **lst) //read_&_filling_node
 {
     int i;
 
@@ -11,7 +11,7 @@ int ft_fun(char *input,t_list **lst)
         {
             if (input[i] == '|' || input[i] == '<' || input[i] == '>')
             {
-                if (!ft_pips(input, &i, lst))
+                if (!ft_handel_pipe_direction(input, &i, lst)) // ft_handel_pipe_direction
                     return(0);
             }
             else if (input[i] == '\"' || input[i] == '\'')
@@ -31,7 +31,7 @@ int ft_fun(char *input,t_list **lst)
     return(1);
 }
 
-int ft_syntax_erorr(t_list *lst)
+int syntax_erorr(t_list *lst)
 {
     if(lst->content[0] == '|' || (((lst->content[0] == '<' || lst->content[0] == '>')
         && (lst->next == NULL))) || ((lst->content[0] == '<' || lst->content[0] == '>')
@@ -58,7 +58,7 @@ int ft_syntax_erorr(t_list *lst)
 }
 
 
-t_node *ft_type_comente_in_out_put(t_list *lst) 
+t_node *typed_nodes(t_list *lst) 
 {
     t_node  *arg;
     arg = NULL;
@@ -85,7 +85,7 @@ t_node *ft_type_comente_in_out_put(t_list *lst)
     return(arg);
 }
 
-void ft_expand_variables(t_node *lst, t_env *my_env)
+void expand_variables(t_node *lst, t_env *my_env)
 {
     int i;
     int a;
@@ -113,20 +113,20 @@ void ft_expand_variables(t_node *lst, t_env *my_env)
                 i++;
             }
             if(a > 0)
-                ft_exp(lst, my_env);
+                expanding_function(lst, my_env);
         }
         lst = lst->next;
     }
 }
 
-void ft_dapel_qotichin(t_node *arg)
+void delete_qoutation(t_node *arg)
 {
     int i;
     int j;
     int m;
     int t;
     char *str;
-    t_node *tmp = arg;
+    // t_node *tmp = arg;
 
     while(arg)
     {
@@ -168,11 +168,11 @@ void ft_dapel_qotichin(t_node *arg)
         arg->data = str;
         arg = arg->next;
     }
-    while (tmp)
-    {
-        printf("Toooo: [%s]------>{%d}\n", tmp->data,tmp->type);
-        tmp = tmp->next;
-    }
+    // while (tmp)
+    // {
+    //     printf("Toooo: [%s]------>{%d}\n", tmp->data,tmp->type);
+    //     tmp = tmp->next;
+    // }
 }
 
 void exec_commands(t_node **nodes, t_env **my_env)
@@ -213,18 +213,18 @@ int main(int argc, char **argv, char **envp)
             continue;
         }
         add_history(input);
-        if (ft_fun(input,&lst))
+        if (read_and_filling_node(input,&lst))
         {
             if (lst == NULL)
                 continue;
-            if (ft_syntax_erorr(lst))
+            if (syntax_erorr(lst))
             {
-                arg = ft_type_comente_in_out_put(lst);
+                arg = typed_nodes(lst);
                 if (!my_envp)
 					claiming_env(envp, &my_envp);
-                ft_expand_variables(arg, my_envp);
-                ft_dapel_qotichin(arg);
-                exec_commands(arg, &my_envp);
+                expand_variables(arg, my_envp);
+                delete_qoutation(arg);
+                exec_commands(&arg, &my_envp);
                 ft_free(&lst);
                 ft_free1(&arg);
                 // ft_free(&my_envp);
