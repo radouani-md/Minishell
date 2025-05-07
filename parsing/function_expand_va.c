@@ -41,7 +41,7 @@ void ft_exp2(t_node *lst, t_env *my_env,char *dap,int *i, int *a)
 	}
 	if(ft_strncmp1(src, "?", 1))
 		ft_functin_env(dap, a);
-	free(src);
+	// free(src);
 }
 
 int ft_strlen_envd(t_node *lst, t_env *my_env)
@@ -63,7 +63,12 @@ int ft_strlen_envd(t_node *lst, t_env *my_env)
 		else if(lst->data[i] == '\"' && j % 2 == 0)
 			m++;
 		if(ft_Check_dollar(lst, i, j))
+		{
+			if(m % 2 == 1)
+				ft_exp51(lst, my_env, &i, &a);
+			else
 				ft_exp55(lst, my_env, &i, &a);
+		}
 		else
 		{
 			i++;
@@ -71,6 +76,43 @@ int ft_strlen_envd(t_node *lst, t_env *my_env)
 		}
 	}
 	return(a);
+}
+void ft_print_node(char *dap,t_node *lst)
+{
+	int i = 0;
+	int n = 0;
+	int m = 0;
+	int a = 0;
+	char *tmp;
+	t_node *lst1;
+	tmp = malloc(100);
+	while(dap[i])
+	{
+		if(dap[i] == '\"' && n % 2 == 0)
+			m++;
+		if(dap[i] == '\'' && m % 2 == 0)
+			n++;
+		if((m % 2 == 1 || n % 2 == 1) || (dap[i] != ' ' && dap[i]))
+			tmp[a++] = dap[i++];
+		if (m % 2 == 0 && n % 2 == 0 && (dap[i] == ' ' || dap[i] == '\0'))
+		{
+			tmp[a] = '\0';
+			lst->data = strdup(tmp);
+			lst->type = 0;
+			if(dap[i] == ' ')
+				i++;
+			if (dap[i])
+			{
+				lst1 = lst->next;
+				lst->next = ft_lstnew5();
+				lst->next->next = lst1;
+				lst = lst->next;
+				free(tmp);
+				tmp = malloc(100);
+				a = 0;
+			}
+		}
+	}
 }
 
 
@@ -116,6 +158,16 @@ void ft_exp(t_node *lst, t_env *my_env)
 		}
 	}
 	dap[a] = '\0';
-	free(lst->data);
-	lst->data = dap;
+	ft_print_node(dap, lst);
+	free(dap);
 }
+
+t_node *ft_lstnew5()
+{
+    t_node *new_node = malloc(sizeof(t_node));
+    if (!new_node)
+        return(NULL);
+    new_node->next = NULL;
+    return new_node;
+}
+
