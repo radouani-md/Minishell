@@ -88,7 +88,7 @@ int ft_handle_string(char *input, int *i, t_list **lst)
     handel->temp = malloc(sizeof(char) * (100 + 1)); 
     if (!handel->temp)
         return(free(input), ft_free(lst), free(handel), 0);
-    while (input[*i] && (input[*i] != ' ' || input[*i] != '\t') && input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
+    while (input[*i] && (input[*i] != ' ' && input[*i] != '\t') && input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
     {
         if(input[*i] == '\"' || input[*i] == '\'')
         {
