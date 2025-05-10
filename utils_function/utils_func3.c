@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/09 11:23:20 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:48:41 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,16 +110,10 @@ char	*random_num()
 
 	tmp = md_strdup(".tmp_");
 	if (!tmp)
-		return (perror("malloc "), NULL);
+		return (NULL);
 	num_str = md_itoa(i);
-	if (!num_str)
-		return (perror("itoa "), NULL);
 	new_str = md_strdup(ft_strcat(tmp, num_str));
-	if (!new_str)
-		return (perror("malloc "), NULL);
 	free(tmp);
-	if (access(new_str, F_OK) == 0)
-		i++;
 	i++;
 	return (new_str);
 }

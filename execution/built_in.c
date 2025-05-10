@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/09 11:10:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/01 16:03:19 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	implement_pwd()
 	}
 	else
 	{
-		perror("pwd ");
+		perror("pwd");
 		return (1);
 	}
 }
@@ -68,7 +68,7 @@ int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 			free(head->value);
 			head->value = md_strdup(pwd_updated);
 			if (!head->value)
-				return (perror("malloc "), 1);
+				return (1);
 			return (0);
 		}
 		head = head->next;
@@ -87,11 +87,11 @@ int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env)
 		return (1);
 	}
 	if (set_env(env, "OLDPWD", oldpwd) == 1)
-		return (free(oldpwd), 1);
+		return (1);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (free(oldpwd), 1);
+		return (1);
 	if (set_env(env, "PWD", cwd) == 1)
-		return (free(oldpwd), 1);
+		return (1);
 	free(oldpwd);
 	return (0);
 }
@@ -108,8 +108,7 @@ int	helper_cd(char *home, t_env **env, char *oldpwd, char *cwd)
 	if (set_env(env, "OLDPWD", oldpwd) == 1)
 		return (1);
 	cwd = getcwd(NULL, 0);
-	if (set_env(env, "PWD", cwd) == 1)
-		return (free(cwd), free(oldpwd), 1);
+	set_env(env, "PWD", cwd);
 	free(cwd);
 	free(oldpwd);
 	return (0);
@@ -127,7 +126,7 @@ int	implement_cd(t_env **env, t_node *nodes)
 		nodes = nodes->next;
     oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		return (perror("cwd "), 1);
+		return (1);
 	if (nodes->next && nodes->next->next)
 		return (free(oldpwd), write(2, "cd: too many arguments\n", 24), 1);
     if (!nodes->next || !nodes->next->data)
