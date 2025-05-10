@@ -126,7 +126,7 @@ void delete_qoutation(t_node *arg)
     int m;
     int t;
     char *str;
-    t_node *tmp = arg;
+    // t_node *tmp = arg;
 
     while(arg)
     {
@@ -168,11 +168,11 @@ void delete_qoutation(t_node *arg)
         arg->data = str;
         arg = arg->next;
     }
-    while (tmp)
-    {
-        printf("Toooo: [%s]------>{%d}\n", tmp->data,tmp->type);
-        tmp = tmp->next;
-    }
+    // while (tmp)
+    // {
+    //     printf("Toooo: [%s]------>{%d}\n", tmp->data,tmp->type);
+    //     tmp = tmp->next;
+    // }
 }
 
 void exec_commands(t_node **nodes, t_env **my_env)
@@ -224,7 +224,7 @@ int main(int argc, char **argv, char **envp)
 					claiming_env(envp, &my_envp);
                 expand_variables(arg, my_envp);
                 delete_qoutation(arg);
-                // exec_commands(&arg, &my_envp);
+                exec_commands(&arg, &my_envp);
                 ft_free(&lst);
                 ft_free1(&arg);
                 // ft_free(&my_envp);

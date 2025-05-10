@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/10 10:20:28 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:24:38 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env)
 				md_free_char(cmd);
 				exit(write(2, "mhd: command not found\n", 24));
 			}
-			// WSALT HNA F GERER LES ERROR
+			// WSALT HNA F GERER LES ERRORS
 			execve(cmd_path, cmd, load_env(*my_env));
 			md_free_char(&(*groups)->data);
 			perror("execeve (cmd2)");
