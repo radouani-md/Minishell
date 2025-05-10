@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/06 14:45:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:24:38 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char **load_env(t_env *my_env)
 	}
 	enverment = malloc(sizeof(char *) * (i + 1));
 	if (!enverment)
-		return (NULL);
+		return (perror("malloc "), NULL);
 	i = 0;
 	while (my_env)
 	{
@@ -52,9 +52,13 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env)
 	pid_t	id;
 	
 	groups = split_nodes_by_pipe(*nodes, &num_groups);
+	if (!groups)
+		exit(1);
 	while (i < num_groups)
 	{
 		cmd2 = loop_through_node_cmd(groups[i]);
+		if (!cmd2)
+			exit(1);
 		if (is_builtin(cmd2[0]) && num_groups == 1)
 		{
 			exec_builtin(cmd2, my_env, nodes);
@@ -79,12 +83,15 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env)
 			close(pip_fd[1]);
 			close(pip_fd[0]);
 			cmd = loop_through_node(groups[i], NULL);
+			if (!cmd)
+				exit(1);
 			cmd_path = is_accessable(fetch_path(*my_env), cmd[0]);
 			if (!cmd_path)
 			{
 				md_free_char(cmd);
 				exit(write(2, "mhd: command not found\n", 24));
 			}
+			// WSALT HNA F GERER LES ERRORS
 			execve(cmd_path, cmd, load_env(*my_env));
 			md_free_char(&(*groups)->data);
 			perror("execeve (cmd2)");

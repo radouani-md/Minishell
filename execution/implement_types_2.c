@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/10 10:00:28 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:27:01 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int implement_outfile(t_node *nodes)
 
 	fd = open(nodes->data, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (perror("fd "), 1);
 	return (0);
 }
 
@@ -54,7 +54,7 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		implement_env(*my_env);
-			return (1);
+		return (0);
 	}				
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
@@ -63,23 +63,20 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)
 	{
-		if (implement_pwd() == 0)
+		if (implement_pwd() == 1)
 			return (1);
 	}
 	if (ft_strcmp(cmd[0], "echo") == 0)
 	{
-		if (implement_echo(*my_env, *nodes) == 0)
+		if (implement_echo(*my_env, *nodes) == 1)
 			return (1);
 	}
 	if (ft_strcmp(cmd[0], "exit") == 0)
-	{
-		if (implement_exit(my_env, nodes) == 0)
-			return (1);
-	}
-	if (ft_strcmp(cmd[0], "export") == 0)
-	{
-	    if (implement_export(my_env, nodes) == 0)
-	        return (1);
-	}
+		implement_exit(my_env, nodes);
+	// if (ft_strcmp(cmd[0], "export") == 0)
+	// {
+	//     if (implement_export() == 0)
+	//         return (1);
+	// }
 	return (0);
 }
