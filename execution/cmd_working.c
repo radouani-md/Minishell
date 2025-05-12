@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/12 15:55:01 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:53:03 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	return (cmd);
 }
 
-int	loop_through_node_builting(t_node *nodes)
+int	loop_through_node_builtin(t_node *nodes)
 {
 	t_node *head;
 	int 	is_entred;
