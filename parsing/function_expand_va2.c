@@ -30,7 +30,7 @@ void	copy_to_dap(char *dap, char *str, int *a)
 				i++;
 			if (str[i] != ' ')
 			{
-				if (str[i - 1] == ' ')
+				if (str[i - 1] == ' ' && dap[0] != '\0')
 					dap[(*a)++] = str[i - 1];
 				dap[(*a)++] = str[i++];
 			}
