@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/22 18:01:14 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:40:31 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,13 @@
 // 	new->next = *lst;
 // 	*lst = new;
 // }
+
+
+void	ft_putstr(char *str)
+{
+	while (*str != '\0')
+	{
+		write(1, str, 1);
+		str++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/10 11:31:20 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:55:01 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 {
 	t_node *head;
 	int 	is_entred;
-	int		is_fd;
-	int		fd = 0;
 
-	is_fd = 0;
 	head = nodes;
 	cmd = NULL;
 	is_entred = 0;
@@ -126,24 +123,24 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	{
 		if (head->type == 2)
 		{
-			if (implement_infile(head, &fd) == 1)
-			return (NULL);
+			if (implement_infile(head) == 1)
+				return (NULL);
 		}
 		if (head->type == 3 && is_entred != 1)
 		{
-			if (implement_her_doc(head, &fd) == 1)
+			if (implement_her_doc(head) == 1)
 				return (NULL);
 			is_entred = 1;
 		}
 		if (head->type == 1)
 		{
 			if (implement_outfile(head) == 1)
-			return (NULL);
+				return (NULL);
 		}
 		if (head->type == 4)
 		{
 			if (implement_appending(head))
-			return (NULL);
+				return (NULL);
 		}
 		head = head->next;
 	}
@@ -151,6 +148,41 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	if (!cmd)
 		return (NULL);
 	return (cmd);
+}
+
+int	loop_through_node_builting(t_node *nodes)
+{
+	t_node *head;
+	int 	is_entred;
+
+	head = nodes;
+	is_entred = 0;
+	while (head)
+	{
+		if (head->type == 2)
+		{
+			if (implement_infile(head) == 1)
+				return (1);
+		}
+		if (head->type == 3 && is_entred != 1)
+		{
+			if (implement_her_doc(head) == 1)
+				return (1);
+			is_entred = 1;
+		}
+		if (head->type == 1)
+		{
+			if (implement_outfile(head) == 1)
+				return (1);
+		}
+		if (head->type == 4)
+		{
+			if (implement_appending(head))
+				return (1);
+		}
+		head = head->next;
+	}
+	return (0);
 }
 
 char	**loop_through_node_cmd(t_node *nodes)

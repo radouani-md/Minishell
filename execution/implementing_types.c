@@ -6,13 +6,13 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/10 11:27:53 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:47:29 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	helper_her(char *tmp_name, int *fd_in)
+int	helper_her(char *tmp_name)
 {
 	int infile;
 	
@@ -67,7 +67,7 @@ int	count_heredoc(t_node *nodes)
 	return (num_heredocs);
 }
 
-int	implement_her_doc(t_node *nodes, int *fd_in)
+int	implement_her_doc(t_node *nodes)
 {
 	int fd;
 	char *tmp_name;
@@ -89,7 +89,7 @@ int	implement_her_doc(t_node *nodes, int *fd_in)
 		}
 		nodes = nodes->next;
 	}
-	if (helper_her(tmp_name, fd_in) == 1)
+	if (helper_her(tmp_name) == 1)
 		return (1);
 	free(tmp_name);
 	return (0);
@@ -102,16 +102,30 @@ int	implement_appending(t_node *nodes)
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 		return (perror("fd "), 1);
-	dup2(fd, STDOUT_FILENO);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		close(fd);
+		return (1);
+	}
+	close(fd);
 	return (0);
 }
 
-int	implement_infile(t_node *nodes, int *fd)
+int	implement_infile(t_node *nodes)
 {
-	*fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (*fd == -1)
+	int fd;
+
+	fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
 		   return (perror("fd "), 1);
-	dup2(*fd, STDOUT_FILENO);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+	{
+		perror("dup2");
+		close(fd);
+		return (1);
+	}
+	close(fd);
 	return (0);
 }
 
