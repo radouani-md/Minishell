@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/12 19:50:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:08:42 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	saved_fd_in = dup(STDIN_FILENO);
 	saved_fd_out = dup(STDOUT_FILENO);
 	head = *nodes;
-	if (loop_through_node_builtin(*nodes) == 1)
+	if (loop_through_node_builtin(*nodes, *my_env) == 1)
 		return (1);
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
@@ -72,7 +72,7 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)
 	{
-		if (implement_pwd() == 1)
+		if (implement_pwd(*my_env) == 1)
 			return (1);
 	}
 	if (ft_strcmp(cmd[0], "echo") == 0)

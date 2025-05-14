@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/10 16:47:50 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:12:27 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env)
 				dup2(pip_fd[1], STDOUT_FILENO);
 			close(pip_fd[1]);
 			close(pip_fd[0]);
-			cmd = loop_through_node(groups[i], NULL);
+			cmd = loop_through_node(groups[i], NULL, *my_env);
 			if (!cmd)
 				exit(1);
 			cmd_path = is_accessable(fetch_path(*my_env), cmd[0]);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/09 11:10:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:05:25 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,44 @@ void    implement_env(t_env *env)
 	}
 }
 
-int	implement_pwd()
+char	*get_env_value(t_env *env, char *pwd)
 {
-	char pwd[PATH_MAX];
-	
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
+	char	*env_value;
+
+	env_value = NULL;
+	while (env)
 	{
-		printf("%s\n", pwd);
-		return (0);
+		if (ft_strcmp(env->key, pwd) == 0)
+		{
+			if (env->value)
+				env_value = env->value;
+			break ;
+		}
+		env = env->next;
+	}
+	return (env_value);
+}
+
+int	implement_pwd(t_env *env)
+{
+	char *cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		cwd = get_env_value(env, "PWD");
+		if (cwd)
+			printf("%s\n", cwd);
+		else
+		{
+			perror("pwd");
+			return (1);
+		}
 	}
 	else
 	{
-		perror("pwd ");
-		return (1);
+		printf("%s\n", cwd);
+		free(cwd);
 	}
+	return (0);
 }
 
 char	*fetch_home(t_env **env)
@@ -89,7 +113,15 @@ int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env)
 	if (set_env(env, "OLDPWD", oldpwd) == 1)
 		return (free(oldpwd), 1);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (free(oldpwd), 1);
+	{
+		if (set_env(env, "PWD", abs_path) == 1)
+        	return (free(oldpwd), 1);
+	}
+	else
+	{
+    	if (set_env(env, "PWD", cwd) == 1)
+        	return (free(oldpwd), 1);
+	}
 	if (set_env(env, "PWD", cwd) == 1)
 		return (free(oldpwd), 1);
 	free(oldpwd);

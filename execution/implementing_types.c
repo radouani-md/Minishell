@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/12 16:47:29 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:54:20 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,37 @@ int	helper_her(char *tmp_name)
 	return (0);
 }
 
-int helper_her_doc(char *del, int fd)
+char	*helper_her_doc2(char *line, t_env *env)
+{
+	char *dollar;
+	char *trimmed;
+
+	if (!line)
+		return (perror("malloc "), NULL);
+	dollar = md_strtrim(line, "$");
+	trimmed = NULL;
+	if (line[0] == '$')
+	{
+		while (env)
+		{
+			trimmed = md_strtrim(dollar, "\n");
+			if (ft_strcmp(trimmed, env->key) == 0)
+			{
+				if (env->value)
+				{
+					dollar = md_strjoin(env->value, "\n");
+					break ;
+				}
+			}
+			env = env->next;
+		}
+	}
+	if (trimmed)
+		free(trimmed);
+	return (dollar);
+}
+
+int helper_her_doc(char *del, int fd, t_env *env)
 {
 	char	*line;
 	char	*trimmed;
@@ -45,6 +75,7 @@ int helper_her_doc(char *del, int fd)
 			free(line);
 			break ;
 		}
+		line = helper_her_doc2(line, env);
 		write(fd, line, md_strlen(line));
 		free(trimmed);
         free(line);
@@ -67,11 +98,12 @@ int	count_heredoc(t_node *nodes)
 	return (num_heredocs);
 }
 
-int	implement_her_doc(t_node *nodes)
+int	implement_her_doc(t_node *nodes, t_env *env)
 {
 	int fd;
 	char *tmp_name;
 	int num_heredocs;
+
 	num_heredocs = count_heredoc(nodes);
 	while (nodes)
 	{
@@ -81,7 +113,7 @@ int	implement_her_doc(t_node *nodes)
 			if (!tmp_name)
 				return (1);
 			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (fd == -1 || helper_her_doc(nodes->data, fd) == 1)
+			if (fd == -1 || helper_her_doc(nodes->data, fd, env) == 1)
 				return (1);
 			num_heredocs--;
 			if (num_heredocs)

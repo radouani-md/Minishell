@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/12 19:53:03 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:33:39 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	**helper_loop(char **cmd, t_node *nodes)
 	return (cmd);
 }
 
-char	**loop_through_node(t_node *nodes, char **cmd)
+char	**loop_through_node(t_node *nodes, char **cmd, t_env *env)
 {
 	t_node *head;
 	int 	is_entred;
@@ -128,7 +128,7 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 		}
 		if (head->type == 3 && is_entred != 1)
 		{
-			if (implement_her_doc(head) == 1)
+			if (implement_her_doc(head, env) == 1)
 				return (NULL);
 			is_entred = 1;
 		}
@@ -150,7 +150,7 @@ char	**loop_through_node(t_node *nodes, char **cmd)
 	return (cmd);
 }
 
-int	loop_through_node_builtin(t_node *nodes)
+int	loop_through_node_builtin(t_node *nodes, t_env *env)
 {
 	t_node *head;
 	int 	is_entred;
@@ -166,7 +166,7 @@ int	loop_through_node_builtin(t_node *nodes)
 		}
 		if (head->type == 3 && is_entred != 1)
 		{
-			if (implement_her_doc(head) == 1)
+			if (implement_her_doc(head, env) == 1)
 				return (1);
 			is_entred = 1;
 		}
