@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/06 17:48:41 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:06:19 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-static int	get_length(int n)
+int	get_length(int n)//static
 {
 	int	len;
 

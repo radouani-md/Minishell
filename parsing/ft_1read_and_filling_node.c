@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_ft_ha_do_si.c                             :+:      :+:    :+:   */
+/*   ft_1read_and_filling_node.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 21:16:38 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/09 21:18:38 by ylagzoul         ###   ########.fr       */
+/*   Created: 2025/05/17 12:23:30 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/05/17 16:42:51 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_handel	*helper_variables(int i)
-{
-	t_handel	*new_node;
-
-	new_node = malloc(sizeof(t_handel));
-	if (!new_node)
-		return (NULL);
-	new_node->t = 0;
-	new_node->a = 0;
-	new_node->q = 1;
-	new_node->quote_count = 1;
-	new_node->next = NULL;
-	return (new_node);
-}
 
 int	count_string(char *input, int i, t_handel *handel)
 {
@@ -42,8 +27,8 @@ int	count_string(char *input, int i, t_handel *handel)
 			(quote_count)++;
 		if (input[handel->a] == '\'' && input[i] == '\'')
 			(q)++;
-		if ((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0'))
-			|| (q % 2 == 1 && input[handel->a] == '\'' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
+		if ((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')) || (q % 2 == 1 && input[handel->a] == '\''
+				&& (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
 		{
 			n++;
 			break ;
@@ -54,7 +39,7 @@ int	count_string(char *input, int i, t_handel *handel)
 	return (n);
 }
 
-int	handel_qoutation(char *input, int *i, t_handel *handel) // handel_qoutation
+int	handel_qoutation(char *input, int *i, t_handel *handel)
 {
 	if (input[handel->a] == '\"' && input[*i] == '\"')
 		(handel->quote_count)++;

@@ -1,43 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ftunctoin_ft_fun.c                                 :+:      :+:    :+:   */
+/*   ft_read_and_filling_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:20:24 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/09 16:57:06 by ylagzoul         ###   ########.fr       */
+/*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/05/17 16:45:27 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_lstadd_back(t_list **lst, t_list *new_node)
-{
-	t_list	*temp;
-
-	if (!*lst)
-	{
-		*lst = new_node;
-		return ;
-	}
-	temp = *lst;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new_node;
-}
-
-t_list	*ft_lstnew(char *content)
-{
-	t_list	*new_node;
-
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (free(content), NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
-}
 
 int	ft_handel_pipe_direction(char *input, int *i, t_list **lst)
 {
@@ -131,5 +104,36 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	handel->temp[handel->t] = '\0';
 	ft_lstadd_back(lst, ft_lstnew(handel->temp));
 	free(handel);
+	return (1);
+}
+
+int	read_and_filling_node(char *input, t_list **lst)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		while (input[i] && input[i] != ' ' && input[i] != '\t')
+		{
+			if (input[i] == '|' || input[i] == '<' || input[i] == '>')
+			{
+				if (!ft_handel_pipe_direction(input, &i, lst))
+					return (0);
+			}
+			else if (input[i] == '\"' || input[i] == '\'')
+			{
+				if (!ft_handle_double_single(input, &i, lst))
+					return (0);
+			}
+			else
+			{
+				if (!ft_handle_string(input, &i, lst))
+					return (0);
+			}
+		}
+		if (input[i] == ' ' || input[i] == '\t')
+			i++;
+	}
 	return (1);
 }

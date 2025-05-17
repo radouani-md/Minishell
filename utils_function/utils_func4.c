@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:02:18 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/09 21:35:40 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:41:16 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_node *ft_lstnew1(char *content, int type)
     t_node *new_node = malloc(sizeof(t_node));
     if (!new_node)
         return NULL;
-    new_node->data = strdup(content);
+    new_node->data = md_strdup(content);
     new_node->type = type;
     new_node->next = NULL;
     return new_node;

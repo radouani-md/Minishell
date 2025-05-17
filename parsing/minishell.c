@@ -5,199 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:06:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/12 19:23:22 by ylagzoul         ###   ########.fr       */
+/*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/05/17 16:12:21 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	read_and_filling_node(char *input, t_list **lst)
-{
-	int	i;
-
-	i = 0;
-	while (input[i])
-	{
-		while (input[i] && input[i] != ' ' && input[i] != '\t')
-		{
-			if (input[i] == '|' || input[i] == '<' || input[i] == '>')
-			{
-				if (!ft_handel_pipe_direction(input, &i, lst))
-					return (0);
-			}
-			else if (input[i] == '\"' || input[i] == '\'')
-			{
-				if (!ft_handle_double_single(input, &i, lst))
-					return (0);
-			}
-			else
-			{
-				if (!ft_handle_string(input, &i, lst))
-					return (0);
-			}
-		}
-		if (input[i] == ' ' || input[i] == '\t')
-			i++;
-	}
-	return (1);
-}
-
-int	tchik_pipe(t_list *lst)
-{
-	if (lst->content[0] == '|')
-		return (1);
-	else if ((lst->content[0] == '<' || lst->content[0] == '>')
-		&& (lst->next == NULL))
-	{
-		return (1);
-	}
-	else if ((lst->content[0] == '<' || lst->content[0] == '>')
-		&& (lst->next->content[0] == '|' || lst->next->content[0] == '<'
-			|| lst->next->content[0] == '>'))
-	{
-		return (1);
-	}
-	return (0);
-}
-
-int	syntax_erorr(t_list *lst)
-{
-	if (tchik_pipe(lst))
-	{
-		printf("bash: syntax error `%c'\n", lst->content[0]);
-		return (0);
-	}
-	else
-	{
-		while (lst->next)
-		{
-			if ((lst->content[0] == '<' || lst->content[0] == '>')
-				&& (lst->next->content[0] == '|' || lst->next->content[0] == '<'
-					|| lst->next->content[0] == '>'))
-				return (printf("bash: syntax error `%s'\n", lst->next->content), 0);
-			else if ((lst->content[0] == '|') && (lst->next->content[0] == '|'))
-				return (printf("bash: syntax error `|'\n"), 0);
-			lst = lst->next;
-			if (lst->next == NULL && (lst->content[0] == '|'
-					|| lst->content[0] == '<' || lst->content[0] == '>'))
-				return (printf("bash: syntax error `newline'\n"), 0);
-		}
-	}
-	return (1);
-}
-
-t_node	*typed_nodes(t_list *lst)
-{
-	t_node 	*arg;
-
-	arg = NULL;
-	while (lst)
-	{
-		if (lst->content[0] == '<' || lst->content[0] == '>')
-		{
-			if (lst->content[0] == '<' && lst->content[1] == '\0')
-				ft_lstadd_back1(&arg, ft_lstnew1(lst->next->content, 1));
-			else if (lst->content[0] == '>' && lst->content[1] == '\0')
-				ft_lstadd_back1(&arg, ft_lstnew1(lst->next->content, 2));
-			else if (lst->content[0] == '<' && lst->content[1] == '<')
-				ft_lstadd_back1(&arg, ft_lstnew1(lst->next->content, 3));
-			else if (lst->content[0] == '>' && lst->content[1] == '>')
-				ft_lstadd_back1(&arg, ft_lstnew1(lst->next->content, 4));
-			lst = lst->next;
-		}
-		else if (lst->content[0] == '|')
-			ft_lstadd_back1(&arg, ft_lstnew1(lst->content, 5));
-		else
-			ft_lstadd_back1(&arg, ft_lstnew1(lst->content, 0));
-		lst = lst->next;
-	}
-	return (arg);
-}
-
-void	expand_variables(t_node *lst, t_env *my_env)
-{
-	int	i;
-	int	j;
-	int	t;
-
-	j = 0;
-	t = 0;
-	while (lst)
-	{
-		i = 0;
-		while (lst->data[i])
-		{
-			if (lst->data[i] == '\'' && t % 2 == 0)
-				j++;
-			else if (lst->data[i] == '\"' && j % 2 == 0)
-				t++;
-			if (lst->data[i] == '$' && (j % 2 == 0) && lst->type != 3)
-			{
-				expanding_function(lst, my_env);
-				break ;
-			}
-			i++;
-		}
-		lst = lst->next;
-	}
-}
-
-void	delete_qoutation(t_node *arg)
-{
-	int		i;
-	int		j;
-	int		m;
-	int		t;
-	char	*str;
-	// t_node *tmp = arg;
-
-	while (arg)
-	{
-		j = 0;
-		t = 0;
-		i = 0;
-		m = 0;
-		while(arg->data[i])
-		{
-			if (arg->data[i] == '\'' && t % 2 == 0)
-				j++;
-			else if (arg->data[i] == '\"' && j % 2 == 0)
-				t++;
-			else if ((arg->data[i] != '\"' && j % 2 == 0) || (arg->data[i] != '\'' && t % 2 == 0)
-				||(arg->data[i] == '\'' && t % 2 == 1)||(arg->data[i] == '\"' && j % 2 == 1))
-			{
-				m++;
-			}
-			i++;
-		}
-		str = malloc(sizeof(char) * (m + 1));
-		i = 0;
-		m = 0;
-		j = 0;
-		t = 0;
-		while (arg->data[i])
-		{
-			if (arg->data[i] == '\'' && t % 2 == 0)
-				j++;
-			else if (arg->data[i] == '\"' && j % 2 == 0)
-				t++;
-			else if ((arg->data[i] != '\"' && j % 2 == 0) || (arg->data[i] != '\'' && t % 2 == 0)
-				||(arg->data[i] == '\'' && t % 2 == 1)||(arg->data[i] == '\"' && j % 2 == 1))
-				str[m++] = arg->data[i];
-			i++;
-		}
-		str[m] = '\0';
-		// free(arg->data);
-		arg->data = str;
-		arg = arg->next;
-	}
-	// while (tmp)
-	// {
-	//     printf("Toooo: [%s]------>{%d}\n", tmp->data,tmp->type);
-	//     tmp = tmp->next;
-	// }
-}
 
 void exec_commands(t_node **nodes, t_env **my_env)
 {
@@ -251,13 +64,12 @@ int main(int argc, char **argv, char **envp)
 				exec_commands(&arg, &my_envp);
 				// ft_free(&lst);
 				// ft_free1(&arg);
-				// ft_free(&my_envp);
 			}
 			// else
 			//     ft_free(&lst);
 		}
-		// else
-		//     ft_free(&lst);
+	// 	else
+	// 	    ft_free(&lst);
 	}
 	return (0);
 }
