@@ -177,19 +177,23 @@ int	    ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
 void	safe_free(char **ptr);
+void	ft_putstr(char *str);
 
 char	*get_next_line(int fd);
 
 char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
-char	**loop_through_node(t_node *nodes, char **cmd);
+int	loop_through_node_builtin(t_node *nodes, t_env *env);
+// char	**loop_through_node(t_node *nodes, char **cmd);
+char	**loop_through_node(t_node *nodes, char **cmd, t_env *env);
+
 char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
 
 char **fetch_path(t_env *my_env);
 
 int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env);
-int	implement_her_doc(t_node *nodes);
+int	implement_her_doc(t_node *nodes, t_env *env);
 int	implement_appending(t_node *nodes);
 int	implement_infile(t_node *nodes);
 int	implement_outfile(t_node *nodes);
@@ -200,6 +204,6 @@ void    implement_env(t_env *env);
 int		implement_pwd();
 int		implement_cd(t_env **env, t_node *nodes);
 int		implement_echo(t_env *env, t_node *nodes);
-int		implement_exit(t_env **my_env, t_node **nodes);
+void	implement_exit(t_env **my_env, t_node **nodes);
 
 #endif
