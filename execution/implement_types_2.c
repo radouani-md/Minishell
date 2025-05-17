@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/14 11:08:42 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/17 17:54:12 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int is_builtin(char *cmd)
 
 int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 {
-	t_node *head;
+	// t_node *head;
 	int saved_fd_in;
 	int saved_fd_out;
 
 	saved_fd_in = dup(STDIN_FILENO);
 	saved_fd_out = dup(STDOUT_FILENO);
-	head = *nodes;
+	// head = *nodes;
 	if (loop_through_node_builtin(*nodes, *my_env) == 1)
 		return (1);
 	if (ft_strcmp(cmd[0], "env") == 0)
@@ -83,11 +83,11 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		implement_exit(my_env, nodes);
 	
-	// if (ft_strcmp(cmd[0], "export") == 0)
-	// {
-	//     if (implement_export() == 0)
-	//         return (1);
-	// }
+	if (ft_strcmp(cmd[0], "export") == 0)
+	{
+	    if (implement_export(*my_env, *nodes) == 0)
+	        return (1);
+	}
 	dup2(saved_fd_in, STDIN_FILENO);
 	dup2(saved_fd_out, STDOUT_FILENO);
 	close(saved_fd_in);
