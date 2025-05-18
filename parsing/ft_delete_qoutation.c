@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_qoutation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:14:54 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 16:47:56 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:22:29 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	delete_qoutation(t_node *arg)
 {
 	t_ha	*ha;
 	char	*str;
-	t_node	*tmp;
+	// t_node	*tmp;
 
-	tmp = arg;
+	// tmp = arg;
 	while (arg)
 	{
 		ha = helper_varia();
@@ -64,9 +64,9 @@ void	delete_qoutation(t_node *arg)
 		arg->data = str;
 		arg = arg->next;
 	}
-	while (tmp)
-	{
-		printf("To: [%s]-->{%d}\n", tmp->data,tmp->type);
-		tmp = tmp->next;
-	}
+	// while (tmp)
+	// {
+	// 	printf("To: [%s]-->{%d}\n", tmp->data,tmp->type);
+	// 	tmp = tmp->next;
+	// }
 }

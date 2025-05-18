@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/14 13:05:25 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/18 11:43:47 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,14 @@ int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 	return (0);
 }
 
+void	handel_cd(char *cwd, char *abs_path, t_env **env)
+{
+	printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory");
+	cwd = md_strjoin(cwd, "/");
+	cwd = md_strjoin(cwd, abs_path);
+	set_env(env, "PWD", abs_path);
+}
+
 int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env)
 {
 	char cwd[PATH_MAX];
@@ -110,20 +118,21 @@ int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env)
 		free(oldpwd);
 		return (1);
 	}
-	if (set_env(env, "OLDPWD", oldpwd) == 1)
-		return (free(oldpwd), 1);
+	// if (set_env(env, "OLDPWD", oldpwd) == 1)
+	// 	return (free(oldpwd), 1);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		if (set_env(env, "PWD", abs_path) == 1)
-        	return (free(oldpwd), 1);
+		handel_cd(cwd, abs_path, env);
+		// if (set_env(env, "PWD", abs_path) == 1)
+        // 	return (free(oldpwd), 1);
 	}
 	else
 	{
     	if (set_env(env, "PWD", cwd) == 1)
         	return (free(oldpwd), 1);
 	}
-	if (set_env(env, "PWD", cwd) == 1)
-		return (free(oldpwd), 1);
+	// if (set_env(env, "PWD", cwd) == 1)
+	// 	return (free(oldpwd), 1);
 	free(oldpwd);
 	return (0);
 }
@@ -147,6 +156,20 @@ int	helper_cd(char *home, t_env **env, char *oldpwd, char *cwd)
 	return (0);
 }
 
+void	set_oldpwd(t_env *env, char *oldpwd)
+{
+	while (env)
+	{
+		if (ft_strcmp(env->key, "OLDPWD"))
+		{
+			if (env->value)
+				oldpwd = md_strdup(env->value);
+			break ;
+		}
+		env = env->next;
+	}
+}
+
 int	implement_cd(t_env **env, t_node *nodes)
 {
 	char *oldpwd;
@@ -159,7 +182,7 @@ int	implement_cd(t_env **env, t_node *nodes)
 		nodes = nodes->next;
     oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		return (perror("cwd "), 1);
+		set_oldpwd(*env, oldpwd);
 	if (nodes->next && nodes->next->next)
 		return (free(oldpwd), write(2, "cd: too many arguments\n", 24), 1);
     if (!nodes->next || !nodes->next->data)
