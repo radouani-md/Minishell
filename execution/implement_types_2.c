@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/17 17:54:12 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:33:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ int is_builtin(char *cmd)
 
 int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 {
-	// t_node *head;
 	int saved_fd_in;
 	int saved_fd_out;
 
 	saved_fd_in = dup(STDIN_FILENO);
 	saved_fd_out = dup(STDOUT_FILENO);
-	// head = *nodes;
 	if (loop_through_node_builtin(*nodes, *my_env) == 1)
 		return (1);
 	if (ft_strcmp(cmd[0], "env") == 0)

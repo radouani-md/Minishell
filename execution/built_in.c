@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/18 11:43:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:09:33 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 	{
 		if (ft_strcmp(head->key, pwd_searched) == 0)
 		{
-			free(head->value);
+			// free(head->value);
 			head->value = md_strdup(pwd_updated);
 			if (!head->value)
 				return (perror("malloc "), 1);
@@ -100,39 +100,42 @@ int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 	return (0);
 }
 
-void	handel_cd(char *cwd, char *abs_path, t_env **env)
+int	handel_cd(char *cwd, char *abs_path, t_env **env)
 {
-	printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory");
-	cwd = md_strjoin(cwd, "/");
-	cwd = md_strjoin(cwd, abs_path);
-	set_env(env, "PWD", abs_path);
+	char *temp;
+
+	temp = NULL;
+	printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+	temp = md_strjoin(cwd, "/");
+	cwd = md_strjoin(temp, abs_path);
+	if (set_env(env, "PWD", cwd) == 1)
+		return (1);
+	return (0);
 }
 
 int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env)
 {
-	char cwd[PATH_MAX];
+	char	*cwd;
 
+	cwd = NULL;
 	if (chdir(abs_path) == -1)
 	{
-		perror("cd");
-		free(oldpwd);
-		return (1);
+		perror("mhd :");
+		return (0);
 	}
-	// if (set_env(env, "OLDPWD", oldpwd) == 1)
-	// 	return (free(oldpwd), 1);
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	cwd = getcwd(cwd, 4096);
+	if (cwd == NULL)
 	{
-		handel_cd(cwd, abs_path, env);
-		// if (set_env(env, "PWD", abs_path) == 1)
-        // 	return (free(oldpwd), 1);
+		if (handel_cd(oldpwd, abs_path, env) == 1)
+			return (1);
 	}
 	else
 	{
-    	if (set_env(env, "PWD", cwd) == 1)
-        	return (free(oldpwd), 1);
+		if (set_env(env, "PWD", cwd) == 1)
+			return (free(oldpwd), 1);
 	}
-	// if (set_env(env, "PWD", cwd) == 1)
-	// 	return (free(oldpwd), 1);
+	if (set_env(env, "OLDPWD", oldpwd) == 1)
+		return (free(oldpwd), 1);
 	free(oldpwd);
 	return (0);
 }
@@ -156,18 +159,19 @@ int	helper_cd(char *home, t_env **env, char *oldpwd, char *cwd)
 	return (0);
 }
 
-void	set_oldpwd(t_env *env, char *oldpwd)
+char	*set_oldpwd(t_env *env, char *oldpwd)
 {
 	while (env)
 	{
-		if (ft_strcmp(env->key, "OLDPWD"))
+		if (ft_strcmp(env->key, "PWD") == 0)
 		{
 			if (env->value)
 				oldpwd = md_strdup(env->value);
-			break ;
+			return (oldpwd);
 		}
 		env = env->next;
 	}
+	return (NULL);
 }
 
 int	implement_cd(t_env **env, t_node *nodes)
@@ -182,7 +186,7 @@ int	implement_cd(t_env **env, t_node *nodes)
 		nodes = nodes->next;
     oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
-		set_oldpwd(*env, oldpwd);
+		oldpwd = set_oldpwd(*env, oldpwd);
 	if (nodes->next && nodes->next->next)
 		return (free(oldpwd), write(2, "cd: too many arguments\n", 24), 1);
     if (!nodes->next || !nodes->next->data)

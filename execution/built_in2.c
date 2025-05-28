@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/12 17:53:38 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:21:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_valid_n(char *str)
 {
 	int i;
 
-	if (!str || str[0] != '-')
+	if (!str || ft_strncmp(str, "-n", 2) != 0)
 		return (0);
 	i = 1;
 	while (str[i])
