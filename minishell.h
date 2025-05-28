@@ -27,10 +27,16 @@ typedef struct s_list
 	struct s_list   *next;
 }                   t_list;
 
+typedef struct s_err
+{
+	int	err_status;
+}			t_err;
+
 typedef struct t_node
 {
 	char            *data;
 	int             type;
+	char			*tmp_file;
 	struct t_node   *next;
 }                   t_node;
 
@@ -116,20 +122,21 @@ int count_key(int i, t_node *nodes);
 //utils_function
 void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel);
 void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel);
-int	ft_Check_dollar(t_node *lst, t_ha *ha);
-int	ft_Check_after_dollar(char c);
+int		ft_Check_dollar(t_node *lst, t_ha *ha);
+int		ft_Check_after_dollar(char c);
 void	len_env_value(char *str, t_ha *halel);
-int ft_strlen_num_err(void);
+int 	ft_strlen_num_err(void);
 
-char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
-char	*ft_cpy_key(int i, t_node *nodes);
-int	ft_Check_key(char c);
+char 		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
+char		*ft_cpy_key(int i, t_node *nodes);
+int			ft_Check_key(char c);
 t_handel	*helper_variables(int i);
-t_ha	*helper_varia();
-void conut_dabel_singel_qoutition(char c, t_ha	*ha);
+t_ha		*helper_varia();
+void 		conut_dabel_singel_qoutition(char c, t_ha	*ha);
 
-int ft_strlen(int a,char *dap);
+int 	ft_strlen(int a,char *dap);
 size_t	md_strlen(char *s);
+int	count_word(char const *s, char c);
 size_t	ft_strlcpy(char *src, size_t dstsize);
 t_list	*ft_lstnew(char *content);
 void	ft_lstadd_back(t_list **lst, t_list *new_node);
@@ -138,17 +145,18 @@ t_env	*ft_lstnewt(char *env_key, char	*env_value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new_node);
 t_env	*ft_lstnew_env();
 size_t	yl_strlen(char *s, int *i);
-char *yl_strcpy(char *dest, const char *src);
+char 	*yl_strcpy(char *dest, const char *src);
 
 t_node *ft_lstnew1(char *content, int type);
-void ft_lstadd_back1(t_node **lst, t_node *new_node);
+t_node *ft_lstnew2(char *content, int type, char *tmp_file);
+void 	ft_lstadd_back1(t_node **lst, t_node *new_node);
 t_node	*ft_lstnew5();
 void	ft_lstadd_back12(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 
 char	*random_num();
 char	*md_itoa(int n);
-int	get_length(int n);//static
+int		get_length(int n);//static
 char	*ft_strcat(char *dest, char *src);
 void	md_free(int **num);
 
@@ -156,12 +164,12 @@ char	**md_split(char const *s, char c);
 char	**put_in(char **ptr, const char *s, char c, size_t count);
 void	ftt_free(char **p, size_t i);
 size_t	copystr(char *dest, const char *src, size_t index, char c);
-int	count_word(char const *s, char c);
+int		count_word(char const *s, char c);
 
 char	*md_strjoin(char *s1, char *s2);
 char	*md_strdup(char *src);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-int	ft_strncmp1(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp1(const char *s1, const char *s2, size_t n);
 
 void	free_group(t_node *group);
 void	md_free_char(char **str);
@@ -183,16 +191,17 @@ char	*get_next_line(int fd);
 
 char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
-int	loop_through_node_builtin(t_node *nodes, t_env *env);
+int		loop_through_node_builtin(t_node *nodes, t_env *env);
 // char	**loop_through_node(t_node *nodes, char **cmd);
 char	**loop_through_node(t_node *nodes, char **cmd, t_env *env);
 
 char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
 
-char **fetch_path(t_env *my_env);
+char 	**fetch_path(t_env *my_env);
 
-int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env);
+int	helper_her(t_node *nodes);
+int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t_err *err);
 int	implement_her_doc(t_node *nodes, t_env *env);
 int	implement_appending(t_node *nodes);
 int	implement_infile(t_node *nodes);
@@ -201,7 +210,7 @@ int	implement_outfile(t_node *nodes);
 int 	is_builtin(char *cmd);
 int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes);
 void    implement_env(t_env *env);
-int		implement_pwd();
+int		implement_pwd(t_env *env);
 int		implement_cd(t_env **env, t_node *nodes);
 int		implement_echo(t_env *env, t_node *nodes);
 void	implement_exit(t_env **my_env, t_node **nodes);
