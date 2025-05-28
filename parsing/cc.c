@@ -83,7 +83,6 @@ void	copy_env_value1(t_node *lst, t_env *my_env, t_ha *ha, int *m)
 	}
 	// if (ft_strncmp1(src, "?", 1))
 	// 	ft_functin_env(dap, ha);
-	free(src);
 }
 
 

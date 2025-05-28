@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 18:20:07 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:01:32 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,4 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 	}
 	if (ft_strncmp1(src, "?", 1))
 		ft_functin_env(dap, ha);
-	free(src);
 }

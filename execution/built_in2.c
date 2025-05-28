@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/27 16:21:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:22:14 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,7 @@ int	implement_echo(t_env *env, t_node *nodes)
 	newline = check_newline_flag(&head);
 	while (head && head->type == 0)
 	{
-		if (head->data[0] == '$')
-		{
-			if (helper_echo(env, head->data) == 1)
-				return (1);
-		}
-		else
-			ft_putstr(head->data); //ft_printf
+		ft_putstr(head->data); //ft_printf
 		if (head->next && head->next->type == 0) // ft_printf
 			ft_putstr(" ");
 		head = head->next;

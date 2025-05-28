@@ -110,23 +110,23 @@ void	filling_tmp(char *key, char *env, int size);
 void	expand_variables(t_node *lst, t_env *my_env);
 void	expanding_function(t_node *lst, t_env *my_env);
 void	count_dollare(t_ha	*ha, char *lst);
-int	count_cmd(t_node *lst, t_env *my_env);
+int		count_cmd(t_node *lst, t_env *my_env);
 void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha);
 char	*env_key(t_ha *ha, char *str);
 void	copy_to_dap(char *dap, char *str, t_ha *ha);
-void ft_functin_env(char *dap, t_ha *ha);
+void 	ft_functin_env(char *dap, t_ha *ha);
 void	fill_up_node(char *dap, t_node *lst);
-int ft_count_env(char *dap, int read_index);
+int 	ft_count_env(char *dap, int read_index);
 
 void	delete_qoutation(t_node *arg);
-int ft_count_ec(char *arg);
+int 	ft_count_ec(char *arg);
 
 
 int implement_export(t_env *my_env, t_node *nodes);
 void add_value_export(t_env *my_env, t_node *nodes);
 char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 int count_value(int i, t_node *nodes, t_env *my_env);
-;
+
 int count_key(int i, t_node *nodes);
 
 //utils_function
@@ -209,6 +209,7 @@ char 	*is_accessable(char **path, char *cmd);
 
 char 	**fetch_path(t_env *my_env);
 
+void	expanding_function_heredoc(t_node *lst, t_env *my_env);
 int	helper_her(t_node *nodes);
 int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t_err *err);
 int	implement_her_doc(t_node *nodes, t_env *env);

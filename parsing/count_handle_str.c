@@ -62,7 +62,7 @@ int	ft_ft1(char *input, int *i, t_handel *handel, int *col)
 	while (input[*i])
 	{
 		if (!handel_qoutation1(input, i, handel, col))
-			return (free(input), free(handel->temp), free(handel), 0);
+			return (0);
 		handle_multiple_quotes1(input, i, handel, col);
 		if ((input[*i] == ' ' || input[*i] == '\t' || input[*i] == '|'
 				|| input[*i] == '>' || input[*i] == '<' || input[*i] == '\0'))
@@ -84,7 +84,7 @@ int count_handle_str(char *input, int i)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			if (ft_ft1(input, &i, handel, &col) == 0)
-				return (free(handel), 0);
+				return (0);
 		}
 		else
 		{
@@ -95,5 +95,5 @@ int count_handle_str(char *input, int i)
 			|| input[i - 1] == '\t')
 			break ;
 	}
-	return (free(handel), col);
+	return (col);
 }

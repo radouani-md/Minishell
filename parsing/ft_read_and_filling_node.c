@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_and_filling_node.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 15:18:47 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:03:16 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_handel_pipe_direction(char *input, int *i, t_list **lst)
 	else
 		temp = malloc(sizeof(char) * (2));
 	if (!temp)
-		return (free(input), ft_free(lst), 0);
+		return (0);
 	a = 0;
 	temp[a++] = input[*i];
 	if ((input[*i] == '>' && input[*i + 1] == '>')
@@ -45,12 +45,12 @@ int	ft_handle_double_single(char *input, int *i, t_list **lst)
 	handel = helper_variables(*i);
 	handel->temp = malloc(sizeof(char) * (count_string(input, *i, handel) + 1));
 	if (!handel->temp)
-		return (free(input), ft_free(lst), free(handel), 0);
+		return (0);
 	handel->a = *i;
 	while (input[*i])
 	{
 		if (!handel_qoutation(input, i, handel))
-			return (free(input), ft_free(lst), free(handel->temp), free(handel), 0);
+			return (0);
 		handle_multiple_quotes(input, i, handel);
 		if ((input[*i] == ' ' || input[*i] == '\t' || input[*i] == '|'
 				|| input[*i] == '>' || input[*i] == '<' || input[*i] == '\0'))
@@ -60,7 +60,6 @@ int	ft_handle_double_single(char *input, int *i, t_list **lst)
 	}
 	handel->temp[handel->t] = '\0';
 	ft_lstadd_back(lst, ft_lstnew(handel->temp));
-	free(handel);
 	return (1);
 }
 
@@ -70,7 +69,7 @@ int	ft_ft(char *input, int *i, t_handel *handel)
 	while (input[*i])
 	{
 		if (!handel_qoutation(input, i, handel))
-			return (free(input), free(handel->temp), free(handel), 0);
+			return (0);
 		handle_multiple_quotes(input, i, handel);
 		if ((input[*i] == ' ' || input[*i] == '\t' || input[*i] == '|'
 				|| input[*i] == '>' || input[*i] == '<' || input[*i] == '\0'))
@@ -86,14 +85,14 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	handel = helper_variables(*i);
 	handel->temp = malloc(sizeof(char) * (count_handle_str(input, *i) + 1));
 	if (!handel->temp)
-		return (free(input), ft_free(lst), free(handel), 0);
+		return (0);
 	while (input[*i] && (input[*i] != ' ' && input[*i] != '\t')
 		&& input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
 	{
 		if (input[*i] == '\"' || input[*i] == '\'')
 		{
 			if (ft_ft(input, i, handel) == 0)
-				return (ft_free(lst), 0);
+				return (0);
 		}
 		else
 			handel->temp[(handel->t)++] = input[(*i)++];
@@ -103,7 +102,6 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	}
 	handel->temp[handel->t] = '\0';
 	ft_lstadd_back(lst, ft_lstnew(handel->temp));
-	free(handel);
 	return (1);
 }
 

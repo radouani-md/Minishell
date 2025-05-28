@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:14:54 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 10:51:13 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:05:54 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	delete_qoutation(t_node *arg)
 {
 	t_ha	*ha;
 	char	*str;
-	// t_node	*tmp;
+	t_node	*tmp;
 
-	// tmp = arg;
+	tmp = arg;
 	while (arg)
 	{
 		ha = helper_varia();
 		str = malloc(sizeof(char) * (ft_count_ec(arg->data) + 1));
 		if(!str)
-			return(free(ha));
+			return ;
 		while (arg->data[ha->read_index])
 		{
 			if (arg->data[ha->read_index] == '\'' && ha->dablla_qoute % 2 == 0)
@@ -62,14 +62,14 @@ void	delete_qoutation(t_node *arg)
 			ha->read_index++;
 		}
 		str[ha->dest_index] = '\0';
-		free(arg->data);
-		free(ha);
+		// free(arg->data);
+		// free(ha);
 		arg->data = str;
 		arg = arg->next;
 	}
-	// while (tmp)
-	// {
-	// 	printf("To: [%s]-->{%d}\n", tmp->data,tmp->type);
-	// 	tmp = tmp->next;
-	// }
+	while (tmp)
+	{
+		printf("To: [%s]-->{%d}\n", tmp->data,tmp->type);
+		tmp = tmp->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_2expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 17:07:30 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:01:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_count_env(char *dap, int read_index)
 {
 	t_ha	*hale;
-	int m;
 
 	hale = helper_varia();
 	while (dap[read_index])
@@ -32,8 +31,7 @@ int	ft_count_env(char *dap, int read_index)
 			break ;
 		}
 	}
-	m = read_index;
-	return (free(hale), m);
+	return (read_index);
 }
 int ft_tchek_q(char *tmp)
 {
@@ -57,9 +55,9 @@ void	fill_up_node(char *dap, t_node *lst)
 	hal = helper_varia();
 	tmp = malloc(100 + 1);//ft_count_env(dap, hal->read_index)
 	if(!tmp)
-		return ;// free
+		return ;
 	if (dap[hal->read_index] == '\0')
-		lst->data= dap;
+		lst->data = dap;
 	while (dap[hal->read_index])
 	{
 		conut_dabel_singel_qoutition(dap[hal->read_index], hal);
@@ -70,10 +68,7 @@ void	fill_up_node(char *dap, t_node *lst)
 		if (hal->dablla_qoute % 2 == 0 && hal->singl_qoute % 2 == 0 && (dap[hal->read_index] == ' ' || dap[hal->read_index] == '\0'))
 		{
 			tmp[hal->dest_index] = '\0';
-			if(lst->data)
-				free(lst->data);
 			lst->data = md_strdup(tmp);
-			free(tmp);
 			tmp = NULL;
 			lst->type = 0;
 			if (dap[hal->read_index] == ' ')
@@ -86,12 +81,9 @@ void	fill_up_node(char *dap, t_node *lst)
 				lst = lst->next;
 				tmp = malloc(ft_count_env(dap, hal->read_index));
 				if(!tmp)
-					return (free(hal));// free
+					return ;
 				hal->dest_index = 0;
 			}
 		}
 	}
-	free(hal);
-	if(!tmp)
-		free(tmp);
 }

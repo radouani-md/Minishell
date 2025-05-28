@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 10:42:57 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:03:53 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,8 @@ int main(int argc, char **argv, char **envp)
 				delete_qoutation(arg);
 				delete_sinqel_dabel_qoutishen(arg);
 				exec_commands(&arg, &my_envp, err);
-				ft_free(&lst);
-				ft_free1(&arg);
 			}
-			else
-			    ft_free(&lst);
 		}
-		else
-		    ft_free(&lst);
 	}
 	return (0);
 }
