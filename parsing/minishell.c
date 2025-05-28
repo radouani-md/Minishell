@@ -3,28 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 16:10:01 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/28 10:42:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void exec_commands(t_node **nodes, t_env **my_env)
+void exec_commands(t_node **nodes, t_env **my_env, t_err *err)
 {
 	char	*cmd_path;
 	char	**cmd;
 
 	cmd_path = NULL;
 	cmd = NULL;	
-	if (piping_forking(cmd_path, cmd, nodes, my_env) == -1)
+	if (piping_forking(cmd_path, cmd, nodes, my_env, err) == -1)
 	{
 		perror("Minishell");
 		exit(1);
 	}
 	return ;	
+}
+
+void sigint_handler(int sig)
+{
+    (void)sig;
+	// t_err *err;
+
+	// err->err_status = 130; //128 + SIGINT (2)
+    rl_replace_line("", 0);
+    write(1, "\n", 1);
+    rl_on_new_line(); 
+    rl_redisplay();
+}
+
+void setup_signals()
+{
+    struct sigaction	sa;
+
+    sa.sa_handler = sigint_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART;
+    sigaction(SIGINT, &sa, NULL);
+
+    signal(SIGQUIT, SIG_IGN);
 }
 void delete_sinqel_dabel_qoutishen(t_node *arg)
 {
@@ -55,18 +79,26 @@ int main(int argc, char **argv, char **envp)
 	t_list *lst;
 	t_node *arg;
 	t_env *my_envp;
+	t_err *err;
 	char *input;
 
 	lst = NULL;
 	arg = NULL;
 	input = NULL;
 	my_envp = NULL;
+	err = NULL;
+	err = malloc(sizeof(t_err));
+	err->err_status = 0;
+	setup_signals();
 	while (1)
 	{
 		lst = NULL;
 		input = readline("minishell> ");
 		if (!input)
+		{
+			printf("exit\n");
 			exit(0);
+		}
 		if (input[0] == '\0')
 			continue;
 		add_history(input);
@@ -82,7 +114,7 @@ int main(int argc, char **argv, char **envp)
 				expand_variables(arg, my_envp);
 				delete_qoutation(arg);
 				delete_sinqel_dabel_qoutishen(arg);
-				exec_commands(&arg, &my_envp);
+				exec_commands(&arg, &my_envp, err);
 				ft_free(&lst);
 				ft_free1(&arg);
 			}

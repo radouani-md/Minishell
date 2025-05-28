@@ -28,6 +28,11 @@ typedef struct s_list
 	struct s_list   *next;
 }                   t_list;
 
+typedef struct s_err
+{
+	int	err_status;
+}			t_err;	
+
 typedef struct t_node
 {
 	char            *data;
@@ -152,6 +157,7 @@ size_t	yl_strlen(char *s, int *i);
 char *yl_strcpy(char *dest, const char *src);
 
 t_node *ft_lstnew1(char *content, int type);
+t_node *ft_lstnew2(char *content, int type, char *tmp_file);
 void ft_lstadd_back1(t_node **lst, t_node *new_node);
 t_node	*ft_lstnew5();
 void	ft_lstadd_back12(t_env **lst, t_env *new);
