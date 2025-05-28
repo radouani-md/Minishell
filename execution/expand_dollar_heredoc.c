@@ -6,11 +6,50 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/28 16:00:37 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:03:42 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	copy_to_dap_heredoc(char *dap, char *str, t_ha *ha)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		dap[(ha->dest_index)++] = str[i++];
+	}
+}
+
+void	copy_env_value_heredoc(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
+{
+	int		b;
+	char	*src;
+
+	(ha->read_index)++;
+	src = env_key(ha, lst->data);
+	while (my_env)
+	{
+		b = 0;
+		while (my_env->key[b])
+		{
+			if (my_env->key[b] != src[b])
+				break ;
+			b++;
+		}
+		if (my_env->key[b] || src[b])
+			my_env = my_env->next;
+		else
+		{
+			copy_to_dap_heredoc(dap, my_env->value, ha);
+			break ;
+		}
+	}
+	if (ft_strncmp1(src, "?", 1))
+		ft_functin_env(dap, ha);
+}
 
 int	check_dollar_heredoc(t_node *lst, t_ha *ha)
 {
@@ -34,33 +73,21 @@ void	expanding_function_heredoc(t_node *lst, t_env *my_env)
 	t_ha	*ha;
 	
 	ha = helper_varia();
-	dap = malloc(sizeof(char) * (count_cmd(lst, my_env) + 1));
+	dap = malloc(sizeof(char) * (100 + 1));//count_cmd(lst, my_env)
 	if(!dap)
 		return ;
 	while (lst->data[ha->read_index])
 	{
-		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
 		if (check_dollar_heredoc(lst, ha))
-			copy_env_value(lst, my_env, dap, ha);
+			copy_env_value_heredoc(lst, my_env, dap, ha);
 		else
 		{
 			if (lst->data[ha->read_index] == '$' && lst->data[ha->read_index + 1] == '$')
 				count_dollare(ha, lst->data);
-			else if (lst->data[ha->read_index] == '$' && (lst->data[ha->read_index + 1] == '\"' || lst->data[ha->read_index + 1] == '\''))
-			{
-				if (lst->data[ha->read_index + 1] == '\'' && ha->dablla_qoute % 2 == 0)
-					ha->quote_count = ha->singl_qoute + 1;
-				else if (lst->data[ha->read_index + 1] == '\"' && ha->singl_qoute % 2 == 0)
-					ha->quote_count = ha->dablla_qoute + 1;
-				if (ha->quote_count % 2 == 1)
-					ha->read_index++;
-				else
-					dap[ha->dest_index++] = lst->data[ha->read_index++];
-			}
 			else
 				dap[ha->dest_index++] = lst->data[ha->read_index++];
 		}
 	}
 	dap[ha->dest_index] = '\0';
-	fill_up_node(dap, lst);
+	lst->data = dap;
 }

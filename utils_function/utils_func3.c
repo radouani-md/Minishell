@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/17 15:06:19 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:30:44 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*random_num()
 	char		*num_str;
 	char		*new_str;
 
-	tmp = md_strdup(".tmp_");
+	tmp = md_strdup("/tmp/.tmp_");
 	if (!tmp)
 		return (NULL);
 	num_str = md_itoa(i);
