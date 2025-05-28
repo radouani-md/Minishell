@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 16:32:26 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:42:13 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,41 @@ int	count_value(int i, t_node *nodes, t_env *my_env)
 void	add_value_export(t_env *my_env, t_node *nodes)
 {
 	t_env	*cpy_env;
+	t_env	*cpy_env1;
+	char *fre;
 	int		i;
 
-	i = 0;
 	nodes = nodes->next;
 	while (nodes)
 	{
+		i = 0;
 		cpy_env = my_env;
+		cpy_env1 = my_env;
 		while (cpy_env)
 		{
-			if (!ft_strcmp(cpy_env->key, ft_cpy_key(i, nodes)))
+			fre = ft_cpy_key(i, nodes);
+			if (!ft_strcmp(cpy_env->key, fre))
 			{
+				free(fre);
+				fre = cpy_env->value;
 				cpy_env->value = ft_cpy_value(&i, nodes, cpy_env);
+				free(fre);
 				break ;
 			}
 			cpy_env = cpy_env->next;
 		}
 		if (cpy_env == NULL)
 		{
-			ft_lstadd_back_env(&my_env, ft_lstnew_env());
-			while (my_env)
+			
+			ft_lstadd_back_env(&cpy_env1, ft_lstnew_env());
+			while (cpy_env1)
 			{
-				if (!my_env->next)
+				if (!cpy_env1->next)
 				{
-					my_env->key = ft_cpy_key(i, nodes);
-					my_env->value = ft_cpy_value(&i, nodes, cpy_env);
+					cpy_env1->key = ft_cpy_key(i, nodes);
+					cpy_env1->value = ft_cpy_value(&i, nodes, cpy_env1);
 				}
-				my_env = my_env->next;
+				cpy_env1 = cpy_env1->next;
 			}
 		}
 		nodes = nodes->next;
@@ -90,7 +98,12 @@ int	implement_export(t_env *my_env, t_node *nodes)
 	{
 		while (my_env)
 		{
-			printf("declare -x %s=\"%s\"\n", my_env->key, my_env->value);
+			if(my_env->key)
+				printf("declare -x %s", my_env->key);
+			if(my_env->type == 1)
+				printf("=\"%s\"\n", my_env->value);
+			else
+				printf("\n");
 			my_env = my_env->next;
 		}
 	}

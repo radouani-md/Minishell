@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 16:45:27 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:18:47 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	t_handel	*handel;
 
 	handel = helper_variables(*i);
-	handel->temp = malloc(sizeof(char) * (100 + 1));
+	handel->temp = malloc(sizeof(char) * (count_handle_str(input, *i) + 1));
 	if (!handel->temp)
 		return (free(input), ft_free(lst), free(handel), 0);
 	while (input[*i] && (input[*i] != ' ' && input[*i] != '\t')

@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:23:30 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 16:42:51 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:51:00 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int	handel_qoutation(char *input, int *i, t_handel *handel)
 		|| (handel->q % 2 == 0 && input[handel->a] == '\''))
 	{
 		if(*i != handel->a && ((input[*i] == '\"' && input[handel->a] == '\"') || (input[*i] == '\'' && input[handel->a] == '\'')))
+		{
 			break ;
-		handel->temp[(handel->t)++] = input[*i];
-		(*i)++;
+		}
+		handel->temp[(handel->t)++] = input[(*i)++];
 		if (!input[*i]) // break; دشي علاش مع توصل \0 دير "ls d""skfjfe حيت هدي تبقى تقرى لا م نهاية فية حالة كان
 		{
 			printf("eroor\n");
@@ -63,7 +64,7 @@ int	handel_qoutation(char *input, int *i, t_handel *handel)
 
 void	handle_multiple_quotes(char *input, int *i, t_handel *handel)
 {
-	if (((input[*i] == '\"') || input[*i] == '\'') && input[*i])
+	if (((input[*i] == '\"') || input[*i] == '\'') && input[(*i) + 1])
 	{
 		handel->temp[(handel->t)++] = input[(*i)++];
 		if (input[*i]) //  echo "$HOME$"$"youssef"    input[*i] = '\0'  او هدي *i++ حيت هدي نزيد ب

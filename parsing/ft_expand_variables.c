@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 13:15:25 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:32:25 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	count_cmd(t_node *lst, t_env *my_env)
 {
 	t_ha	*halel;
+	int		m;
 	
 	halel = helper_varia();
 	while (lst->data[halel->read_index])
@@ -33,7 +34,9 @@ int	count_cmd(t_node *lst, t_env *my_env)
 		else
 			halel->read_index = halel->read_index + halel->dest_index++;
 	}
-	return (halel->dest_index);
+	m = halel->dest_index;
+	free(halel);
+	return (m);
 }
 
 void	count_dollare(t_ha	*ha, char *lst)
@@ -59,6 +62,8 @@ void	expanding_function(t_node *lst, t_env *my_env)
 	
 	ha = helper_varia();
 	dap = malloc(sizeof(char) * (count_cmd(lst, my_env) + 1));
+	if(!dap)
+		return (free(ha));
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
@@ -84,12 +89,12 @@ void	expanding_function(t_node *lst, t_env *my_env)
 		}
 	}
 	dap[ha->dest_index] = '\0';
+	free(ha);
 	fill_up_node(dap, lst);
-	// free(ha);
-	// free(dap);
+	free(dap);
 }
 
-void	expand_variables(t_node *lst, t_env *my_env)
+void expand_variables(t_node *lst, t_env *my_env)
 {
 	int	i;
 	int	j;

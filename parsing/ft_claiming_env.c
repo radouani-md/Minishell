@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:12:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 12:36:00 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/21 11:04:37 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	claiming_env(char **env_p, t_env **my_env)
 		if (env_p[i][in_equal] == '=')
 			tmp_value = md_strdup(env_p[i] + in_equal + 1);
 		ft_lstadd_back12(my_env, ft_lstnewt(tmp_key, tmp_value));
+		
 		i++;
 	}
 }

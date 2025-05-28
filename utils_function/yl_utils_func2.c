@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:33:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/17 12:29:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:06:52 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ size_t	ft_strlcpy(char *src, size_t dstsize)
 size_t	md_strlen(char *s)
 {
 	size_t	i;
-
+	if(!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
