@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/26 16:33:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:10:08 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int is_builtin(char *cmd)
 		if (ft_strcmp(cmd, "echo") == 0)
 			return (1);
 		if (ft_strcmp(cmd, "exit") == 0)
+			return (1);
+		if (ft_strcmp(cmd, "unset") == 0)
 			return (1);
 	}
 	return (0);
@@ -83,7 +85,12 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
 	
 	if (ft_strcmp(cmd[0], "export") == 0)
 	{
-	    if (implement_export(*my_env, *nodes) == 0)
+	    if (implement_export(*my_env, *nodes) == 1)
+	        return (1);
+	}
+	if (ft_strcmp(cmd[0], "unset") == 0)
+	{
+	    if (implement_unset(my_env, *nodes) == 1)
 	        return (1);
 	}
 	dup2(saved_fd_in, STDIN_FILENO);

@@ -20,6 +20,12 @@
 
 #endif
 
+typedef struct t_malloc
+{
+	char	*data;
+	struct t_malloc *next;
+}					t_malloc;
+
 typedef struct s_list
 {
 	char            *content;
@@ -81,7 +87,7 @@ typedef struct t_ha
 	struct t_ha *next;
 }				t_ha;
 
-
+int	implement_unset(t_env **my_env, t_node *nodes);
 //
 int	ft_ft1(char *input, int *i, t_handel *handel, int *col);
 int	handel_qoutation1(char *input, int *i, t_handel *handel, int *col);

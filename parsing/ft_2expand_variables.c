@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_2expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 10:39:03 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:07:13 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	fill_up_node(char *dap, t_node *lst)
 	char	*tmp;
 
 	hal = helper_varia();
-	tmp = malloc(200 + 1); //ft_count_env(dap, hal->read_index)
+	tmp = malloc(ft_count_env(dap, hal->read_index) + 1); //ft_count_env(dap, hal->read_index)
 	if(!tmp)
 		return ;
 	if (dap[hal->read_index] == '\0')

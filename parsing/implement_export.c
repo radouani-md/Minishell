@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 16:03:35 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 12:35:33 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 {
 	t_env	*cpy_env;
 	t_env	*cpy_env1;
-	char *fre;
 	int		i;
 
 	nodes = nodes->next;
@@ -63,10 +62,8 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 		cpy_env1 = my_env;
 		while (cpy_env)
 		{
-			fre = ft_cpy_key(i, nodes);
-			if (!ft_strcmp(cpy_env->key, fre))
+			if (!ft_strcmp(cpy_env->key, ft_cpy_key(i, nodes)))
 			{
-				fre = cpy_env->value;
 				cpy_env->value = ft_cpy_value(&i, nodes, cpy_env);
 				break ;
 			}
@@ -109,5 +106,5 @@ int	implement_export(t_env *my_env, t_node *nodes)
 	{
 		add_value_export(my_env, nodes);
 	}
-	return (1);
+	return (0);
 }

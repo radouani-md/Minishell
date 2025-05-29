@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 11:49:01 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:06:55 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void expand_variables(t_node *lst, t_env *my_env)
 	int	i;
 	int	j;
 	int	t;
+	int a;
 
 	j = 0;
 	t = 0;
@@ -115,10 +116,18 @@ void expand_variables(t_node *lst, t_env *my_env)
 			}
 			else if (lst->type == 3)
 			{
-				if(lst->data[0] == '\"' || lst->data[0] == '\'')
-					lst->is_quoted = 1;
-				else
-					lst->is_quoted = 0;
+				a = 0;
+				while(lst->data[a])
+				{
+					if(lst->data[a] == '\"' || lst->data[a] == '\'')
+					{
+						lst->is_quoted = 1;
+						break ;
+					}
+					else
+						lst->is_quoted = 0;
+					a++;
+				}
 			}
 			i++;
 		}
