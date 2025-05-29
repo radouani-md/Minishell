@@ -37,6 +37,7 @@ typedef struct t_node
 {
 	char            *data;
 	int             type;
+	int				is_quoted;
 	char			*tmp_file;
 	struct t_node   *next;
 }                   t_node;

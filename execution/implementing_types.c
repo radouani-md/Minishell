@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/28 17:00:09 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:46:05 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ char	*helper_her_doc2(char *line, t_env *env)
 	return (dollar);
 }
 
-void	expand_hd(char *line, t_node **line_node, t_env *env)
+void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted)
 {
 	ft_lstadd_back1(line_node, ft_lstnew1(line, 0));
-	expanding_function_heredoc(*line_node, env);
+	if (is_quoted == 0)
+		expanding_function_heredoc(*line_node, env);
 }
 
-int helper_her_doc(char *del, int fd, t_env *env)
+int helper_her_doc(char *del, int fd, t_env *env, int is_quoted)
 {
 	char	*line;
 	t_node *line_node;
@@ -83,7 +84,7 @@ int helper_her_doc(char *del, int fd, t_env *env)
 			free(line);
 			break ;
 		}
-		expand_hd(line, &line_node, env);
+		expand_hd(line, &line_node, env, is_quoted);
 		write(fd, line_node->data, md_strlen(line_node->data));
 		write(fd, "\n", 1);
 		free(line_node);
@@ -126,7 +127,7 @@ int	implement_her_doc(t_node *nodes, t_env *env)
 			if (!tmp_name)
 				return (perror("malloc "), 1);
 			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (fd == -1 || helper_her_doc(nodes->data, fd, env) == 1)
+			if (fd == -1 || helper_her_doc(nodes->data, fd, env, nodes->is_quoted) == 1)
 				return (perror("malloc "), 1);
 			nodes->tmp_file = md_strdup(tmp_name);
 		}

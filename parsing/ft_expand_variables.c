@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 16:02:23 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:49:01 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	expanding_function(t_node *lst, t_env *my_env)
 	t_ha	*ha;
 	
 	ha = helper_varia();
-	dap = malloc(sizeof(char) * (100 + 1));//count_cmd(lst, my_env)
+	dap = malloc(sizeof(char) * (200 + 1));//count_cmd(lst, my_env)
 	if(!dap)
 		return ;
 	while (lst->data[ha->read_index])
@@ -112,6 +112,13 @@ void expand_variables(t_node *lst, t_env *my_env)
 			{
 				expanding_function(lst, my_env);
 				break ;
+			}
+			else if (lst->type == 3)
+			{
+				if(lst->data[0] == '\"' || lst->data[0] == '\'')
+					lst->is_quoted = 1;
+				else
+					lst->is_quoted = 0;
 			}
 			i++;
 		}

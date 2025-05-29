@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/27 14:14:41 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 11:51:18 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 	pid_t	id;
 
 	if (implement_her_doc(*nodes, *my_env) == 1)
-		perror("ll");
+		exit(1);
 	groups = split_nodes_by_pipe(*nodes, &num_groups);
 	if (!groups)
 	{
