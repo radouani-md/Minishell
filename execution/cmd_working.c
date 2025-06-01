@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/27 11:18:07 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:42:46 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	**helper_loop(char **cmd, t_node *nodes)
 	return (cmd);
 }
 
-char	**loop_through_node(t_node *nodes, char **cmd, t_env *env)
+char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
 {
 	t_node *head;
 	int 	is_entred;
@@ -123,7 +123,7 @@ char	**loop_through_node(t_node *nodes, char **cmd, t_env *env)
 	{
 		if (head->type == 2)
 		{
-			if (implement_infile(head) == 1)
+			if (implement_infile(head, err) == 1)
 				return (NULL);
 		}
 		if (head->type == 3 && is_entred != 1)
@@ -136,12 +136,12 @@ char	**loop_through_node(t_node *nodes, char **cmd, t_env *env)
 		}
 		if (head->type == 1)
 		{
-			if (implement_outfile(head) == 1)
+			if (implement_outfile(head, err) == 1)
 				return (NULL);
 		}
 		if (head->type == 4)
 		{
-			if (implement_appending(head))
+			if (implement_appending(head, err))
 				return (NULL);
 		}
 		head = head->next;
@@ -152,34 +152,37 @@ char	**loop_through_node(t_node *nodes, char **cmd, t_env *env)
 	return (cmd);
 }
 
-int	loop_through_node_builtin(t_node *nodes, t_env *env)
+int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
 {
 	t_node *head;
-	int 	is_entred;
+	int in_var;
 
 	head = nodes;
-	is_entred = 0;
+	in_var = 0;
 	while (head)
 	{
 		if (head->type == 2)
 		{
-			if (implement_infile(head) == 1)
+			in_var = implement_infile(head, err);
+			if (in_var == 1)
 				return (1);
+			else if (in_var == 3)
+				return (3);
 		}
-		if (head->type == 3 && is_entred != 1)
-		{
-			if (implement_her_doc(head, env) == 1)
-				return (1);
-			is_entred = 1;
-		}
+		// if (head->type == 3 && is_entred != 1)
+		// {
+		// 	if (implement_her_doc(head, env, err) == 1)
+		// 		return (1);
+		// 	is_entred = 1;
+		// }
 		if (head->type == 1)
 		{
-			if (implement_outfile(head) == 1)
+			if (implement_outfile(head, err) == 1)
 				return (1);
 		}
 		if (head->type == 4)
 		{
-			if (implement_appending(head))
+			if (implement_appending(head, err))
 				return (1);
 		}
 		head = head->next;

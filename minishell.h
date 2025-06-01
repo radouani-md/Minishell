@@ -210,9 +210,9 @@ char	*get_next_line(int fd);
 
 char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
-int		loop_through_node_builtin(t_node *nodes, t_env *env);
+int		loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err);
 // char	**loop_through_node(t_node *nodes, char **cmd);
-char	**loop_through_node(t_node *nodes, char **cmd, t_env *env);
+char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err);
 
 char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
@@ -222,13 +222,13 @@ char 	**fetch_path(t_env *my_env);
 void	expanding_function_heredoc(t_node *lst, t_env *my_env);
 int	helper_her(t_node *nodes);
 int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t_err *err);
-int	implement_her_doc(t_node *nodes, t_env *env);
-int	implement_appending(t_node *nodes);
-int	implement_infile(t_node *nodes);
-int	implement_outfile(t_node *nodes);
+int	implement_her_doc(t_node *nodes, t_env *env, t_err *err);
+int	implement_appending(t_node *nodes, t_err *err);
+int	implement_infile(t_node *nodes, t_err *err);
+int	implement_outfile(t_node *nodes, t_err *err);
 
 int 	is_builtin(char *cmd);
-int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes);
+int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err);
 void    implement_env(t_env *env);
 int		implement_pwd(t_env *env);
 int		implement_cd(t_env **env, t_node *nodes);

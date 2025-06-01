@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/30 22:56:17 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 14:35:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void delete_sinqel_dabel_qoutishen(t_node *arg)
 
 int main(int argc, char **argv, char **envp)
 {
-	// static int num_err;
 	t_list *lst;
 	t_node *arg;
 	t_env *my_envp;

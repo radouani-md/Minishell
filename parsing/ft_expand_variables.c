@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/30 22:57:33 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:00:03 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	count_cmd(t_node *lst, t_env *my_env)
 {
 	t_ha	*halel;
-	int		m;
 	
 	halel = helper_varia();
 	while (lst->data[halel->read_index])
@@ -32,10 +31,12 @@ int	count_cmd(t_node *lst, t_env *my_env)
 				numstr_expand_without_quote(lst, my_env, halel);
 		}
 		else
-			halel->read_index = halel->read_index + halel->dest_index++;
+		{
+			halel->read_index++;
+			halel->dest_index++;
+		}
 	}
-	m = halel->dest_index;
-	return (m);
+	return (halel->dest_index);
 }
 
 void	count_dollare(t_ha	*ha, char *lst)

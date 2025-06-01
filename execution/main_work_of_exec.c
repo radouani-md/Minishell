@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/29 11:51:18 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:10:28 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,11 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 	int i = 0;
 	pid_t	id;
 
-	if (implement_her_doc(*nodes, *my_env) == 1)
+	if (implement_her_doc(*nodes, *my_env, err) == 1)
 		exit(1);
 	groups = split_nodes_by_pipe(*nodes, &num_groups);
 	if (!groups)
-	{
-		err->err_status = 1;
 		exit(1);
-	}
 	while (i < num_groups)
 	{
 		cmd2 = loop_through_node_cmd(groups[i]);
@@ -69,7 +66,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 		}
 		if (is_builtin(cmd2[0]) && num_groups == 1)
 		{
-			if (exec_builtin(cmd2, my_env, nodes) == 1)
+			if (exec_builtin(cmd2, my_env, nodes, err) == 1)
 			{
 				err->err_status = 1;
 				exit(1);
@@ -94,7 +91,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 				dup2(pip_fd[1], STDOUT_FILENO);
 			close(pip_fd[1]);
 			close(pip_fd[0]);
-			cmd = loop_through_node(groups[i], NULL, *my_env);
+			cmd = loop_through_node(groups[i], NULL, *my_env, err);
 			if (!cmd)
 			{
 				err->err_status = 1;

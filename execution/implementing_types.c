@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/29 11:46:05 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:00:30 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ int	count_heredoc(t_node *nodes)
 		if (nodes->type == 3)
 			num_heredocs++;
 		if (num_heredocs > 16)
-			return (-1);
+			exit(2);
 		nodes = nodes->next;
 	}
 	return (num_heredocs);
 }
 
-int	implement_her_doc(t_node *nodes, t_env *env)
+int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
 {
 	int fd;
 	char *tmp_name;
@@ -117,8 +117,6 @@ int	implement_her_doc(t_node *nodes, t_env *env)
 
 	tmp_name = NULL;
 	num_heredocs = count_heredoc(nodes);
-	if (num_heredocs == -1)
-		return (3);
 	while (nodes)
 	{
 		if (nodes->type == 3)
@@ -130,13 +128,15 @@ int	implement_her_doc(t_node *nodes, t_env *env)
 			if (fd == -1 || helper_her_doc(nodes->data, fd, env, nodes->is_quoted) == 1)
 				return (perror("malloc "), 1);
 			nodes->tmp_file = md_strdup(tmp_name);
+			if (!nodes->tmp_file)
+				return (perror("malloc "), 1);
 		}
 		nodes = nodes->next;
 	}
 	return (0);
 }
 
-int	implement_appending(t_node *nodes)
+int	implement_appending(t_node *nodes, t_err *err)
 {
 	int	fd;
 
@@ -155,15 +155,15 @@ int	implement_appending(t_node *nodes)
 	return (0);
 }
 
-int	implement_infile(t_node *nodes)
+int	implement_infile(t_node *nodes, t_err *err)
 {
 	int fd;
 
-	if (!*nodes->data)
-		return(printf("minishell: ambiguous redirect\n" ), 1);
+	if (!*nodes->data)		
+		return (printf("minishell: ambiguous redirect\n" ), err->err_status = 1, 3);
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-		   return (perror("fd "), 1);
+		   return (perror("fd "), err->err_status = 1, 3);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		perror("dup2");

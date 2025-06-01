@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/05/29 15:10:08 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 15:43:08 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void safe_free(char **ptr)
 	*ptr = NULL;
 }
 
-int implement_outfile(t_node *nodes)
+int implement_outfile(t_node *nodes, t_err *err)
 {
 	int fd;
 
@@ -51,15 +51,19 @@ int is_builtin(char *cmd)
 	return (0);
 }
 
-int exec_builtin(char **cmd, t_env **my_env, t_node **nodes)
+int exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err)
 {
 	int saved_fd_in;
 	int saved_fd_out;
+	int her;
 
 	saved_fd_in = dup(STDIN_FILENO);
 	saved_fd_out = dup(STDOUT_FILENO);
-	if (loop_through_node_builtin(*nodes, *my_env) == 1)
+	her = loop_through_node_builtin(*nodes, *my_env, err);
+	if (her == 1)
 		return (1);
+	else if (her == 3)
+		return (3);
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		implement_env(*my_env);
