@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_heredoc.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/29 10:14:41 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/30 20:32:15 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	expanding_function_heredoc(t_node *lst, t_env *my_env)
 	t_ha	*ha;
 	
 	ha = helper_varia();
-	dap = malloc(sizeof(char) * (200 + 1));//count_cmd(lst, my_env)
+	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env) + 1), 1);//count_cmd(lst, my_env)
 	if(!dap)
 		return ;
 	while (lst->data[ha->read_index])

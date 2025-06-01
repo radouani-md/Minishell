@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/28 16:30:44 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:03:06 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*md_itoa(int n)
 
 	num = n;
 	len = get_length(n);
-	result = (char *)malloc(len + 1);
+	result = (char *)gc_malloc(len + 1, 1);
 	if (!result)
 		return (NULL);
 	result[len] = '\0';

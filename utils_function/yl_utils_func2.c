@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:33:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 10:54:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:48:53 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_list	*ft_lstnew(char *content)
 {
 	t_list	*new_node;
 
-	new_node = malloc(sizeof(t_list));
+	new_node = gc_malloc(sizeof(t_list), 1);
 	if (!new_node)
-		return (free(content), NULL);
+		return (NULL);
 	new_node->content = content;
 	new_node->next = NULL;
 	return (new_node);

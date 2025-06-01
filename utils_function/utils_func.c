@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/29 11:44:16 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:02:32 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*md_strdup(char *src)
 	i = 0;
 	if (!src)
 		return (NULL);
-	str = malloc(md_strlen(src) + 1);
+	str = gc_malloc(md_strlen(src) + 1, 1);
 	if (!str)
 		return (NULL);
 	while (src[i])
@@ -78,7 +78,7 @@ char	*md_strjoin(char *s1, char *s2)
 	if (!s2)
 		return (md_strdup(s1));
 	lens = md_strlen(s1) + md_strlen(s2);
-	str = (char *)malloc(lens + 1);
+	str = (char *)gc_malloc(lens + 1, 1);
 	if (!str)
 		return (free(s1), NULL);
 	while (s1[j] != '\0')

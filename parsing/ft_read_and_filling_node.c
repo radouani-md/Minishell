@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 18:26:25 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/30 22:59:14 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ft_handel_pipe_direction(char *input, int *i, t_list **lst)
 	n = *i;
 	if ((input[n] == '>' && input[n + 1] == '>')
 		|| (input[n] == '<' && input[n + 1] == '<'))
-		temp = malloc(sizeof(char) * (3));
+		temp = gc_malloc(3, 1);
 	else
-		temp = malloc(sizeof(char) * (2));
+		temp = gc_malloc(2, 1);
 	if (!temp)
 		return (0);
 	a = 0;
@@ -43,7 +43,7 @@ int	ft_handle_double_single(char *input, int *i, t_list **lst)
 	t_handel	*handel;
 
 	handel = helper_variables(*i);
-	handel->temp = malloc(sizeof(char) * (count_string(input, *i, handel) + 1));
+	handel->temp = gc_malloc(count_string(input, *i, handel) + 1, 1); //sizeof(char) * (count_string(input, *i, handel) + 1
 	if (!handel->temp)
 		return (0);
 	handel->a = *i;
@@ -81,9 +81,11 @@ int	ft_ft(char *input, int *i, t_handel *handel)
 int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 {
 	t_handel	*handel;
+	int			m;
 
 	handel = helper_variables(*i);
-	handel->temp = malloc(sizeof(char) * (count_handle_str(input, *i) + 1));
+	m = count_handle_str(input, *i) + 1;
+	handel->temp = gc_malloc(m, 1);
 	if (!handel->temp)
 		return (0);
 	while (input[*i] && (input[*i] != ' ' && input[*i] != '\t')

@@ -85,8 +85,11 @@ typedef struct t_ha
 	int		singl_qoute; //j
 	int		dablla_qoute;// m
 	struct t_ha *next;
-}				t_ha;
+}						t_ha;
 
+
+void	*gc_malloc(size_t size, int nbr);
+//
 int	implement_unset(t_env **my_env, t_node *nodes);
 //
 int	ft_ft1(char *input, int *i, t_handel *handel, int *col);

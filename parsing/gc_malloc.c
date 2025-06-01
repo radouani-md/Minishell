@@ -28,7 +28,7 @@ t_malloc	*ft_lstnew_malloc(void *mlc)
 }
 
 
-char *gc_malloc(size_t size, int nbr)
+void    *gc_malloc(size_t size, int nbr)
 {
     void            *mlc;
     static t_malloc *ptr;

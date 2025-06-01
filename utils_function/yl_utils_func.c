@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:21:49 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/24 16:09:31 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:04:01 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_env	*ft_lstnew_env()
 {
     t_env	*new_node;
 
-	new_node = malloc(sizeof(t_env));
+	new_node = gc_malloc(sizeof(t_env), 1);
 	if (!new_node)
 		return (NULL);
 
@@ -69,7 +69,7 @@ t_env	*ft_lstnewt(char *env_key, char	*env_value)
 {
 	t_env	*ptr;
 
-	ptr = (t_env *) malloc(sizeof(t_env));
+	ptr = (t_env *) gc_malloc(sizeof(t_env), 1);
 	if (!ptr)
 		return (NULL);
 	ptr->value = env_value;

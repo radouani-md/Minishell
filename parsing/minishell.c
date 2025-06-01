@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 11:46:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/30 22:56:17 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int main(int argc, char **argv, char **envp)
 				delete_sinqel_dabel_qoutishen(arg);
 				exec_commands(&arg, &my_envp, err);
 			}
+			// gc_malloc(0,0);
 		}
 	}
 	return (0);

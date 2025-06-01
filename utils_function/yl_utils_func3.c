@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 10:50:16 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/05/30 23:00:55 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ha	*helper_varia()
 {
 	t_ha	*new_node;
 
-	new_node = malloc(sizeof(t_ha));
+	new_node = gc_malloc(sizeof(t_ha), 1);
 	if (!new_node)
 		return (NULL);
 	new_node->dest_index = 0;
@@ -40,7 +40,7 @@ t_handel	*helper_variables(int i)
 {
 	t_handel	*new_node;
 
-	new_node = malloc(sizeof(t_handel));
+	new_node = gc_malloc(sizeof(t_handel), 1);
 	if (!new_node)
 		return (NULL);
 	new_node->t = 0;
@@ -59,18 +59,30 @@ int	ft_Check_key(char c)
 		return (1);
 	else if (c >= 48 && c <= 57)
 		return (1);
-	else if (c == 95)
+	else if (c == 95 || c == ' ')
 		return (1);
 	return(0);
 }
+int key_check(char *str)
+{
+	int i;
 
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] == ' ')
+			return(0);
+		i++;
+	}
+	return(1);
+}
 char	*ft_cpy_key(int i, t_node *nodes)
 {
 	char	*str;
 	int		a;
 
+	str = gc_malloc(count_key(i, nodes) + 1, 1);
 	a = 0;
-	str = malloc(count_key(i, nodes) + 1);
 	if(!str)
 		return (NULL);
 	if(nodes->data[0] >= '0' && nodes->data[0] <= '9')
@@ -83,6 +95,11 @@ char	*ft_cpy_key(int i, t_node *nodes)
 		str[a++] = nodes->data[(i)++];
 	}
 	str[a] = '\0';
+	if(!key_check(str))
+	{
+		printf("export: `%s': not a valid identifier\n", str);
+		exit(1);
+	}
 	return (str);
 }
 char *ft_copy_add_dabel_qoutes(char *str)
@@ -93,7 +110,7 @@ char *ft_copy_add_dabel_qoutes(char *str)
 
 	read_index = 0;
 	dest_index = 0;
-	copy = malloc(md_strlen(str) + 3);
+	copy = gc_malloc(md_strlen(str) + 3, 1);
 	copy[dest_index++] = '\"';
 	while(str[read_index])
 	{
@@ -109,7 +126,7 @@ char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 {
 	char	*str;
 
-	str = malloc(count_value(*i, nodes, my_env) + 2);
+	str = gc_malloc(count_value(*i, nodes, my_env) + 2, 1);
 	if(!str)
 		return (NULL);
 	while(ft_Check_key(nodes->data[*i]))
@@ -117,7 +134,7 @@ char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 	if(nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '+')
 	{
 		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
-		return (free(str), NULL);
+		return (NULL);
 	}
 	if(nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')
 	{

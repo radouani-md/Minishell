@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 16:01:32 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/30 22:58:26 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*env_key(t_ha *ha, char *str)
 			break ;
 		cpy_index++;
 	}
-	src = malloc(sizeof(char) * (len_key + 1));
+	src = gc_malloc(len_key + 1, 1);
 	if (!src)
 		return (NULL);
 	while (ft_Check_after_dollar(str[ha->read_index]))

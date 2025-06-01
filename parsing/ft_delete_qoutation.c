@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_qoutation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:14:54 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 15:05:54 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:57:28 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	delete_qoutation(t_node *arg)
 	while (arg)
 	{
 		ha = helper_varia();
-		str = malloc(sizeof(char) * (ft_count_ec(arg->data) + 1));
+		str = gc_malloc(ft_count_ec(arg->data) + 1, 1);
 		if(!str)
 			return ;
 		while (arg->data[ha->read_index])
@@ -62,8 +62,6 @@ void	delete_qoutation(t_node *arg)
 			ha->read_index++;
 		}
 		str[ha->dest_index] = '\0';
-		// free(arg->data);
-		// free(ha);
 		arg->data = str;
 		arg = arg->next;
 	}

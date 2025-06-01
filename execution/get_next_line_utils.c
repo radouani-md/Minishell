@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:19:10 by mradouan          #+#    #+#             */
-/*   Updated: 2025/04/24 16:09:26 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:58:36 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*md_strtrim(char *s1, char const *set)
 		else
 			break ;
 	}
-	trim_s = (char *)malloc((len_s + 1) * sizeof(char));
+	trim_s = (char *)gc_malloc((len_s + 1) * sizeof(char), 1);
 	if (!trim_s)
 		return (NULL);
 	md_strlcpy(trim_s, (char *)s1, len_s + 1);

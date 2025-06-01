@@ -96,7 +96,6 @@ void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel)
 	}
 	if (src[0] == '?')
 		halel->dest_index = halel->dest_index + ft_strlen_num_err();
-	free(src);
 }
 
 void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel) //halel->dest_index
@@ -126,5 +125,4 @@ void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel) //halel->
 	}
 	if (src[0] == '?')
 		halel->dest_index = halel->dest_index + ft_strlen_num_err();
-	free(src);
 }
