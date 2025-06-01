@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/30 23:00:55 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:12:03 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_cpy_key(int i, t_node *nodes)
 		return (NULL);
 	if(nodes->data[0] >= '0' && nodes->data[0] <= '9')
 	{
-		printf("eroor ft_cpy_key\n"); //free
+		printf("eroor ft_cpy_key\n");
 		exit(1);
 	}
 	while (ft_Check_key(nodes->data[i]))
@@ -118,7 +118,6 @@ char *ft_copy_add_dabel_qoutes(char *str)
 	}
 	copy[dest_index++] = '\"';
 	copy[dest_index] = '\0';
-	free(str);
 	return(copy);
 }
 

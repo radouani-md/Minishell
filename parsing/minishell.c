@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 14:35:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:28:45 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int main(int argc, char **argv, char **envp)
 	input = NULL;
 	my_envp = NULL;
 	err = NULL;
-	err = malloc(sizeof(t_err));
+	err = gc_malloc(sizeof(t_err), 1);
 	err->err_status = 0;
 	setup_signals();
 	while (1)
@@ -115,7 +115,7 @@ int main(int argc, char **argv, char **envp)
 				delete_sinqel_dabel_qoutishen(arg);
 				exec_commands(&arg, &my_envp, err);
 			}
-			// gc_malloc(0,0);
+			gc_malloc(0,0);
 		}
 	}
 	return (0);

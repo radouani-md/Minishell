@@ -49,8 +49,6 @@ void    *gc_malloc(size_t size, int nbr)
         while(ptr)
         {
             tmp = ptr->next;
-            free(ptr->data);
-            free(ptr);
             ptr = tmp;
         }
         mlc = NULL;

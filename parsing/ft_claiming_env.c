@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_claiming_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:12:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/28 10:44:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:20:21 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	claiming_env(char **env_p, t_env **my_env)
 			continue ;
 		}
 		in_equal = ft_strlcpy(env_p[i], md_strlen(env_p[i]));
-		tmp_key = malloc(((in_equal + 1) * sizeof(char)));
+		tmp_key = gc_malloc(((in_equal + 1) * sizeof(char)), 1);
 		filling_tmp(tmp_key, env_p[i], in_equal);
 		tmp_value = NULL;
-		tmp_value = malloc((md_strlen(env_p[i]) - in_equal) + 1);
+		tmp_value = gc_malloc((md_strlen(env_p[i]) - in_equal) + 1, 1);
 		if (env_p[i][in_equal] == '=')
 			tmp_value = md_strdup(env_p[i] + in_equal + 1);
 		ft_lstadd_back12(my_env, ft_lstnewt(tmp_key, tmp_value));

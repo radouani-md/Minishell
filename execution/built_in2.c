@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/28 15:22:14 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:12:10 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	helper_echo(t_env *env, char *nodes_data)
 		env = env->next;
 	}
 	env = head;
-	free(trimmed);
 	return (0);
 }
 
@@ -92,7 +91,5 @@ int	implement_echo(t_env *env, t_node *nodes)
 
 void	implement_exit(t_env **my_env, t_node **nodes)
 {
-	ft_free2(my_env);
-	ft_free1(nodes);
 	exit(0);
 }

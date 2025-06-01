@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/29 20:02:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:11:09 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*md_strjoin(char *s1, char *s2)
 	lens = md_strlen(s1) + md_strlen(s2);
 	str = (char *)gc_malloc(lens + 1, 1);
 	if (!str)
-		return (free(s1), NULL);
+		return (NULL);
 	while (s1[j] != '\0')
 		str[i++] = s1[j++];
 	j = 0;

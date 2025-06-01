@@ -18,7 +18,7 @@ char	*env_key1(t_ha *ha, char *str,int *m)
 			break ;
 		cpy_index++;
 	}
-	src = malloc(sizeof(char) * (len_key + 1));
+	src = gc_malloc(sizeof(char) * (len_key + 1), 1);
 	if (!src)
 		return (NULL);
 	while (ft_Check_after_dollar(str[ha->read_index]))

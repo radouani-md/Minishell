@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delete_qoutation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:14:54 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 15:35:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:10:36 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_count_ec(char *arg)
 		}
 		hax->read_index++;
 	}
-	return (free(hax), m);
+	return (m);
 }
 
 void	delete_qoutation(t_node *arg)

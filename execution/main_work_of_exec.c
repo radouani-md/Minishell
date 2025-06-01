@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_work_of_exec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 15:10:28 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:19:32 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char **load_env(t_env *my_env)
 		i++;
 		tmp = tmp->next;
 	}
-	enverment = malloc(sizeof(char *) * (i + 1));
+	enverment = gc_malloc(sizeof(char *) * (i + 1), 1);
 	if (!enverment)
 		return (perror("malloc "), NULL);
 	i = 0;
@@ -71,7 +71,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 				err->err_status = 1;
 				exit(1);
 			}
-			md_free_char(cmd2);
+			// md_free_char(cmd2);
 			i++;
 			continue ;
 		}
@@ -101,7 +101,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 			if (!cmd_path)
 			{
 				err->err_status = 127;
-				md_free_char(cmd);
+				// md_free_char(cmd);
 				exit(write(2, "mhd: command not found\n", 24));
 			}
 			// WSALT HNA F GERER LES ERRORS
@@ -109,7 +109,7 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 			if (!*cmd)
 				exit(1);
 			execve(cmd_path, cmd, load_env(*my_env));
-			md_free_char(&(*groups)->data);
+			// md_free_char(&(*groups)->data);
 			perror("execeve (cmd2)");
 			exit(1);
 		}

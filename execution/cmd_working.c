@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 15:42:46 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:18:17 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char **each_group_cmd(t_node *nodes)
 		nodes = nodes->next;
 	}
 	full_group_cmd = md_split(tmp, '|');
-	free(tmp);
 	return (full_group_cmd);
 }
 
@@ -63,7 +62,7 @@ t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups)
 
 	i = 0;
 	*num_groups = help_split_node(nodes);
-	groups = malloc((*num_groups + 1) * sizeof(t_node *));
+	groups = gc_malloc((*num_groups + 1) * sizeof(t_node *), 1);
 	if (!groups)
 		return (perror("malloc "), NULL);
 	group = NULL;
@@ -98,7 +97,7 @@ char	**helper_loop(char **cmd, t_node *nodes)
 			num_cmd++;
 		head = head->next;
 	}
-	cmd = malloc(((num_cmd + 1) * sizeof(char *)));
+	cmd = gc_malloc(((num_cmd + 1) * sizeof(char *)), 1);
 	if (!cmd)
 		return (perror("malloc "), NULL);
 	while (nodes)

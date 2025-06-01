@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:00:30 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 16:09:28 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,11 @@ int helper_her_doc(char *del, int fd, t_env *env, int is_quoted)
 		}
 		if (ft_strcmp(line, del) == 0)
 		{
-			free(line);
 			break ;
 		}
 		expand_hd(line, &line_node, env, is_quoted);
 		write(fd, line_node->data, md_strlen(line_node->data));
 		write(fd, "\n", 1);
-		free(line_node);
 	}
 	close(fd);
 	return (0);

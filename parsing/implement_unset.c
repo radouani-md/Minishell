@@ -2,16 +2,10 @@
 
 void delete_node(t_env **env_node)
 {
-    t_env *temp;
-
     if (env_node == NULL || *env_node == NULL)
         return;
 
-    temp = *env_node;
     *env_node = (*env_node)->next;
-    free(temp->key);
-    free(temp->value);
-    free(temp);
 }
 
 int	implement_unset(t_env **my_env, t_node *nodes)
