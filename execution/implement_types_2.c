@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/06/02 10:28:12 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:52:35 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err)
 			return (1);
 	}
 	if (ft_strcmp(cmd[0], "exit") == 0)
-		implement_exit(my_env, nodes);
-	
+	{
+		if (implement_exit(*my_env, *nodes, err) == 1)
+			return (0);
+	}
 	if (ft_strcmp(cmd[0], "export") == 0)
 	{
 	    if (implement_export(*my_env, *nodes) == 1)
