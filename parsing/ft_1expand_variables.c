@@ -6,20 +6,19 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 23:27:44 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:45:22 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_functin_env(char *dap, t_ha *ha)
+void	ft_functin_env(char *dap, t_ha *ha, t_err *err)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
-	// int num_err = 0;
-	str = "0"; // ft_itoa(num_err);
+	str = md_itoa(err->err_status);
 	while (str[i])
 	{
 		dap[(ha->dest_index)++] = str[i++];
@@ -99,7 +98,7 @@ char	*env_key(t_ha *ha, char *str)
 	return (src);
 }
 
-void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
+void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err)
 {
 	int		b;
 	char	*src;
@@ -124,5 +123,5 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 		}
 	}
 	if (ft_strncmp1(src, "?", 1))
-		ft_functin_env(dap, ha);
+		ft_functin_env(dap, ha, err);
 }

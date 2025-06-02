@@ -6,13 +6,13 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 23:00:58 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:45:11 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	count_cmd(t_node *lst, t_env *my_env)
+int	count_cmd(t_node *lst, t_env *my_env, t_err *err)
 {
 	t_ha	*halel;
 
@@ -28,9 +28,9 @@ int	count_cmd(t_node *lst, t_env *my_env)
 		if (ft_Check_dollar(lst, halel))
 		{
 			if (halel->dablla_qoute % 2 == 1)
-				numstr_expand_with_quote(lst, my_env, halel);
+				numstr_expand_with_quote(lst, my_env, halel, err);
 			else
-				numstr_expand_without_quote(lst, my_env, halel);
+				numstr_expand_without_quote(lst, my_env, halel, err);
 		}
 		else
 		{
@@ -69,18 +69,18 @@ void	handle_dollar_quote_case(t_node *lst, t_ha *ha, char *dap)
 		dap[ha->dest_index++] = lst->data[ha->read_index++];
 }
 
-void	expanding_function(t_node *lst, t_env *my_env)
+void	expanding_function(t_node *lst, t_env *my_env, t_err *err)
 {
 	char	*dap;
 	t_ha	*ha;
 
 	ha = helper_varia();
-	dap = gc_malloc(count_cmd(lst, my_env) + 1, 1);
+	dap = gc_malloc(count_cmd(lst, my_env, err) + 1, 1);
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
 		if (ft_Check_dollar(lst, ha))
-			copy_env_value(lst, my_env, dap, ha);
+			copy_env_value(lst, my_env, dap, ha, err);
 		else
 		{
 			if (lst->data[ha->read_index] == '$'
@@ -116,7 +116,7 @@ void	is_quoted(t_node *lst)
 	}
 }
 
-void	expand_variables(t_node *lst, t_env *my_env)
+void	expand_variables(t_node *lst, t_env *my_env, t_err *err)
 {
 	t_ha	*ha;
 
@@ -130,7 +130,7 @@ void	expand_variables(t_node *lst, t_env *my_env)
 			if (lst->data[ha->read_index] == '$'
 				&& (ha->singl_qoute % 2 == 0) && lst->type != 3)
 			{
-				expanding_function(lst, my_env);
+				expanding_function(lst, my_env, err);
 				break ;
 			}
 			else if (lst->type == 3)

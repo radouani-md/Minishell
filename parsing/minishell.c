@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 21:59:41 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:14:56 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		arg = typed_nodes(lst);
 		if (!my_envp)
 			claiming_env(envp, &my_envp);
-		expand_variables(arg, my_envp);
+		expand_variables(arg, my_envp, err);
 		delete_qoutation(arg);
 		delete_sinqel_dabel_qoutishen(arg);
 		exec_commands(&arg, &my_envp, err);
