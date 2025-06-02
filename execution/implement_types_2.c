@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/06/01 16:12:22 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:28:12 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int implement_outfile(t_node *nodes, t_err *err)
 
 	fd = open(nodes->data, O_RDONLY);
 	if (fd == -1)
-		return (perror("fd "), 1);
+		return (perror("fd "), err->err_status = 1, 3);
 	return (0);
 }
 
@@ -66,12 +66,18 @@ int exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err)
 		return (3);
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
-		implement_env(*my_env);
+		if (!cmd[1])
+			implement_env(*my_env);
+		else
+		{
+			printf("env: ‘%s’: No such file or directory\n", cmd[1]);
+			err->err_status = 127;
+		}
 		return (0);
 	}				
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
-		if (implement_cd(my_env, *nodes) == 1)
+		if (implement_cd(my_env, *nodes, err) == 1)
 			return (1);
 	}
 	if (ft_strcmp(cmd[0], "pwd") == 0)

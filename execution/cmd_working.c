@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:18:17 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:14:21 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,13 @@ int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
 {
 	t_node *head;
 	int in_var;
+	int	out_var;
+	int append_var;
 
 	head = nodes;
 	in_var = 0;
+	out_var = 0;
+	append_var = 0;
 	while (head)
 	{
 		if (head->type == 2)
@@ -168,21 +172,21 @@ int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
 			else if (in_var == 3)
 				return (3);
 		}
-		// if (head->type == 3 && is_entred != 1)
-		// {
-		// 	if (implement_her_doc(head, env, err) == 1)
-		// 		return (1);
-		// 	is_entred = 1;
-		// }
 		if (head->type == 1)
 		{
-			if (implement_outfile(head, err) == 1)
+			out_var = implement_outfile(head, err);
+			if (out_var == 1)
 				return (1);
+			else
+				return (3);
 		}
 		if (head->type == 4)
 		{
-			if (implement_appending(head, err))
+			append_var = implement_appending(head, err);
+			if (append_var == 1)
 				return (1);
+			else if (append_var == 3)
+				return (3);
 		}
 		head = head->next;
 	}

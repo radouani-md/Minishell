@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_work_of_exec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:19:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 10:31:23 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,28 @@ int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t
 	pid_t	id;
 
 	if (implement_her_doc(*nodes, *my_env, err) == 1)
+	{
+		gc_malloc(0, 0);
 		exit(1);
+	}
 	groups = split_nodes_by_pipe(*nodes, &num_groups);
 	if (!groups)
+	{
+		gc_malloc(0, 0);
 		exit(1);
+	}
 	while (i < num_groups)
 	{
 		cmd2 = loop_through_node_cmd(groups[i]);
 		if (!cmd2)
 		{
-			err->err_status = 1;
+			gc_malloc(0, 0);
 			exit(1);
 		}
 		if (is_builtin(cmd2[0]) && num_groups == 1)
 		{
 			if (exec_builtin(cmd2, my_env, nodes, err) == 1)
-			{
-				err->err_status = 1;
 				exit(1);
-			}
 			// md_free_char(cmd2);
 			i++;
 			continue ;
