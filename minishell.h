@@ -117,14 +117,14 @@ t_node	*typed_nodes(t_list *lst);
 void	claiming_env(char **env_p, t_env **my_env);
 void	filling_tmp(char *key, char *env, int size);
 
-void	expand_variables(t_node *lst, t_env *my_env);
-void	expanding_function(t_node *lst, t_env *my_env);
+void	expand_variables(t_node *lst, t_env *my_env, t_err *err);
+void	expanding_function(t_node *lst, t_env *my_env, t_err *err);
 void	count_dollare(t_ha	*ha, char *lst);
-int		count_cmd(t_node *lst, t_env *my_env);
-void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha);
+int		count_cmd(t_node *lst, t_env *my_env, t_err *err);
+void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err);
 char	*env_key(t_ha *ha, char *str);
 void	copy_to_dap(char *dap, char *str, t_ha *ha);
-void 	ft_functin_env(char *dap, t_ha *ha);
+void 	ft_functin_env(char *dap, t_ha *ha, t_err *err);
 void	fill_up_node(char *dap, t_node *lst);
 int 	ft_count_env(char *dap, int read_index);
 
@@ -140,12 +140,12 @@ int count_value(int i, t_node *nodes, t_env *my_env);
 int count_key(int i, t_node *nodes);
 
 //utils_function
-void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel);
-void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel);
+void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
+void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
 int	ft_Check_dollar(t_node *lst, t_ha *ha);
 int	ft_Check_after_dollar(char c);
 void	len_env_value(char *str, t_ha *halel);
-int ft_strlen_num_err(void);
+int ft_strlen_num_err(t_err *err);
 
 char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char	*ft_cpy_key(int i, t_node *nodes);
@@ -219,7 +219,7 @@ char 	*is_accessable(char **path, char *cmd);
 
 char 	**fetch_path(t_env *my_env);
 
-void	expanding_function_heredoc(t_node *lst, t_env *my_env);
+void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err);
 int	helper_her(t_node *nodes);
 int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t_err *err);
 int	implement_her_doc(t_node *nodes, t_env *env, t_err *err);
@@ -231,8 +231,8 @@ int 	is_builtin(char *cmd);
 int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err);
 void    implement_env(t_env *env);
 int		implement_pwd(t_env *env);
-int		implement_cd(t_env **env, t_node *nodes);
+int		implement_cd(t_env **env, t_node *nodes, t_err *err);
 int		implement_echo(t_env *env, t_node *nodes);
-void	implement_exit(t_env **my_env, t_node **nodes);
+int		implement_exit(t_env *my_env, t_node *nodes, t_err *err);
 
 #endif

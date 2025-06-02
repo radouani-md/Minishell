@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:57:48 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:33:19 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ char	*helper_her_doc2(char *line, t_env *env)
 	return (dollar);
 }
 
-void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted)
+void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted, t_err *err)
 {
 	ft_lstadd_back1(line_node, ft_lstnew1(line, 0));
 	if (is_quoted == 0)
-		expanding_function_heredoc(*line_node, env);
+		expanding_function_heredoc(*line_node, env, err);
 }
 
-int helper_her_doc(char *del, int fd, t_env *env, int is_quoted)
+int helper_her_doc(char *del, int fd, t_env *env, int is_quoted, t_err *err)
 {
 	char	*line;
 	t_node *line_node;
@@ -83,7 +83,7 @@ int helper_her_doc(char *del, int fd, t_env *env, int is_quoted)
 		{
 			break ;
 		}
-		expand_hd(line, &line_node, env, is_quoted);
+		expand_hd(line, &line_node, env, is_quoted, err);
 		write(fd, line_node->data, md_strlen(line_node->data));
 		write(fd, "\n", 1);
 	}
@@ -123,7 +123,7 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
 			if (!tmp_name)
 				return (perror("malloc "), 1);
 			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (fd == -1 || helper_her_doc(nodes->data, fd, env, nodes->is_quoted) == 1)
+			if (fd == -1 || helper_her_doc(nodes->data, fd, env, nodes->is_quoted, err) == 1)
 				return (perror("malloc "), 1);
 			nodes->tmp_file = md_strdup(tmp_name);
 			if (!nodes->tmp_file)

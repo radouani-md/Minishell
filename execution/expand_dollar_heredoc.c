@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/05/30 20:32:15 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:46:02 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	copy_to_dap_heredoc(char *dap, char *str, t_ha *ha)
 	}
 }
 
-void	copy_env_value_heredoc(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
+void	copy_env_value_heredoc(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err)
 {
 	int		b;
 	char	*src;
@@ -48,7 +48,7 @@ void	copy_env_value_heredoc(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 		}
 	}
 	if (ft_strncmp1(src, "?", 1))
-		ft_functin_env(dap, ha);
+		ft_functin_env(dap, ha, err);
 }
 
 int	check_dollar_heredoc(t_node *lst, t_ha *ha)
@@ -67,19 +67,19 @@ int	check_dollar_heredoc(t_node *lst, t_ha *ha)
 	return (0);
 }
 
-void	expanding_function_heredoc(t_node *lst, t_env *my_env)
+void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err)
 {
 	char	*dap;
 	t_ha	*ha;
 	
 	ha = helper_varia();
-	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env) + 1), 1);//count_cmd(lst, my_env)
+	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env, err) + 1), 1);//count_cmd(lst, my_env)
 	if(!dap)
 		return ;
 	while (lst->data[ha->read_index])
 	{
 		if (check_dollar_heredoc(lst, ha))
-			copy_env_value_heredoc(lst, my_env, dap, ha);
+			copy_env_value_heredoc(lst, my_env, dap, ha, err);
 		else
 		{
 			if (lst->data[ha->read_index] == '$' && lst->data[ha->read_index + 1] == '$')
