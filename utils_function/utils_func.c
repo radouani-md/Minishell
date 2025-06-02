@@ -6,10 +6,9 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:11:09 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:54:08 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -60,7 +59,6 @@ char	*md_strdup(char *src)
 	str[i] = '\0';
 	return (str);
 }
-
 
 char	*md_strjoin(char *s1, char *s2)
 {

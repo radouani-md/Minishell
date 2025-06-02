@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/30 22:58:37 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:18:37 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,21 @@ int	ft_count_env(char *dap, int read_index)
 	}
 	return (read_index);
 }
-int ft_tchek_q(char *tmp)
+
+int	ft_tchek_q(char *tmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(tmp[i])
+	while (tmp[i])
 	{
-		if(tmp[i] == '\"' || tmp[i] == '\'')
+		if (tmp[i] == '\"' || tmp[i] == '\'')
 			return (1);
 		i++;
 	}
 	return (0);
 }
+
 void	fill_up_node(char *dap, t_node *lst)
 {
 	t_node	*lst1;
@@ -53,9 +55,7 @@ void	fill_up_node(char *dap, t_node *lst)
 	char	*tmp;
 
 	hal = helper_varia();
-	tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1); //ft_count_env(dap, hal->read_index)
-	if(!tmp)
-		return ;
+	tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
 	if (dap[hal->read_index] == '\0')
 		lst->data = dap;
 	while (dap[hal->read_index])
@@ -63,9 +63,11 @@ void	fill_up_node(char *dap, t_node *lst)
 		conut_dabel_singel_qoutition(dap[hal->read_index], hal);
 		if (hal->read_index == 0 && dap[hal->read_index] == ' ')
 			hal->read_index++;
-		if ((hal->dablla_qoute % 2 == 1 || hal->singl_qoute % 2 == 1) || (dap[hal->read_index] != ' ' && dap[hal->read_index]))
+		if ((hal->dablla_qoute % 2 == 1 || hal->singl_qoute % 2 == 1)
+			|| (dap[hal->read_index] != ' ' && dap[hal->read_index]))
 			tmp[hal->dest_index++] = dap[hal->read_index++];
-		if (hal->dablla_qoute % 2 == 0 && hal->singl_qoute % 2 == 0 && (dap[hal->read_index] == ' ' || dap[hal->read_index] == '\0'))
+		if (hal->dablla_qoute % 2 == 0 && hal->singl_qoute % 2 == 0
+			&& (dap[hal->read_index] == ' ' || dap[hal->read_index] == '\0'))
 		{
 			tmp[hal->dest_index] = '\0';
 			lst->data = md_strdup(tmp);
@@ -80,8 +82,6 @@ void	fill_up_node(char *dap, t_node *lst)
 				lst->next->next = lst1;
 				lst = lst->next;
 				tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
-				if(!tmp)
-					return ;
 				hal->dest_index = 0;
 			}
 		}

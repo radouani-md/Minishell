@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:06:26 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:22:07 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:53:47 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	count_word(char const *s, char c)
 {
 	size_t	i;
-	int	count;
+	int		count;
 
 	i = 0;
 	count = 0;
@@ -44,7 +44,6 @@ size_t	copystr(char *dest, const char *src, size_t index, char c)
 	dest[i] = '\0';
 	return (index);
 }
-
 
 char	**put_in(char **ptr, const char *s, char c, size_t count)
 {
@@ -76,14 +75,14 @@ char	**put_in(char **ptr, const char *s, char c, size_t count)
 char	**md_split(char const *s, char c)
 {
 	char	**ptr;
-	int	count;
+	int		count;
 
 	if (!s)
 		return (NULL);
 	count = count_word(s, c);
 	ptr = gc_malloc((count + 1) * sizeof(char *), 1);
 	if (!ptr)
-	return (NULL);
+		return (NULL);
 	ptr = put_in(ptr, s, c, count);
 	return (ptr);
 }

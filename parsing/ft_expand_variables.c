@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 16:00:03 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:00:58 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 int	count_cmd(t_node *lst, t_env *my_env)
 {
 	t_ha	*halel;
-	
+
 	halel = helper_varia();
 	while (lst->data[halel->read_index])
 	{
-		if (lst->data[halel->read_index] == '\'' && halel->dablla_qoute % 2 == 0)
+		if (lst->data[halel->read_index] == '\''
+			&& halel->dablla_qoute % 2 == 0)
 			halel->singl_qoute++;
-		else if (lst->data[halel->read_index] == '\"' && halel->singl_qoute % 2 == 0)
+		else if (lst->data[halel->read_index] == '\"'
+			&& halel->singl_qoute % 2 == 0)
 			halel->dablla_qoute++;
 		if (ft_Check_dollar(lst, halel))
 		{
@@ -55,15 +57,25 @@ void	count_dollare(t_ha	*ha, char *lst)
 	}
 }
 
+void	handle_dollar_quote_case(t_node *lst, t_ha *ha, char *dap)
+{
+	if (lst->data[ha->read_index + 1] == '\'' && ha->dablla_qoute % 2 == 0)
+		ha->quote_count = ha->singl_qoute + 1;
+	else if (lst->data[ha->read_index + 1] == '\"' && ha->singl_qoute % 2 == 0)
+		ha->quote_count = ha->dablla_qoute + 1;
+	if (ha->quote_count % 2 == 1)
+		ha->read_index++;
+	else
+		dap[ha->dest_index++] = lst->data[ha->read_index++];
+}
+
 void	expanding_function(t_node *lst, t_env *my_env)
 {
 	char	*dap;
 	t_ha	*ha;
-	
+
 	ha = helper_varia();
-	dap = gc_malloc(count_cmd(lst, my_env) + 1, 1); //count_cmd(lst, my_env)
-	if(!dap)
-		return ;
+	dap = gc_malloc(count_cmd(lst, my_env) + 1, 1);
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
@@ -71,19 +83,13 @@ void	expanding_function(t_node *lst, t_env *my_env)
 			copy_env_value(lst, my_env, dap, ha);
 		else
 		{
-			if (lst->data[ha->read_index] == '$' && lst->data[ha->read_index + 1] == '$')
+			if (lst->data[ha->read_index] == '$'
+				&& lst->data[ha->read_index + 1] == '$')
 				count_dollare(ha, lst->data);
-			else if (lst->data[ha->read_index] == '$' && (lst->data[ha->read_index + 1] == '\"' || lst->data[ha->read_index + 1] == '\''))
-			{
-				if (lst->data[ha->read_index + 1] == '\'' && ha->dablla_qoute % 2 == 0)
-					ha->quote_count = ha->singl_qoute + 1;
-				else if (lst->data[ha->read_index + 1] == '\"' && ha->singl_qoute % 2 == 0)
-					ha->quote_count = ha->dablla_qoute + 1;
-				if (ha->quote_count % 2 == 1)
-					ha->read_index++;
-				else
-					dap[ha->dest_index++] = lst->data[ha->read_index++];
-			}
+			else if (lst->data[ha->read_index] == '$'
+				&& (lst->data[ha->read_index + 1] == '\"'
+					|| lst->data[ha->read_index + 1] == '\''))
+				handle_dollar_quote_case(lst, ha, dap);
 			else
 				dap[ha->dest_index++] = lst->data[ha->read_index++];
 		}
@@ -92,45 +98,46 @@ void	expanding_function(t_node *lst, t_env *my_env)
 	fill_up_node(dap, lst);
 }
 
-void expand_variables(t_node *lst, t_env *my_env)
+void	is_quoted(t_node *lst)
 {
-	int	i;
-	int	j;
-	int	t;
-	int a;
+	int	a;
 
-	j = 0;
-	t = 0;
+	a = 0;
+	while (lst->data[a])
+	{
+		if (lst->data[a] == '\"' || lst->data[a] == '\'')
+		{
+			lst->is_quoted = 1;
+			break ;
+		}
+		else
+			lst->is_quoted = 0;
+		a++;
+	}
+}
+
+void	expand_variables(t_node *lst, t_env *my_env)
+{
+	t_ha	*ha;
+
+	ha = helper_varia();
 	while (lst)
 	{
-		i = 0;
-		while (lst->data[i])
+		ha->read_index = 0;
+		while (lst->data[ha->read_index])
 		{
-			if (lst->data[i] == '\'' && t % 2 == 0)
-				j++;
-			else if (lst->data[i] == '\"' && j % 2 == 0)
-				t++;
-			if (lst->data[i] == '$' && (j % 2 == 0) && lst->type != 3)
+			conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
+			if (lst->data[ha->read_index] == '$'
+				&& (ha->singl_qoute % 2 == 0) && lst->type != 3)
 			{
 				expanding_function(lst, my_env);
 				break ;
 			}
 			else if (lst->type == 3)
 			{
-				a = 0;
-				while(lst->data[a])
-				{
-					if(lst->data[a] == '\"' || lst->data[a] == '\'')
-					{
-						lst->is_quoted = 1;
-						break ;
-					}
-					else
-						lst->is_quoted = 0;
-					a++;
-				}
+				is_quoted(lst);
 			}
-			i++;
+			ha->read_index++;
 		}
 		lst = lst->next;
 	}

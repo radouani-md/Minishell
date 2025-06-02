@@ -6,40 +6,11 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 16:13:26 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:52:54 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// void	md_free(int **num)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (num[i])
-// 		free(num[i++]);
-// 	free(num);
-// }
-
-// void print_node(t_env *my_env)
-// {
-// 	while (my_env)
-// 	{
-// 		printf("%s = %s\n", my_env->key, my_env->value);
-// 		my_env = my_env->next;
-// 	}
-// }
-// void print_node2(t_list *my_env)
-// {
-// 	while (my_env)
-// 	{
-// 		printf("%s -> [%d]\n", my_env->data, my_env->type);
-// 		my_env = my_env->next;
-// 	}
-// }
-
-// ______________________________________________________
 
 char	*ft_strcat(char *dest, char *src)
 {
@@ -59,7 +30,7 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-int	get_length(int n)//static
+int	get_length(int n)
 {
 	int	len;
 
@@ -101,13 +72,14 @@ char	*md_itoa(int n)
 	return (result);
 }
 
-char	*random_num()
+char	*random_num(void)
 {
-	char 		*tmp;
-	static int 	i = 1;
+	char		*tmp;
+	static int	i;
 	char		*num_str;
 	char		*new_str;
 
+	i = 1;
 	tmp = md_strdup("/tmp/.tmp_");
 	if (!tmp)
 		return (NULL);
@@ -116,4 +88,3 @@ char	*random_num()
 	i++;
 	return (new_str);
 }
-

@@ -6,24 +6,25 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:21:49 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 20:04:01 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:48:21 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *yl_strcpy(char *dest, const char *src)
+char	*yl_strcpy(char *dest, const char *src)
 {
-    int i = 0;
-    while (src[i])
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    dest[i] = '\0';
-    return dest;
-}
+	int	i;
 
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 size_t	yl_strlen(char *s, int *i)
 {
@@ -38,18 +39,18 @@ size_t	yl_strlen(char *s, int *i)
 	return (a);
 }
 
-t_env	*ft_lstnew_env()
+t_env	*ft_lstnew_env(void)
 {
-    t_env	*new_node;
+	t_env	*new_node;
 
 	new_node = gc_malloc(sizeof(t_env), 1);
 	if (!new_node)
 		return (NULL);
-
 	new_node->type = 1;
-    new_node->next = NULL;
-    return (new_node);
+	new_node->next = NULL;
+	return (new_node);
 }
+
 void	ft_lstadd_back_env(t_env **lst, t_env *new_node)
 {
 	t_env	*temp;

@@ -6,13 +6,13 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 16:12:03 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:44:18 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void conut_dabel_singel_qoutition(char c, t_ha	*ha)
+void	conut_dabel_singel_qoutition(char c, t_ha	*ha)
 {
 	if (c == '\'' && ha->dablla_qoute % 2 == 0)
 		(ha->singl_qoute)++;
@@ -20,13 +20,11 @@ void conut_dabel_singel_qoutition(char c, t_ha	*ha)
 		(ha->dablla_qoute)++;
 }
 
-t_ha	*helper_varia()
+t_ha	*helper_varia(void)
 {
 	t_ha	*new_node;
 
 	new_node = gc_malloc(sizeof(t_ha), 1);
-	if (!new_node)
-		return (NULL);
 	new_node->dest_index = 0;
 	new_node->read_index = 0;
 	new_node->quote_count = 0;
@@ -36,13 +34,11 @@ t_ha	*helper_varia()
 	return (new_node);
 }
 
-t_handel	*helper_variables(int i)
+t_handel	*helper_variables(void)
 {
 	t_handel	*new_node;
 
 	new_node = gc_malloc(sizeof(t_handel), 1);
-	if (!new_node)
-		return (NULL);
 	new_node->t = 0;
 	new_node->a = 0;
 	new_node->q = 1;
@@ -51,7 +47,7 @@ t_handel	*helper_variables(int i)
 	return (new_node);
 }
 
-int	ft_Check_key(char c)
+int ft_Check_key(char c)
 {
 	if (c >= 97 && c <= 122)
 		return (1);
@@ -61,33 +57,34 @@ int	ft_Check_key(char c)
 		return (1);
 	else if (c == 95 || c == ' ')
 		return (1);
-	return(0);
+	return (0);
 }
-int key_check(char *str)
+
+int	key_check(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == ' ')
-			return(0);
+		if (str[i] == ' ')
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
+
 char	*ft_cpy_key(int i, t_node *nodes)
 {
 	char	*str;
 	int		a;
 
-	str = gc_malloc(count_key(i, nodes) + 1, 1);
 	a = 0;
-	if(!str)
-		return (NULL);
-	if(nodes->data[0] >= '0' && nodes->data[0] <= '9')
+	str = gc_malloc(count_key(i, nodes) + 1, 1);
+	if (nodes->data[0] >= '0' && nodes->data[0] <= '9')
 	{
 		printf("eroor ft_cpy_key\n");
+		gc_malloc(0, 0);
 		exit(1);
 	}
 	while (ft_Check_key(nodes->data[i]))
@@ -95,14 +92,16 @@ char	*ft_cpy_key(int i, t_node *nodes)
 		str[a++] = nodes->data[(i)++];
 	}
 	str[a] = '\0';
-	if(!key_check(str))
+	if (!key_check(str))
 	{
 		printf("export: `%s': not a valid identifier\n", str);
+		gc_malloc(0, 0);
 		exit(1);
 	}
 	return (str);
 }
-char *ft_copy_add_dabel_qoutes(char *str)
+
+char	*ft_copy_add_dabel_qoutes(char *str)
 {
 	char	*copy;
 	int		read_index;
@@ -112,37 +111,35 @@ char *ft_copy_add_dabel_qoutes(char *str)
 	dest_index = 0;
 	copy = gc_malloc(md_strlen(str) + 3, 1);
 	copy[dest_index++] = '\"';
-	while(str[read_index])
+	while (str[read_index])
 	{
 		copy[dest_index++] = str[read_index++];
 	}
 	copy[dest_index++] = '\"';
 	copy[dest_index] = '\0';
-	return(copy);
+	return (copy);
 }
 
-char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
+char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 {
 	char	*str;
 
 	str = gc_malloc(count_value(*i, nodes, my_env) + 2, 1);
-	if(!str)
-		return (NULL);
-	while(ft_Check_key(nodes->data[*i]))
+	while (ft_Check_key(nodes->data[*i]))
 		(*i)++;
-	if(nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '+')
+	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '+')
 	{
 		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
 		return (NULL);
 	}
-	if(nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')
+	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')
 	{
 		*i = *i + 2;
 		my_env->type = 1;
 		str = md_strjoin(my_env->value, nodes->data + (*i));
 		yl_strlen(nodes->data, i);
 	}
-	else if(nodes->data[*i] == '=')
+	else if (nodes->data[*i] == '=')
 	{
 		(*i)++;
 		my_env->type = 1;

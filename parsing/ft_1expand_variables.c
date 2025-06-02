@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/30 22:58:26 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:27:44 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ void	ft_functin_env(char *dap, t_ha *ha)
 	i = 0;
 	// int num_err = 0;
 	str = "0"; // ft_itoa(num_err);
-	while(str[i])
+	while (str[i])
 	{
 		dap[(ha->dest_index)++] = str[i++];
 	}
 }
-void store_dap(char *dap, char *str, t_ha *ha, int *i)
+
+void	store_dap(char *dap, char *str, t_ha *ha, int *i)
 {
-	if(str[*i] == '\"')
+	if (str[*i] == '\"')
 	{
 		dap[(ha->dest_index)++] = 14;
 		(*i)++;
 	}
-	else if(str[*i] == '\'')
+	else if (str[*i] == '\'')
 	{
 		dap[(ha->dest_index)++] = 15;
 		(*i)++;
@@ -60,8 +61,6 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha)
 					dap[(ha->dest_index)++] = str[i - 1];
 				store_dap(dap, str, ha, &i);
 			}
-			// if (str[i] == '\"')
-			// 	m++;
 		}
 		else
 		{
@@ -83,18 +82,16 @@ char	*env_key(t_ha *ha, char *str)
 	while (ft_Check_after_dollar(str[cpy_index]))
 	{
 		len_key++;
-		if (str[cpy_index - 1] == '$' && ((str[cpy_index] >= 48 && str[cpy_index] <= 57)
-				|| str[cpy_index] == '?'))
+		if (str[cpy_index - 1] == '$' && ((str[cpy_index] >= 48
+				&& str[cpy_index] <= 57) || str[cpy_index] == '?'))
 			break ;
 		cpy_index++;
 	}
 	src = gc_malloc(len_key + 1, 1);
-	if (!src)
-		return (NULL);
 	while (ft_Check_after_dollar(str[ha->read_index]))
 	{
 		src[dest_index++] = str[(ha->read_index)++];
-		if(((str[ha->read_index - 1] >= 48 && str[ha->read_index - 1] <= 57)
+		if (((str[ha->read_index - 1] >= 48 && str[ha->read_index - 1] <= 57)
 			|| str[ha->read_index - 1] == '?') && str[ha->read_index - 2] == '$')
 			break ;
 	}

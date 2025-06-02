@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:23:30 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/27 14:51:00 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:23:34 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	count_string(char *input, int i, t_handel *handel)
 			(quote_count)++;
 		if (input[handel->a] == '\'' && input[i] == '\'')
 			(q)++;
-		if ((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')) || (q % 2 == 1 && input[handel->a] == '\''
-				&& (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
+		if ((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' '  || input[i + 1] == '\t' || input[i + 1] == '\0'))
+			|| (q % 2 == 1 && input[handel->a] == '\'' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
 		{
 			n++;
 			break ;
@@ -39,7 +39,7 @@ int	count_string(char *input, int i, t_handel *handel)
 	return (n);
 }
 
-int	handel_qoutation(char *input, int *i, t_handel *handel)
+void	handel_qoutation(char *input, int *i, t_handel *handel)
 {
 	if (input[handel->a] == '\"' && input[*i] == '\"')
 		(handel->quote_count)++;
@@ -48,7 +48,8 @@ int	handel_qoutation(char *input, int *i, t_handel *handel)
 	while ((handel->quote_count % 2 == 0 && input[handel->a] == '\"')
 		|| (handel->q % 2 == 0 && input[handel->a] == '\''))
 	{
-		if(*i != handel->a && ((input[*i] == '\"' && input[handel->a] == '\"') || (input[*i] == '\'' && input[handel->a] == '\'')))
+		if (*i != handel->a && ((input[*i] == '\"' && input[handel->a] == '\"')
+				|| (input[*i] == '\'' && input[handel->a] == '\'')))
 		{
 			break ;
 		}
@@ -56,10 +57,10 @@ int	handel_qoutation(char *input, int *i, t_handel *handel)
 		if (!input[*i]) // break; دشي علاش مع توصل \0 دير "ls d""skfjfe حيت هدي تبقى تقرى لا م نهاية فية حالة كان
 		{
 			printf("eroor\n");
-			return (0);
+			gc_malloc(0,0);
+			exit(1);
 		}
 	}
-	return (1);
 }
 
 void	handle_multiple_quotes(char *input, int *i, t_handel *handel)

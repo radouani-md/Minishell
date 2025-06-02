@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   yl_utils_func4.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/01 21:36:35 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/06/01 21:36:36 by ylagzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	len_env_value(char *str, t_ha *halel)
@@ -12,18 +24,18 @@ void	len_env_value(char *str, t_ha *halel)
 	}
 }
 
-int ft_strlen_num_err(void)
+int	ft_strlen_num_err(void)
 {
-    int i;
-    int num_err;
-    char *str;
+	int		i;
+	int		num_err;
+	char	*str;
 
-    i = 0;
-    num_err = 127;
-    str = md_itoa(num_err);
-    while(str[i])
-        i++;
-    return(i);
+	i = 0;
+	num_err = 127;
+	str = md_itoa(num_err);
+	while (str[i])
+		i++;
+	return (i);
 }
 
 void	len_env_value_without_space(char *str, t_ha *halel)
@@ -57,13 +69,17 @@ int	ft_Check_dollar(t_node *lst, t_ha *ha)
 {
 	if (lst->data[ha->read_index] == '$' && ha->singl_qoute % 2 == 0)
 	{
-		if (lst->data[ha->read_index + 1] >= 97 && lst->data[ha->read_index + 1] <= 122)
+		if (lst->data[ha->read_index + 1] >= 97
+			&& lst->data[ha->read_index + 1] <= 122)
 			return (1);
-		else if (lst->data[ha->read_index + 1] >= 65 && lst->data[ha->read_index + 1] <= 90)
+		else if (lst->data[ha->read_index + 1] >= 65
+			&& lst->data[ha->read_index + 1] <= 90)
 			return (1);
-		else if (lst->data[ha->read_index + 1] >= 48 && lst->data[ha->read_index + 1] <= 57)
+		else if (lst->data[ha->read_index + 1] >= 48
+			&& lst->data[ha->read_index + 1] <= 57)
 			return (1);
-		else if (lst->data[ha->read_index + 1] == 95 || lst->data[ha->read_index + 1] == '?')
+		else if (lst->data[ha->read_index + 1] == 95
+			|| lst->data[ha->read_index + 1] == '?')
 			return (1);
 	}
 	return (0);
@@ -98,12 +114,12 @@ void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel)
 		halel->dest_index = halel->dest_index + ft_strlen_num_err();
 }
 
-void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel) //halel->dest_index
+void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel)
 {
 	int		b;
 	char	*src;
 
-	(halel->read_index)++;
+	halel->read_index++;
 	if (ft_Check_after_dollar(lst->data[halel->read_index]))
 		src = env_key(halel, lst->data);
 	while (my_env)

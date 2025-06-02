@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:02:18 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/05/29 20:03:26 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/01 21:50:00 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,52 +37,50 @@ void	ft_lstadd_back12(t_env **lst, t_env *new)
 	}
 }
 
-t_node	*ft_lstnew5()
+t_node	*ft_lstnew5(void)
 {
-    t_node	*new_node;
+	t_node	*new_node;
 
 	new_node = gc_malloc(sizeof(t_node), 1);
-    if (!new_node)
-        return (NULL);
-
-    new_node->data = NULL;
-    new_node->next = NULL;
-    return (new_node);
+	new_node->data = NULL;
+	new_node->next = NULL;
+	return (new_node);
 }
 
-void ft_lstadd_back1(t_node **lst, t_node *new_node)
+void	ft_lstadd_back1(t_node **lst, t_node *new_node)
 {
-    if (!*lst)
-    {
-        *lst = new_node;
-        return;
-    }
-    t_node *temp = *lst;
-    while (temp->next)
-        temp = temp->next;
+	t_node	*temp;
 
-    temp->next = new_node;
+	if (!*lst)
+	{
+		*lst = new_node;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new_node;
 }
 
-t_node *ft_lstnew1(char *content, int type)
+t_node	*ft_lstnew1(char *content, int type)
 {
-    t_node *new_node = gc_malloc(sizeof(t_node), 1);
-    if (!new_node)
-        return NULL;
-    new_node->data = md_strdup(content);
-    new_node->type = type;
-    new_node->next = NULL;
-    return new_node;
+	t_node	*new_node;
+
+	new_node = gc_malloc(sizeof(t_node), 1);
+	new_node->data = content;
+	new_node->type = type;
+	new_node->next = NULL;
+	return (new_node);
 }
 
-t_node *ft_lstnew2(char *content, int type, char *tmp_file)
+t_node	*ft_lstnew2(char *content, int type, char *tmp_file)
 {
-    t_node *new_node = gc_malloc(sizeof(t_node), 1);
-    if (!new_node)
-        return NULL;
-    new_node->data = md_strdup(content);
-    new_node->type = type;
-    new_node->tmp_file = tmp_file;
-    new_node->next = NULL;
-    return new_node;
+	t_node	*new_node;
+
+	new_node = gc_malloc(sizeof(t_node), 1);
+	new_node->data = md_strdup(content);
+	new_node->type = type;
+	new_node->tmp_file = tmp_file;
+	new_node->next = NULL;
+	return (new_node);
 }

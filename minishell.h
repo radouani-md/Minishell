@@ -100,16 +100,16 @@ int count_handle_str(char *input, int i);
 char *ft_copy_add_dabel_qoutes(char *str);
 
 // parsing
-int	read_and_filling_node(char *input, t_list **lst);
-int	ft_handle_string(char	*input, int	*i, t_list	**lst);
-int	ft_ft(char *input, int *i, t_handel *handel);
-int	ft_handle_double_single(char *input, int *i, t_list **lst);
-int	ft_handel_pipe_direction(char *input, int *i, t_list **lst);
+void	read_and_filling_node(char *input, t_list **lst);
+void	ft_handle_string(char	*input, int	*i, t_list	**lst);
+void	ft_ft(char *input, int *i, t_handel *handel);
+void	ft_handle_double_single(char *input, int *i, t_list **lst);
+void	ft_handel_pipe_direction(char *input, int *i, t_list **lst);
 void	handle_multiple_quotes(char *input, int *i, t_handel *handel);
-int	handel_qoutation(char *input, int *i, t_handel *handel);
+void	handel_qoutation(char *input, int *i, t_handel *handel);
 int	count_string(char *input, int i, t_handel *handel);
 
-int	syntax_erorr(t_list *lst);
+void	syntax_erorr(t_list *lst);
 int	tchik_pipe(t_list *lst);
 
 t_node	*typed_nodes(t_list *lst);
@@ -150,7 +150,7 @@ int ft_strlen_num_err(void);
 char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char	*ft_cpy_key(int i, t_node *nodes);
 int	ft_Check_key(char c);
-t_handel	*helper_variables(int i);
+t_handel	*helper_variables();
 t_ha	*helper_varia();
 void conut_dabel_singel_qoutition(char c, t_ha	*ha);
 
