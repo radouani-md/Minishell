@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 21:36:35 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 21:36:36 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:36:55 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ void	len_env_value(char *str, t_ha *halel)
 	}
 }
 
-int	ft_strlen_num_err(void)
+int	ft_strlen_num_err(t_err *err)
 {
 	int		i;
-	int		num_err;
 	char	*str;
 
 	i = 0;
-	num_err = 127;
-	str = md_itoa(num_err);
+	str = md_itoa(err->err_status);
 	while (str[i])
 		i++;
 	return (i);
@@ -85,7 +83,7 @@ int	ft_Check_dollar(t_node *lst, t_ha *ha)
 	return (0);
 }
 
-void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel)
+void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err)
 {
 	int		b;
 	char	*src;
@@ -111,10 +109,10 @@ void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel)
 		}
 	}
 	if (src[0] == '?')
-		halel->dest_index = halel->dest_index + ft_strlen_num_err();
+		halel->dest_index += ft_strlen_num_err(err);
 }
 
-void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel)
+void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err)
 {
 	int		b;
 	char	*src;
@@ -140,5 +138,5 @@ void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel)
 		}
 	}
 	if (src[0] == '?')
-		halel->dest_index = halel->dest_index + ft_strlen_num_err();
+		halel->dest_index += ft_strlen_num_err(err);
 }
