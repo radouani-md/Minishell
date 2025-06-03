@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/02 11:14:56 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:06:04 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 void	exec_commands(t_node **nodes, t_env **my_env, t_err *err)
 {
-	char	*cmd_path;
-	char	**cmd;
 
-	cmd_path = NULL;
-	cmd = NULL;
-	if (piping_forking(cmd_path, cmd, nodes, my_env, err) == -1)
+	if (piping_forking(nodes, my_env, err) == -1)
 	{
 		perror("Minishell");
 		exit(1);

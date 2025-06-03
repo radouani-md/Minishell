@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 22:04:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:54:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	count_key(int i, t_node *nodes)
 	int	a;
 
 	a = 0;
-	while (ft_Check_key(nodes->data[i]))
+	while (nodes->data[i] != '+' && nodes->data[i] != '=' && nodes->data[i])
 	{
 		a++;
 		i++;

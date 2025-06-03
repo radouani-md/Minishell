@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/02 11:45:11 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/02 23:20:00 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	count_cmd(t_node *lst, t_env *my_env, t_err *err)
 	}
 	return (halel->dest_index);
 }
+
 
 void	count_dollare(t_ha	*ha, char *lst)
 {
@@ -75,7 +76,7 @@ void	expanding_function(t_node *lst, t_env *my_env, t_err *err)
 	t_ha	*ha;
 
 	ha = helper_varia();
-	dap = gc_malloc(count_cmd(lst, my_env, err) + 1, 1);
+	dap = gc_malloc(count_cmd1(lst, my_env, err) + 1, 1);
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);

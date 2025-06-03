@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 21:44:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:21:38 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,16 @@ int	key_check(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] >= 97 && str[i] <= 122)
+			i++;
+		else if (str[i] >= 65 && str[i] <= 90)
+			i++;
+		else if (str[i] >= 48 && str[i] <= 57)
+			i++;
+		else if (str[i] == 95)
+			i++;
+		else
 			return (0);
-		i++;
 	}
 	return (1);
 }
@@ -80,21 +87,21 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	int		a;
 
 	a = 0;
-	str = gc_malloc(count_key(i, nodes) + 1, 1);
-	if (nodes->data[0] >= '0' && nodes->data[0] <= '9')
+	str = gc_malloc(count_key(i, nodes) + 1, 1);//count_key(i, nodes) + 1
+	if(nodes->data[0] >= '0' && nodes->data[0] <= '9')
 	{
 		printf("eroor ft_cpy_key\n");
 		gc_malloc(0, 0);
 		exit(1);
 	}
-	while (ft_Check_key(nodes->data[i]))
+	while (nodes->data[i] != '+' && nodes->data[i] != '=' && nodes->data[i]) //ft_Check_key(nodes->data[i])
 	{
 		str[a++] = nodes->data[(i)++];
 	}
 	str[a] = '\0';
 	if (!key_check(str))
 	{
-		printf("export: `%s': not a valid identifier\n", str);
+		printf("export: `%s': not a valid identifier\n", nodes->data);
 		gc_malloc(0, 0);
 		exit(1);
 	}
@@ -127,7 +134,7 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 	str = gc_malloc(count_value(*i, nodes, my_env) + 2, 1);
 	while (ft_Check_key(nodes->data[*i]))
 		(*i)++;
-	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '+')
+	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
 	{
 		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
 		return (NULL);

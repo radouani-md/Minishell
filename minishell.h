@@ -103,6 +103,7 @@ typedef struct t_ha
 	struct t_ha *next;
 }						t_ha;
 
+int	count_cmd1(t_node *lst, t_env *my_env, t_err *err);
 
 void	*gc_malloc(size_t size, int nbr);
 int		implement_unset(t_env **my_env, t_node *nodes);
