@@ -48,6 +48,22 @@ typedef struct t_node
 	struct t_node   *next;
 }                   t_node;
 
+typedef struct s_md
+{
+	int 	pip_fd[2];
+	int 	prev_fd;
+	int 	i;
+	int 	num_groups;
+	t_node	**groups;
+	char	**cmd;
+	char 	**cmd2;
+	char	*cmd_path;
+	pid_t	id;
+	pid_t	pid;
+}				t_md;
+
+
+
 typedef struct t_env
 {
 	char	*key;
@@ -89,15 +105,12 @@ typedef struct t_ha
 
 
 void	*gc_malloc(size_t size, int nbr);
-//
-int	implement_unset(t_env **my_env, t_node *nodes);
-//
-int	ft_ft1(char *input, int *i, t_handel *handel, int *col);
-int	handel_qoutation1(char *input, int *i, t_handel *handel, int *col);
+int		implement_unset(t_env **my_env, t_node *nodes);
+int		ft_ft1(char *input, int *i, t_handel *handel, int *col);
+int		handel_qoutation1(char *input, int *i, t_handel *handel, int *col);
 void	handle_multiple_quotes1(char *input, int *i, t_handel *handel, int *col);
-int count_handle_str(char *input, int i);
-//add
-char *ft_copy_add_dabel_qoutes(char *str);
+int 	count_handle_str(char *input, int i);
+char 	*ft_copy_add_dabel_qoutes(char *str);
 
 // parsing
 void	read_and_filling_node(char *input, t_list **lst);
@@ -107,10 +120,10 @@ void	ft_handle_double_single(char *input, int *i, t_list **lst);
 void	ft_handel_pipe_direction(char *input, int *i, t_list **lst);
 void	handle_multiple_quotes(char *input, int *i, t_handel *handel);
 void	handel_qoutation(char *input, int *i, t_handel *handel);
-int	count_string(char *input, int i, t_handel *handel);
+int		count_string(char *input, int i, t_handel *handel);
 
 void	syntax_erorr(t_list *lst);
-int	tchik_pipe(t_list *lst);
+int		tchik_pipe(t_list *lst);
 
 t_node	*typed_nodes(t_list *lst);
 
@@ -132,29 +145,29 @@ void	delete_qoutation(t_node *arg);
 int 	ft_count_ec(char *arg);
 
 
-int implement_export(t_env *my_env, t_node *nodes);
-void add_value_export(t_env *my_env, t_node *nodes);
-char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
-int count_value(int i, t_node *nodes, t_env *my_env);
+int 	implement_export(t_env *my_env, t_node *nodes);
+int 	count_value(int i, t_node *nodes, t_env *my_env);
+void 	add_value_export(t_env *my_env, t_node *nodes);
+char 	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 
 int count_key(int i, t_node *nodes);
 
 //utils_function
 void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
 void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
-int	ft_Check_dollar(t_node *lst, t_ha *ha);
-int	ft_Check_after_dollar(char c);
+int		ft_Check_dollar(t_node *lst, t_ha *ha);
+int		ft_Check_after_dollar(char c);
 void	len_env_value(char *str, t_ha *halel);
-int ft_strlen_num_err(t_err *err);
+int 	ft_strlen_num_err(t_err *err);
 
-char *ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
+char 	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char	*ft_cpy_key(int i, t_node *nodes);
-int	ft_Check_key(char c);
+int		ft_Check_key(char c);
 t_handel	*helper_variables();
 t_ha	*helper_varia();
-void conut_dabel_singel_qoutition(char c, t_ha	*ha);
+void 	conut_dabel_singel_qoutition(char c, t_ha	*ha);
 
-int ft_strlen(int a,char *dap);
+int 	ft_strlen(int a,char *dap);
 size_t	md_strlen(char *s);
 size_t	ft_strlcpy(char *src, size_t dstsize);
 t_list	*ft_lstnew(char *content);
@@ -164,18 +177,20 @@ t_env	*ft_lstnewt(char *env_key, char	*env_value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new_node);
 t_env	*ft_lstnew_env();
 size_t	yl_strlen(char *s, int *i);
-char *yl_strcpy(char *dest, const char *src);
+char 	*yl_strcpy(char *dest, const char *src);
 
 t_node *ft_lstnew1(char *content, int type);
 t_node *ft_lstnew2(char *content, int type, char *tmp_file);
-void ft_lstadd_back1(t_node **lst, t_node *new_node);
+char 	*move_node(t_node *nodes);
+void 	ft_lstadd_back1(t_node **lst, t_node *new_node);
+void	ft_lstadd_front(t_node **lst, t_node *new);
 t_node	*ft_lstnew5();
 void	ft_lstadd_back12(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 
 char	*random_num();
 char	*md_itoa(int n);
-int	get_length(int n);//static
+int		get_length(int n);//static
 char	*ft_strcat(char *dest, char *src);
 void	md_free(int **num);
 
@@ -183,12 +198,12 @@ char	**md_split(char const *s, char c);
 char	**put_in(char **ptr, const char *s, char c, size_t count);
 void	ftt_free(char **p, size_t i);
 size_t	copystr(char *dest, const char *src, size_t index, char c);
-int	count_word(char const *s, char c);
+int		count_word(char const *s, char c);
 
 char	*md_strjoin(char *s1, char *s2);
 char	*md_strdup(char *src);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-int	ft_strncmp1(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp1(const char *s1, const char *s2, size_t n);
 
 void	free_group(t_node *group);
 void	md_free_char(char **str);
@@ -203,7 +218,6 @@ void	ft_free(t_list **lst);
 int	    ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
-void	safe_free(char **ptr);
 void	ft_putstr(char *str);
 
 char	*get_next_line(int fd);
@@ -221,7 +235,7 @@ char 	**fetch_path(t_env *my_env);
 
 void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err);
 int	helper_her(t_node *nodes);
-int	piping_forking(char *cmd_path, char **cmd, t_node **nodes, t_env **my_env, t_err *err);
+int	piping_forking(t_node **nodes, t_env **my_env, t_err *err);
 int	implement_her_doc(t_node *nodes, t_env *env, t_err *err);
 int	implement_appending(t_node *nodes, t_err *err);
 int	implement_infile(t_node *nodes, t_err *err);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/02 10:14:21 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:15:58 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
 		{
 			if (helper_her(head) == 1)
 				return (NULL);
-			// if (implement_her_doc(head, env) == 3)
-			// 	exit(1); // exit_code = 2
 			is_entred = 1;
 		}
 		if (head->type == 1)

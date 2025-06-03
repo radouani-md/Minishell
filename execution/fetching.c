@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:26:39 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 17:15:08 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/02 11:38:46 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char **fetch_path(t_env *my_env)
 		{
 			path_value = my_env->value;
 			paths = md_split(path_value, ':');
-			fprintf(stderr, "%s\n", paths[0]);
 			return (paths);
 		}
 		my_env = my_env->next;

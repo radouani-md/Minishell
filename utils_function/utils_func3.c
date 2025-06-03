@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 21:52:54 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:22:09 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,23 @@ char	*md_itoa(int n)
 char	*random_num(void)
 {
 	char		*tmp;
-	static int	i;
+	static int	i = 1;
 	char		*num_str;
 	char		*new_str;
 
-	i = 1;
-	tmp = md_strdup("/tmp/.tmp_");
+	tmp = md_strdup("/tmp/tmp_");
 	if (!tmp)
 		return (NULL);
 	num_str = md_itoa(i);
 	new_str = md_strjoin(tmp, num_str);
 	i++;
 	return (new_str);
+}
+
+void	ft_lstadd_front(t_node **lst, t_node *new)
+{
+	if (new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

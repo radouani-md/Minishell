@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/02 11:33:19 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:23:45 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*helper_her_doc2(char *line, t_env *env)
 
 void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted, t_err *err)
 {
-	ft_lstadd_back1(line_node, ft_lstnew1(line, 0));
+	ft_lstadd_front(line_node, ft_lstnew1(line, 0));
 	if (is_quoted == 0)
 		expanding_function_heredoc(*line_node, env, err);
 }
@@ -109,9 +109,9 @@ int	count_heredoc(t_node *nodes)
 
 int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
 {
-	int fd;
-	char *tmp_name;
-	int num_heredocs;
+	char	*tmp_name;
+	int 	fd;
+	int 	num_heredocs;
 
 	tmp_name = NULL;
 	num_heredocs = count_heredoc(nodes);

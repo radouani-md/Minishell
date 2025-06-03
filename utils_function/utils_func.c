@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 21:54:08 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:19:25 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,13 @@ char	*md_strjoin(char *s1, char *s2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
+}
+
+char *move_node(t_node *nodes)
+{
+	t_node *tmp = nodes;
+	
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp->data);
 }
