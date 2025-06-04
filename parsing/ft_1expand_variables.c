@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/02 11:45:22 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:11:15 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	store_dap(char *dap, char *str, t_ha *ha, int *i)
 		dap[(ha->dest_index)++] = str[(*i)++];
 }
 
-void	copy_to_dap(char *dap, char *str, t_ha *ha)
+void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst)
 {
 	int	i;
 	int	m;
@@ -52,6 +52,8 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha)
 	{
 		if (m % 2 == 0)
 		{
+			if(lst->type == 1 ||lst->type == 2)
+				lst->type = 1337;
 			while (str[i] == ' ')
 				i++;
 			if (str[i] != ' ')
@@ -118,7 +120,7 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err)
 			my_env = my_env->next;
 		else
 		{
-			copy_to_dap(dap, my_env->value, ha);
+			copy_to_dap(dap, my_env->value, ha, lst);
 			break ;
 		}
 	}

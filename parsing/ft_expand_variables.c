@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/02 23:20:00 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/04 10:19:05 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	handle_dollar_quote_case(t_node *lst, t_ha *ha, char *dap)
 		dap[ha->dest_index++] = lst->data[ha->read_index++];
 }
 
-void	expanding_function(t_node *lst, t_env *my_env, t_err *err)
+void	expanding_function(t_node *lst, t_node *tmp, t_env *my_env, t_err *err)
 {
 	char	*dap;
 	t_ha	*ha;
@@ -96,7 +96,7 @@ void	expanding_function(t_node *lst, t_env *my_env, t_err *err)
 		}
 	}
 	dap[ha->dest_index] = '\0';
-	fill_up_node(dap, lst);
+	fill_up_node(dap, tmp, lst);
 }
 
 void	is_quoted(t_node *lst)
@@ -120,7 +120,9 @@ void	is_quoted(t_node *lst)
 void	expand_variables(t_node *lst, t_env *my_env, t_err *err)
 {
 	t_ha	*ha;
+	t_node *tmp;
 
+	tmp = NULL;
 	ha = helper_varia();
 	while (lst)
 	{
@@ -131,7 +133,7 @@ void	expand_variables(t_node *lst, t_env *my_env, t_err *err)
 			if (lst->data[ha->read_index] == '$'
 				&& (ha->singl_qoute % 2 == 0) && lst->type != 3)
 			{
-				expanding_function(lst, my_env, err);
+				expanding_function(lst, tmp, my_env, err);
 				break ;
 			}
 			else if (lst->type == 3)
@@ -140,6 +142,7 @@ void	expand_variables(t_node *lst, t_env *my_env, t_err *err)
 			}
 			ha->read_index++;
 		}
+		tmp = lst;
 		lst = lst->next;
 	}
 }
