@@ -3,39 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/04 11:54:41 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/04 10:34:31 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_commands(t_node **nodes, t_env **my_env, t_err *err)
+volatile sig_atomic_t g_sig_md ;
+
+int	exec_commands(t_node **nodes, t_env **my_env, t_err *err)
 {
 
-	if (piping_forking(nodes, my_env, err) == -1)
+	if (piping_forking(nodes, my_env, err) == -333)
 	{
-		perror("Minishell");
-		exit(1);
+		return (-333);
 	}
-	return ;
+	return (0);
 }
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	// t_err *err;
-
 	// err->err_status = 130; //128 + SIGINT (2)
-	rl_replace_line("", 0);
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
+	// printf("III%dIII\n", g_sig_md);
+	if (g_sig_md == 3)
+	{
+		close(0);
+		write(1, "\n", 1);
+		g_sig_md = 33;
+	}
+	if (g_sig_md == 0)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	// if (g_sig_md == 2)
+	// {
+	// 	printf("\n");
+	// }
 }
 
-void	setup_signals(void)
+void	setup_signals()
 {
 	struct sigaction	sa;
 
@@ -72,16 +85,19 @@ void	delete_sinqel_dabel_qoutishen(t_node *arg)
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
+	int	saved_fd;
 	t_node	*arg;
 	t_env	*my_envp;
 	t_err	*err;
 	char	*input;
 
+	saved_fd = dup(0);
 	err = gc_malloc(sizeof(t_err), 1);
 	err->err_status = 0;
-	setup_signals();
 	while (1)
 	{
+		setup_signals();
+		g_sig_md = 0;
 		lst = NULL;
 		input = readline("minishell> ");
 		if (!input)
@@ -99,7 +115,12 @@ int	main(int argc, char **argv, char **envp)
 		expand_variables(arg, my_envp, err);
 		delete_qoutation(arg);
 		delete_sinqel_dabel_qoutishen(arg);
-		exec_commands(&arg, &my_envp, err);
+		if (exec_commands(&arg, &my_envp, err) == -333)
+		{
+			dup2(saved_fd, STDIN_FILENO);
+			close(saved_fd);
+			continue ;
+		}
 	}
 	return (gc_malloc(0, 0), 0);
 }

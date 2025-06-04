@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:15:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:28:20 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**helper_loop(char **cmd, t_node *nodes)
 	return (cmd);
 }
 
-char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
+int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
 {
 	t_node *head;
 	int 	is_entred;
@@ -123,30 +123,30 @@ char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
 		if (head->type == 2)
 		{
 			if (implement_infile(head, err) == 1)
-				return (NULL);
+				return (1);
 		}
 		if (head->type == 3 && is_entred != 1)
 		{
 			if (helper_her(head) == 1)
-				return (NULL);
+				return (1);
 			is_entred = 1;
 		}
 		if (head->type == 1)
 		{
 			if (implement_outfile(head, err) == 1)
-				return (NULL);
+				return (1);
 		}
 		if (head->type == 4)
 		{
 			if (implement_appending(head, err))
-				return (NULL);
+				return (1);
 		}
 		head = head->next;
 	}
-	cmd = helper_loop(cmd, nodes);
-	if (!cmd)
-		return (NULL);
-	return (cmd);
+	// cmd = helper_loop(cmd, nodes);
+	// if (!cmd)
+	// 	return (NULL);
+	return (0);
 }
 
 int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
@@ -155,14 +155,16 @@ int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
 	int in_var;
 	int	out_var;
 	int append_var;
+	int is_entred;
 
 	head = nodes;
 	in_var = 0;
+	is_entred = 0;
 	out_var = 0;
 	append_var = 0;
 	while (head)
 	{
-		if (head->type == 2)
+		if (head->type == 2 || head->type == 1337)
 		{
 			in_var = implement_infile(head, err);
 			if (in_var == 1)
@@ -170,15 +172,21 @@ int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
 			else if (in_var == 3)
 				return (3);
 		}
-		if (head->type == 1)
+		if (head->type == 1 || head->type == 1337)
 		{
 			out_var = implement_outfile(head, err);
 			if (out_var == 1)
 				return (1);
-			else
+			else if (out_var == 3)
 				return (3);
 		}
-		if (head->type == 4)
+		if (head->type == 3 && is_entred != 1)
+		{
+			if (helper_her(head) == 1)
+				return (1);
+			is_entred = 1;
+		}
+		if (head->type == 4 || head->type == 1337)
 		{
 			append_var = implement_appending(head, err);
 			if (append_var == 1)

@@ -17,8 +17,8 @@
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
-
 #endif
+extern volatile sig_atomic_t g_sig_md ;
 
 typedef struct t_malloc
 {
@@ -132,14 +132,14 @@ void	claiming_env(char **env_p, t_env **my_env);
 void	filling_tmp(char *key, char *env, int size);
 
 void	expand_variables(t_node *lst, t_env *my_env, t_err *err);
-void	expanding_function(t_node *lst, t_env *my_env, t_err *err);
+void	expanding_function(t_node *lst, t_node *tmp, t_env *my_env, t_err *err);
 void	count_dollare(t_ha	*ha, char *lst);
 int		count_cmd(t_node *lst, t_env *my_env, t_err *err);
 void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err);
 char	*env_key(t_ha *ha, char *str);
-void	copy_to_dap(char *dap, char *str, t_ha *ha);
+void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst);
 void 	ft_functin_env(char *dap, t_ha *ha, t_err *err);
-void	fill_up_node(char *dap, t_node *lst);
+void	fill_up_node(char *dap, t_node *tpt, t_node *lst);
 int 	ft_count_env(char *dap, int read_index);
 
 void	delete_qoutation(t_node *arg);
@@ -227,8 +227,8 @@ char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
 int		loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err);
 // char	**loop_through_node(t_node *nodes, char **cmd);
-char	**loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err);
-
+int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err);
+char	**helper_loop(char **cmd, t_node *nodes);
 char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
 

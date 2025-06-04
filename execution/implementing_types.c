@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/03 11:23:45 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:24:15 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ int helper_her_doc(char *del, int fd, t_env *env, int is_quoted, t_err *err)
 
 	line_node = NULL;
 	line = NULL;
+	g_sig_md = 3;
 	while (1)
 	{
 		line = readline("heredoc> ");
+		if (g_sig_md == 33)
+		{
+			close(fd);
+			return (-333);
+		}
 		if (!line)
 		{
 			printf("bash: warning: here-document delimited by end-of-file (wanted `%s')\n", del);
@@ -123,8 +129,10 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
 			if (!tmp_name)
 				return (perror("malloc "), 1);
 			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (fd == -1 || helper_her_doc(nodes->data, fd, env, nodes->is_quoted, err) == 1)
-				return (perror("malloc "), 1);
+			if (fd == -1)
+				return (perror("fd :"), 1);
+			if (helper_her_doc(nodes->data, fd, env, nodes->is_quoted, err) == -333)
+				return (-333);
 			nodes->tmp_file = md_strdup(tmp_name);
 			if (!nodes->tmp_file)
 				return (perror("malloc "), 1);
@@ -138,7 +146,7 @@ int	implement_appending(t_node *nodes, t_err *err)
 {
 	int	fd;
 
-	if (!*nodes->data)
+	if (!*nodes->data || nodes->type == 1337)
 		return (printf("minishell: ambiguous redirect\n" ), err->err_status = 1, 3);
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
@@ -157,7 +165,7 @@ int	implement_infile(t_node *nodes, t_err *err)
 {
 	int fd;
 
-	if (!*nodes->data)
+	if (!*nodes->data || nodes->type == 1337)
 		return (printf("minishell: ambiguous redirect\n" ), err->err_status = 1, 3);
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)

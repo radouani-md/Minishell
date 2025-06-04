@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/02 12:35:57 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 12:47:11 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ int	helper_cd(char *home, t_env **env, char *oldpwd, char *cwd)
 	home = fetch_home(env);
 	if (!home || chdir(home) == -1)
 	{
-		perror("cd");
-		return (1);
+		printf("minishell: cd: HOME not set\n");
+		return (0);
 	}
 	if (set_env(env, "OLDPWD", oldpwd) == 1)
 		return (1);
@@ -190,7 +190,7 @@ int	implement_cd(t_env **env, t_node *nodes, t_err *err)
 		if (helper_cd(home, env, oldpwd, cwd) == 1)
 			return (free(oldpwd), 1);
     }
-    else
+    else if (nodes->next || nodes->next->data)
     {
 		if (cd_absoulute(nodes->next->data, oldpwd, env) == 1)
 			return (free(oldpwd), 1);
