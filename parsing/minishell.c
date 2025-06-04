@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/04 10:34:31 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 13:05:48 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	sigint_handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	// if (g_sig_md == 2)
-	// {
-	// 	printf("\n");
-	// }
+	if (g_sig_md == 2)
+	{
+		printf("\n");
+	}
 }
 
 void	setup_signals()
@@ -91,11 +91,11 @@ int	main(int argc, char **argv, char **envp)
 	t_err	*err;
 	char	*input;
 
-	saved_fd = dup(0);
 	err = gc_malloc(sizeof(t_err), 1);
 	err->err_status = 0;
 	while (1)
 	{
+		saved_fd = dup(0);
 		setup_signals();
 		g_sig_md = 0;
 		lst = NULL;
