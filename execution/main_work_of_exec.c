@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 11:12:38 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:29 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	forking_pip(t_md *md, t_env **my_env, t_err *err, t_node *nodes)
 	if (!md->cmd)
 		exit(1);
 	md->cmd_path = is_accessable(fetch_path(*my_env), md->cmd[0]);
-	if (!md->cmd_path)
+	if (!md->cmd_path || !*md->cmd[0])
 	{
 		printf("mhd %s: command not found\n", md->cmd[0]);
 		exit(127);

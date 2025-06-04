@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 12:28:20 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:58:10 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**helper_loop(char **cmd, t_node *nodes)
 	while (nodes)
 	{
 		if (nodes->type == 0)
-			cmd[i++] = nodes->data;
+		cmd[i++] = nodes->data;
 		nodes = nodes->next;
 	}
 	cmd[i] = NULL;
