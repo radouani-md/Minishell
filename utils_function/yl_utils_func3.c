@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/03 12:21:38 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/09 10:34:18 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	str[a] = '\0';
 	if (!key_check(str))
 	{
-		printf("export: `%s': not a valid identifier\n", nodes->data);
+		printf("export: `%s': \n", nodes->data);
 		gc_malloc(0, 0);
 		exit(1);
 	}
@@ -136,7 +136,7 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 		(*i)++;
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
 	{
-		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
+		printf("mhd: export: `%s': \n", nodes->data);
 		return (NULL);
 	}
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')

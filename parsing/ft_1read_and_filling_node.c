@@ -6,11 +6,20 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:23:30 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 23:23:34 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:39:12 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_chick_qoute(char qoute, char c)
+{
+	if (qoute == '\"' && (c == ' ' || c == '\t' || c == '\0'))
+		return (2);
+	else if (qoute == '\'' && (c == ' ' || c == '\t' || c == '\0'))
+		return (3);
+	return (0);
+}
 
 int	count_string(char *input, int i, t_handel *handel)
 {
@@ -27,8 +36,10 @@ int	count_string(char *input, int i, t_handel *handel)
 			(quote_count)++;
 		if (input[handel->a] == '\'' && input[i] == '\'')
 			(q)++;
-		if ((quote_count % 2 == 1 && input[handel->a] == '\"' && (input[i + 1] == ' '  || input[i + 1] == '\t' || input[i + 1] == '\0'))
-			|| (q % 2 == 1 && input[handel->a] == '\'' && (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == '\0')))
+		if ((quote_count % 2 == 1
+				&& ft_chick_qoute(input[handel->a], input[i + 1]) == 2)
+			|| (q % 2 == 1
+				&& ft_chick_qoute(input[handel->a], input[i + 1]) == 3))
 		{
 			n++;
 			break ;
@@ -57,7 +68,7 @@ void	handel_qoutation(char *input, int *i, t_handel *handel)
 		if (!input[*i]) // break; دشي علاش مع توصل \0 دير "ls d""skfjfe حيت هدي تبقى تقرى لا م نهاية فية حالة كان
 		{
 			printf("eroor\n");
-			gc_malloc(0,0);
+			gc_malloc(0, 0);
 			exit(1);
 		}
 	}

@@ -12,7 +12,6 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/types.h>
-# include <stdarg.h>
 # include <sys/wait.h>
 # include <linux/limits.h>
 
@@ -133,14 +132,14 @@ void	claiming_env(char **env_p, t_env **my_env);
 void	filling_tmp(char *key, char *env, int size);
 
 void	expand_variables(t_node *lst, t_env *my_env, t_err *err);
-void	expanding_function(t_node *lst, t_node *tmp, t_env *my_env, t_err *err);
+void	expanding_function(t_node *lst, t_env *my_env, t_err *err);
 void	count_dollare(t_ha	*ha, char *lst);
 int		count_cmd(t_node *lst, t_env *my_env, t_err *err);
 void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err);
 char	*env_key(t_ha *ha, char *str);
 void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst);
 void 	ft_functin_env(char *dap, t_ha *ha, t_err *err);
-void	fill_up_node(char *dap, t_node *tpt, t_node *lst);
+void	fill_up_node(char *dap, t_node *lst);
 int 	ft_count_env(char *dap, int read_index);
 
 void	delete_qoutation(t_node *arg);
@@ -220,18 +219,7 @@ void	ft_free(t_list **lst);
 int	    ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
-void	md_putstr(char *str);
-
-int	ft_printf(const char *format, ...);
-int	ft_putchar(char c);
-int	ft_putstr(char *str);
-int	ft_putnbr(int n);
-int	ft_uns_putnbr(unsigned int n);
-int	ft_puthex(unsigned long num, char *base);
-int	ft_putpoint(void *ptr);
-int	ft_hexanbr(unsigned long ptr, char a);
-int	mix_printer(char caracter, va_list args);
-
+void	ft_putstr(char *str);
 
 char	*get_next_line(int fd);
 
@@ -258,13 +246,7 @@ int 	is_builtin(char *cmd);
 int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err);
 void    implement_env(t_env *env);
 int		implement_pwd(t_env *env);
-// cd
 int		implement_cd(t_env **env, t_node *nodes, t_err *err);
-char	*set_oldpwd(t_env *env, char *oldpwd);
-int		set_env(t_env **env, char *pwd_searched, char *pwd_updated);
-char	*fetch_home(t_env **env);
-
-
 int		implement_echo(t_env *env, t_node *nodes);
 int		implement_exit(t_env *my_env, t_node *nodes, t_err *err);
 

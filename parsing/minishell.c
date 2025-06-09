@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/04 13:05:48 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/04 18:05:26 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,28 @@ void	delete_sinqel_dabel_qoutishen(t_node *arg)
 		arg = arg->next;
 	}
 }
+void ft_node(t_node **arg)
+{
+	t_node *tmp;
+	t_node *tmp1;
 
+	tmp = *arg;
+	while(tmp)
+	{
+		if (tmp->data[0] == '\0')
+		{
+			if(!(*arg)->next)
+			{
+				printf("youssef\n");
+				*arg = NULL;
+			}
+			else
+				tmp1->next = tmp->next;
+		}
+		tmp1 = tmp;
+		tmp = tmp->next;
+	}
+}
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
@@ -113,6 +134,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!my_envp)
 			claiming_env(envp, &my_envp);
 		expand_variables(arg, my_envp, err);
+		ft_node(&arg);
 		delete_qoutation(arg);
 		delete_sinqel_dabel_qoutishen(arg);
 		if (exec_commands(&arg, &my_envp, err) == -333)
