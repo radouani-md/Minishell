@@ -6,11 +6,40 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/09 10:51:33 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:39:11 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_functin_env(char *dap, t_ha *ha)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = md_itoa(ha->err_status);
+	while (str[i])
+	{
+		dap[(ha->dest_index)++] = str[i++];
+	}
+}
+
+void	count_dollare(t_ha	*ha, char *lst)
+{
+	int	t;
+
+	t = 0;
+	while (lst[ha->read_index] == '$')
+	{
+		(ha->read_index)++;
+		t++;
+	}
+	if (t % 2 == 1)
+	{
+		(ha->read_index)--;
+	}
+}
 
 int	ft_count_env(char *dap, int read_index)
 {
@@ -22,10 +51,10 @@ int	ft_count_env(char *dap, int read_index)
 		conut_dabel_singel_qoutition(dap[read_index], hale);
 		if (read_index == 0 && dap[read_index] == ' ')
 			read_index++;
-		if ((hale->dablla_qoute % 2 == 1 || hale->singl_qoute % 2 == 1)
+		if ((hale->dbl_qte % 2 == 1 || hale->snl_qte % 2 == 1)
 			|| (dap[read_index] != ' ' && dap[read_index]))
 			read_index++;
-		if (hale->dablla_qoute % 2 == 0 && hale->singl_qoute % 2 == 0
+		if (hale->dbl_qte % 2 == 0 && hale->snl_qte % 2 == 0
 			&& (dap[read_index] == ' ' || dap[read_index] == '\0'))
 		{
 			break ;
@@ -34,23 +63,29 @@ int	ft_count_env(char *dap, int read_index)
 	return (read_index);
 }
 
-int	ft_tchek_q(char *tmp)
+void	add_node(char *dap, t_node **lst, t_ha	*hal, char *tmp)
 {
-	int	i;
+	t_node	*lst1;
 
-	i = 0;
-	while (tmp[i])
+	tmp[hal->dest_index] = '\0';
+	(*lst)->data = md_strdup(tmp);
+	tmp = NULL;
+	if (dap[hal->read_index] == ' ')
+		hal->read_index++;
+	if (dap[hal->read_index])
 	{
-		if (tmp[i] == '\"' || tmp[i] == '\'')
-			return (1);
-		i++;
+		lst1 = (*lst)->next;
+		(*lst)->next = ft_lstnew5();
+		(*lst)->next->next = lst1;
+		*lst = (*lst)->next;
+		(*lst)->type = 0;
+		tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
+		hal->dest_index = 0;
 	}
-	return (0);
 }
 
 void	fill_up_node(char *dap, t_node *lst)
 {
-	t_node	*lst1;
 	t_ha	*hal;
 	char	*tmp;
 
@@ -63,27 +98,13 @@ void	fill_up_node(char *dap, t_node *lst)
 		conut_dabel_singel_qoutition(dap[hal->read_index], hal);
 		if (hal->read_index == 0 && dap[hal->read_index] == ' ')
 			hal->read_index++;
-		if ((hal->dablla_qoute % 2 == 1 || hal->singl_qoute % 2 == 1)
+		if ((hal->dbl_qte % 2 == 1 || hal->snl_qte % 2 == 1)
 			|| (dap[hal->read_index] != ' ' && dap[hal->read_index]))
 			tmp[hal->dest_index++] = dap[hal->read_index++];
-		if (hal->dablla_qoute % 2 == 0 && hal->singl_qoute % 2 == 0
+		if (hal->dbl_qte % 2 == 0 && hal->snl_qte % 2 == 0
 			&& (dap[hal->read_index] == ' ' || dap[hal->read_index] == '\0'))
 		{
-			tmp[hal->dest_index] = '\0';
-			lst->data = md_strdup(tmp);
-			tmp = NULL;
-			if (dap[hal->read_index] == ' ')
-				hal->read_index++;
-			if (dap[hal->read_index])
-			{
-				lst1 = lst->next;
-				lst->next = ft_lstnew5();
-				lst->next->next = lst1;
-				lst = lst->next;
-				lst->type = 0;
-				tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
-				hal->dest_index = 0;
-			}
+			add_node(dap, &lst, hal, tmp);
 		}
 	}
 }

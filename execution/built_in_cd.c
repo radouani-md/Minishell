@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 16:52:06 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	helper_cd(char *home, t_env **env, char *oldpwd, char *cwd)
 	return (0);
 }
 
-int	implement_cd(t_env **env, t_node *nodes, t_err *err)
+int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 {
 	char	*oldpwd;
 	char	*home;

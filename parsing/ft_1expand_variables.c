@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/04 12:32:05 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:39:52 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	ft_functin_env(char *dap, t_ha *ha, t_err *err)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = md_itoa(err->err_status);
-	while (str[i])
-	{
-		dap[(ha->dest_index)++] = str[i++];
-	}
-}
 
 void	store_dap(char *dap, char *str, t_ha *ha, int *i)
 {
@@ -70,37 +57,44 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst)
 	}
 }
 
+void	store_str_src(t_ha *ha, char *str, char *src)
+{
+	int		dest_index;
+
+	dest_index = 0;
+	while (ft_Check_after_dollar(str[ha->read_index]))
+	{
+		src[dest_index++] = str[(ha->read_index)++];
+		if (((str[ha->read_index - 1] >= 48 && str[ha->read_index - 1] <= 57)
+				|| str[ha->read_index - 1] == '?')
+			&& str[ha->read_index - 2] == '$')
+			break ;
+	}
+	src[dest_index] = '\0';
+}
+
 char	*env_key(t_ha *ha, char *str)
 {
 	int		cpy_index;
-	int		dest_index;
 	int		len_key;
 	char	*src;
 
 	len_key = 0;
 	cpy_index = ha->read_index;
-	dest_index = 0;
 	while (ft_Check_after_dollar(str[cpy_index]))
 	{
 		len_key++;
 		if (str[cpy_index - 1] == '$' && ((str[cpy_index] >= 48
-				&& str[cpy_index] <= 57) || str[cpy_index] == '?'))
+					&& str[cpy_index] <= 57) || str[cpy_index] == '?'))
 			break ;
 		cpy_index++;
 	}
 	src = gc_malloc(len_key + 1, 1);
-	while (ft_Check_after_dollar(str[ha->read_index]))
-	{
-		src[dest_index++] = str[(ha->read_index)++];
-		if (((str[ha->read_index - 1] >= 48 && str[ha->read_index - 1] <= 57)
-			|| str[ha->read_index - 1] == '?') && str[ha->read_index - 2] == '$')
-			break ;
-	}
-	src[dest_index] = '\0';
+	store_str_src(ha, str, src);
 	return (src);
 }
 
-void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err)
+void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 {
 	int		b;
 	char	*src;
@@ -125,5 +119,5 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err)
 		}
 	}
 	if (ft_strncmp1(src, "?", 1))
-		ft_functin_env(dap, ha, err);
+		ft_functin_env(dap, ha);
 }

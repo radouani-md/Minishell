@@ -31,14 +31,8 @@ typedef struct s_list
 {
 	char            *content;
 	int             type;
-	// int             eroor;
 	struct s_list   *next;
 }                   t_list;
-
-typedef struct s_err
-{
-	int	err_status;
-}			t_err;	
 
 typedef struct t_node
 {
@@ -104,12 +98,14 @@ typedef struct t_ha
 	int		quote_count; //y
 	int		read_index; //i
 	int		dest_index; //a
-	int		singl_qoute; //j
-	int		dablla_qoute;// m
+	int		snl_qte; //j
+	int		dbl_qte;// m
+	int		err_status;
+	int		fd;
 	struct t_ha *next;
 }						t_ha;
 
-int	count_cmd1(t_node *lst, t_env *my_env, t_err *err);
+int	count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
 
 void	*gc_malloc(size_t size, int nbr);
 int		implement_unset(t_env **my_env, t_node *nodes);
@@ -137,14 +133,14 @@ t_node	*typed_nodes(t_list *lst);
 void	claiming_env(char **env_p, t_env **my_env);
 void	filling_tmp(char *key, char *env, int size);
 
-void	expand_variables(t_node *lst, t_env *my_env, t_err *err);
-void	expanding_function(t_node *lst, t_env *my_env, t_err *err);
+void	expand_variables(t_node *lst, t_env *my_env, t_ha *err);
+void	expanding_function(t_node *lst, t_env *my_env, t_ha *err);
 void	count_dollare(t_ha	*ha, char *lst);
-int		count_cmd(t_node *lst, t_env *my_env, t_err *err);
-void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha, t_err *err);
+int		count_cmd(t_node *lst, t_env *my_env, t_ha *err);
+void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha);
 char	*env_key(t_ha *ha, char *str);
 void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst);
-void 	ft_functin_env(char *dap, t_ha *ha, t_err *err);
+void 	ft_functin_env(char *dap, t_ha *ha);
 void	fill_up_node(char *dap, t_node *lst);
 int 	ft_count_env(char *dap, int read_index);
 
@@ -160,12 +156,12 @@ char 	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 int count_key(int i, t_node *nodes);
 
 //utils_function
-void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
-void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err);
+void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_ha *err);
+void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_ha *err);
 int		ft_Check_dollar(t_node *lst, t_ha *ha);
 int		ft_Check_after_dollar(char c);
 void	len_env_value(char *str, t_ha *halel);
-int 	ft_strlen_num_err(t_err *err);
+int 	ft_strlen_num_err(t_ha *err);
 
 char 	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char	*ft_cpy_key(int i, t_node *nodes);
@@ -243,35 +239,35 @@ char	*get_next_line(int fd);
 
 char 	**each_group_cmd(t_node *nodes);
 t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups);
-int		loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err);
+int		loop_through_node_builtin(t_node *nodes, t_env *env, t_ha *err);
 // char	**loop_through_node(t_node *nodes, char **cmd);
-int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err);
+int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err);
 char	**helper_loop(char **cmd, t_node *nodes);
 char	**loop_through_node_cmd(t_node *nodes);
 char 	*is_accessable(char **path, char *cmd);
 
 char 	**fetch_path(t_env *my_env);
 
-void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err);
+void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_ha *err);
 int	helper_her(t_node *nodes);
-int	piping_forking(t_node **nodes, t_env **my_env, t_err *err);
-int	implement_her_doc(t_node *nodes, t_env *env, t_err *err);
-int	implement_appending(t_node *nodes, t_err *err);
-int	implement_infile(t_node *nodes, t_err *err);
-int	implement_outfile(t_node *nodes, t_err *err);
+int	piping_forking(t_node **nodes, t_env **my_env, t_ha *err);
+int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err);
+int	implement_appending(t_node *nodes, t_ha *err);
+int	implement_infile(t_node *nodes, t_ha *err);
+int	implement_outfile(t_node *nodes, t_ha *err);
 
 int 	is_builtin(char *cmd);
-int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err);
+int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err);
 void    implement_env(t_env *env);
 int		implement_pwd(t_env *env);
 // cd
-int		implement_cd(t_env **env, t_node *nodes, t_err *err);
+int		implement_cd(t_env **env, t_node *nodes, t_ha *err);
 char	*set_oldpwd(t_env *env, char *oldpwd);
 int		set_env(t_env **env, char *pwd_searched, char *pwd_updated);
 char	*fetch_home(t_env **env);
 
 
 int		implement_echo(t_env *env, t_node *nodes);
-int		implement_exit(t_env *my_env, t_node *nodes, t_err *err);
+int		implement_exit(t_env *my_env, t_node *nodes, t_ha *err);
 
 #endif

@@ -1,12 +1,23 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cc.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 22:00:18 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../minishell.h"
 
 void	handle_dollar_quote_case_you(t_node *lst, t_ha *ha)
 {
-	if (lst->data[ha->read_index + 1] == '\'' && ha->dablla_qoute % 2 == 0)
-		ha->quote_count = ha->singl_qoute + 1;
-	else if (lst->data[ha->read_index + 1] == '\"' && ha->singl_qoute % 2 == 0)
-		ha->quote_count = ha->dablla_qoute + 1;
+	if (lst->data[ha->read_index + 1] == '\'' && ha->dbl_qte % 2 == 0)
+		ha->quote_count = ha->snl_qte + 1;
+	else if (lst->data[ha->read_index + 1] == '\"' && ha->snl_qte % 2 == 0)
+		ha->quote_count = ha->dbl_qte + 1;
 	if (ha->quote_count % 2 == 1)
 		ha->read_index++;
 	else
@@ -23,12 +34,12 @@ void	copy_to_dap_you(char *str, t_ha *ha)
 	i = 0;
 	while (str[i])
 	{
-	    (ha->dest_index)++;
-        i++;
+		(ha->dest_index)++;
+		i++;
 	}
 }
 
-void	ft_functin_env_you(t_ha *ha, t_err *err)
+void	ft_functin_env_you(t_ha *ha, t_ha *err)
 {
 	char	*str;
 	int		i;
@@ -38,11 +49,11 @@ void	ft_functin_env_you(t_ha *ha, t_err *err)
 	while (str[i])
 	{
 		ha->dest_index++;
-        i++;
+		i++;
 	}
 }
 
-void	copy_env_value_you(t_node *lst, t_env *my_env, t_ha *ha, t_err *err)
+void	copy_env_value_you(t_node *lst, t_env *my_env, t_ha *ha, t_ha *err)
 {
 	int		b;
 	char	*src;
@@ -70,8 +81,7 @@ void	copy_env_value_you(t_node *lst, t_env *my_env, t_ha *ha, t_err *err)
 		ft_functin_env_you(ha, err);
 }
 
-
-int	count_cmd1(t_node *lst, t_env *my_env, t_err *err)
+int	count_cmd1(t_node *lst, t_env *my_env, t_ha *err)
 {
 	t_ha	*ha;
 
@@ -97,5 +107,5 @@ int	count_cmd1(t_node *lst, t_env *my_env, t_err *err)
 			}
 		}
 	}
-    return (ha->dest_index);
+	return (ha->dest_index);
 }

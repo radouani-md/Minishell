@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 18:01:06 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	implement_echo(t_env *env, t_node *nodes)
 	return (0);
 }
 
-int	implement_exit(t_env *my_env, t_node *nodes, t_err *err)
+int	implement_exit(t_env *my_env, t_node *nodes, t_ha *err)
 {
 	// int exit_state;
 

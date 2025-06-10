@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 10:00:24 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	loop_through_node2(t_node **nodes, t_err *err)
+int	loop_through_node2(t_node **nodes, t_ha *err)
 {
 	if ((*nodes)->type == 2)
 	{
@@ -32,7 +32,7 @@ int	loop_through_node2(t_node **nodes, t_err *err)
 	return (0);
 }
 
-int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
+int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err)
 {
 	t_node	*head;
 	int		is_entred;
@@ -55,7 +55,7 @@ int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_err *err)
 	return (0);
 }
 
-int	loop_through_node_builtin2(t_node **nodes, t_err *err, t_var *arm)
+int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
 {
 	if ((*nodes)->type == 2 || (*nodes)->type == 1337)
 	{
@@ -75,7 +75,7 @@ int	loop_through_node_builtin2(t_node **nodes, t_err *err, t_var *arm)
 	return (0);
 }
 
-int	loop_through_node_builtin(t_node *nodes, t_env *env, t_err *err)
+int	loop_through_node_builtin(t_node *nodes, t_env *env, t_ha *err)
 {
 	t_var	*arm;
 	int		is_entred;

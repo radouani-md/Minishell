@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/04 18:05:26 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:44:18 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 volatile sig_atomic_t g_sig_md ;
 
-int	exec_commands(t_node **nodes, t_env **my_env, t_err *err)
+int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 {
 
 	if (piping_forking(nodes, my_env, err) == -333)
@@ -93,7 +93,6 @@ void ft_node(t_node **arg)
 		{
 			if(!(*arg)->next)
 			{
-				printf("youssef\n");
 				*arg = NULL;
 			}
 			else
@@ -109,10 +108,10 @@ int	main(int argc, char **argv, char **envp)
 	int	saved_fd;
 	t_node	*arg;
 	t_env	*my_envp;
-	t_err	*err;
+	t_ha	*err;
 	char	*input;
 
-	err = gc_malloc(sizeof(t_err), 1);
+	err = gc_malloc(sizeof(t_ha), 1);
 	err->err_status = 0;
 	while (1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 10:51:30 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:19:07 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	helper_her(t_node *nodes)
 	return (0);
 }
 
-void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted, t_err *err)
+void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted, t_ha *err)
 {
 	ft_lstadd_front(line_node, ft_lstnew1(line, 0));
 	if (is_quoted == 0)
 		expanding_function_heredoc(*line_node, env, err);
 }
 
-int helper_her_doc(char *del, int fd, t_env *env, int is_quoted, t_err *err)
+int helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 {
 	char	*line;
 	t_node	*line_node;
@@ -52,7 +52,7 @@ int helper_her_doc(char *del, int fd, t_env *env, int is_quoted, t_err *err)
 		line = readline("heredoc> ");
 		if (g_sig_md == 33)
 		{
-			close(fd);
+			close(err->fd);
 			return (-333);
 		}
 		if (!line)
@@ -64,10 +64,10 @@ int helper_her_doc(char *del, int fd, t_env *env, int is_quoted, t_err *err)
 		if (ft_strcmp(line, del) == 0)
 			break ;
 		expand_hd(line, &line_node, env, is_quoted, err);
-		write(fd, line_node->data, md_strlen(line_node->data));
-		write(fd, "\n", 1);
+		write(err->fd, line_node->data, md_strlen(line_node->data));
+		write(err->fd, "\n", 1);
 	}
-	close(fd);
+	close(err->fd);
 	return (0);
 }
 
@@ -87,10 +87,9 @@ int	count_heredoc(t_node *nodes)
 	return (num_heredocs);
 }
 
-int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
+int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 {
 	char	*tmp_name;
-	int		fd;
 	int		num_heredocs;
 
 	tmp_name = NULL;
@@ -100,10 +99,10 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_err *err)
 		if (nodes->type == 3)
 		{
 			tmp_name = random_num();
-			fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
-			if (fd == -1)
+			err->fd = open(tmp_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			if (err->fd == -1)
 				return (perror("fd :"), 1);
-			if (helper_her_doc(nodes->data, fd, env, nodes->is_quoted, err) == -333)
+			if (helper_her_doc(nodes->data, env, nodes->is_quoted, err) == -333)
 				return (-333);
 			nodes->tmp_file = md_strdup(tmp_name);
 			if (!nodes->tmp_file)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/06/10 17:58:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	implement_outfile(t_node *nodes, t_err *err)
+int	implement_outfile(t_node *nodes, t_ha *err)
 {
 	int	fd;
 
@@ -25,7 +25,7 @@ int	implement_outfile(t_node *nodes, t_err *err)
 	return (0);
 }
 
-int	implement_appending(t_node *nodes, t_err *err)
+int	implement_appending(t_node *nodes, t_ha *err)
 {
 	int	fd;
 
@@ -45,7 +45,7 @@ int	implement_appending(t_node *nodes, t_err *err)
 	return (0);
 }
 
-int	implement_infile(t_node *nodes, t_err *err)
+int	implement_infile(t_node *nodes, t_ha *err)
 {
 	int	fd;
 

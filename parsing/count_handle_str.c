@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_handle_str.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 22:02:37 by ylagzoul          #+#    #+#             */
+/*   Updated: 2025/06/09 22:07:25 by ylagzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	handle_multiple_quotes1(char *input, int *i, t_handel *handel, int *col)
 {
+	(*col)++;
 	if (((input[*i] == '\"') || input[*i] == '\'') && input[(*i) + 1])
 	{
 		(*i)++;
-		(*col)++;
 		if (input[*i]) //  echo "$HOME$"$"youssef"    input[*i] = '\0'  او هدي *i++ حيت هدي نزيد ب
 		{
 			handel->a = *i;
@@ -25,11 +37,7 @@ void	handle_multiple_quotes1(char *input, int *i, t_handel *handel, int *col)
 		}
 	}
 	else
-	{
-		(*i)++;
-		(*col)++;
-		handel->a = *i;
-	}
+		handel->a = ++(*i);
 }
 
 int	handel_qoutation1(char *input, int *i, t_handel *handel, int *col)

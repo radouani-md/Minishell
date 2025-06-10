@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 10:21:35 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	saving_fds(int saved_fd_in, int saved_fd_out)
 }
 
 int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
-	t_err *err)
+	t_ha *err)
 {
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
@@ -43,7 +43,7 @@ int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
 }
 
 int	countinue_exec_builtin(char **cmd, t_env **my_env, t_node **nodes,
-	t_err *err)
+	t_ha *err)
 {				
 	if (ft_strcmp(cmd[0], "cd") == 0)
 	{
@@ -63,7 +63,7 @@ int	countinue_exec_builtin(char **cmd, t_env **my_env, t_node **nodes,
 	return (0);
 }
 
-int	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err)
+int	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err)
 {
 	int	saved_fd_in;
 	int	saved_fd_out;

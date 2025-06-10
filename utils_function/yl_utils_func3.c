@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/09 10:34:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:43:27 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 void	conut_dabel_singel_qoutition(char c, t_ha	*ha)
 {
-	if (c == '\'' && ha->dablla_qoute % 2 == 0)
-		(ha->singl_qoute)++;
-	else if (c == '\"' && ha->singl_qoute % 2 == 0)
-		(ha->dablla_qoute)++;
+	if (c == '\'' && ha->dbl_qte % 2 == 0)
+		(ha->snl_qte)++;
+	else if (c == '\"' && ha->snl_qte % 2 == 0)
+		(ha->dbl_qte)++;
 }
 
-t_ha	*helper_varia(void)
+t_ha	*helper_varia(t_ha *ha)
 {
 	t_ha	*new_node;
 
 	new_node = gc_malloc(sizeof(t_ha), 1);
 	new_node->dest_index = 0;
+	new_node->err_status = ha->err_status;
 	new_node->read_index = 0;
 	new_node->quote_count = 0;
-	new_node->singl_qoute = 0;
-	new_node->dablla_qoute = 0;
+	new_node->snl_qte = 0;
+	new_node->dbl_qte = 0;
 	new_node->next = NULL;
 	return (new_node);
 }
@@ -101,9 +102,9 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	str[a] = '\0';
 	if (!key_check(str))
 	{
-		printf("export: `%s': \n", nodes->data);
-		gc_malloc(0, 0);
-		exit(1);
+		printf("export: `%s': not a valid identifier\n", nodes->data);
+		// gc_malloc(0, 0);
+		// exit(1);
 	}
 	return (str);
 }
@@ -136,7 +137,7 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 		(*i)++;
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
 	{
-		printf("mhd: export: `%s': \n", nodes->data);
+		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
 		return (NULL);
 	}
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')

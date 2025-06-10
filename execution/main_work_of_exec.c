@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_work_of_exec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 16:36:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char **load_env(t_env *my_env)
 	return (enverment);
 }
 
-void	catch_signals(t_err *err, pid_t pid)
+void	catch_signals(t_ha *err, pid_t pid)
 {
 	int status;
 	pid_t wpid;
@@ -58,7 +58,7 @@ void	catch_signals(t_err *err, pid_t pid)
 	}
 }
 
-int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_err *err)
+int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_ha *err)
 {
 	if (implement_her_doc(nodes, my_env, err) == -333)
 	{
@@ -73,7 +73,7 @@ int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_err *err)
 	return (0);
 }
 
-int set_md(t_md **md, t_node *nodes, t_env *my_env, t_err *err)
+int set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err)
 {
 	*md = gc_malloc(sizeof(t_md), 1);
 	(*md)->prev_fd = -1;
@@ -94,7 +94,7 @@ void	parent_work(t_md *md)
 	md->i++;
 }
 
-int	forking_pip(t_md *md, t_env **my_env, t_err *err, t_node *nodes)
+int	forking_pip(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
 {
 	int her;
 	if (md->prev_fd != -1)
@@ -127,7 +127,7 @@ int	forking_pip(t_md *md, t_env **my_env, t_err *err, t_node *nodes)
 	exit(127);
 }
 
-void	helper_built(t_md *md, t_err *err)
+void	helper_built(t_md *md, t_ha *err)
 {
 	md->cmd2 = loop_through_node_cmd(md->groups[md->i]);
 	if (!md->cmd2)
@@ -138,7 +138,7 @@ void	helper_built(t_md *md, t_err *err)
 	err->err_status = 0;
 }
 
-int	piping_forking(t_node **nodes, t_env **my_env, t_err *err)
+int	piping_forking(t_node **nodes, t_env **my_env, t_ha *err)
 {
 	t_md	*md;
 

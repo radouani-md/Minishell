@@ -6,11 +6,25 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 21:36:35 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/02 22:53:25 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_tchek_q(char *tmp)
+{
+	int	i;
+
+	i = 0;
+	while (tmp[i])
+	{
+		if (tmp[i] == '\"' || tmp[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void	len_env_value(char *str, t_ha *halel)
 {
@@ -24,7 +38,7 @@ void	len_env_value(char *str, t_ha *halel)
 	}
 }
 
-int	ft_strlen_num_err(t_err *err)
+int	ft_strlen_num_err(t_ha *err)
 {
 	int		i;
 	char	*str;
@@ -65,7 +79,7 @@ int	ft_Check_after_dollar(char c)
 
 int	ft_Check_dollar(t_node *lst, t_ha *ha)
 {
-	if (lst->data[ha->read_index] == '$' && ha->singl_qoute % 2 == 0)
+	if (lst->data[ha->read_index] == '$' && ha->snl_qte % 2 == 0)
 	{
 		if (lst->data[ha->read_index + 1] >= 97
 			&& lst->data[ha->read_index + 1] <= 122)
@@ -83,7 +97,7 @@ int	ft_Check_dollar(t_node *lst, t_ha *ha)
 	return (0);
 }
 
-void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err)
+void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_ha *err)
 {
 	int		b;
 	char	*src;
@@ -112,7 +126,7 @@ void	numstr_expand_without_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err 
 		halel->dest_index += ft_strlen_num_err(err);
 }
 
-void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_err *err)
+void	numstr_expand_with_quote(t_node *lst, t_env *my_env, t_ha *halel, t_ha *err)
 {
 	int		b;
 	char	*src;
