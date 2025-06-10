@@ -6,16 +6,17 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:26:39 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/02 11:38:46 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:04:28 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **fetch_path(t_env *my_env)
+char	**fetch_path(t_env *my_env)
 {
-	char *path_value;
-	char **paths;
+	char	*path_value;
+	char	**paths;
+
 	while (my_env)
 	{
 		if (ft_strncmp(my_env->key, "PATH", 4) == 0)

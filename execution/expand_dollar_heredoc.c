@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/03 11:18:15 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 10:03:14 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	copy_to_dap_heredoc(char *dap, char *str, t_ha *ha)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
@@ -55,13 +55,17 @@ int	check_dollar_heredoc(t_node *lst, t_ha *ha)
 {
 	if (lst->data[ha->read_index] == '$')
 	{
-		if (lst->data[ha->read_index + 1] >= 97 && lst->data[ha->read_index + 1] <= 122)
+		if (lst->data[ha->read_index + 1] >= 97
+			&& lst->data[ha->read_index + 1] <= 122)
 			return (1);
-		else if (lst->data[ha->read_index + 1] >= 65 && lst->data[ha->read_index + 1] <= 90)
+		else if (lst->data[ha->read_index + 1] >= 65
+			&& lst->data[ha->read_index + 1] <= 90)
 			return (1);
-		else if (lst->data[ha->read_index + 1] >= 48 && lst->data[ha->read_index + 1] <= 57)
+		else if (lst->data[ha->read_index + 1] >= 48
+			&& lst->data[ha->read_index + 1] <= 57)
 			return (1);
-		else if (lst->data[ha->read_index + 1] == 95 || lst->data[ha->read_index + 1] == '?')
+		else if (lst->data[ha->read_index + 1] == 95
+			|| lst->data[ha->read_index + 1] == '?')
 			return (1);
 	}
 	return (0);
@@ -71,10 +75,10 @@ void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err)
 {
 	char	*dap;
 	t_ha	*ha;
-	
+
 	ha = helper_varia();
-	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env, err) + 1), 1);//count_cmd(lst, my_env)
-	if(!dap)
+	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env, err) + 1), 1);
+	if (!dap)
 		return ;
 	while (lst->data[ha->read_index])
 	{
@@ -82,7 +86,8 @@ void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_err *err)
 			copy_env_value_heredoc(lst, my_env, dap, ha, err);
 		else
 		{
-			if (lst->data[ha->read_index] == '$' && lst->data[ha->read_index + 1] == '$')
+			if (lst->data[ha->read_index] == '$'
+				&& lst->data[ha->read_index + 1] == '$')
 				count_dollare(ha, lst->data);
 			else
 				dap[ha->dest_index++] = lst->data[ha->read_index++];

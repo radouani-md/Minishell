@@ -12,6 +12,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <stdarg.h>
 # include <sys/wait.h>
 # include <linux/limits.h>
 
@@ -62,7 +63,12 @@ typedef struct s_md
 	pid_t	pid;
 }				t_md;
 
-
+typedef struct s_var
+{
+	int		in_var;
+	int		out_var;
+	int		append_var;
+}				t_var;
 
 typedef struct t_env
 {
@@ -190,6 +196,7 @@ void	ft_lstadd_back12(t_env **lst, t_env *new);
 t_env	*ft_lstlast(t_env *lst);
 
 char	*random_num();
+void	alloc_arm(t_var	**arm);
 char	*md_itoa(int n);
 int		get_length(int n);//static
 char	*ft_strcat(char *dest, char *src);
@@ -219,7 +226,18 @@ void	ft_free(t_list **lst);
 int	    ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
-void	ft_putstr(char *str);
+void	md_putstr(char *str);
+
+int	ft_printf(const char *format, ...);
+int	ft_putchar(char c);
+int	ft_putstr(char *str);
+int	ft_putnbr(int n);
+int	ft_uns_putnbr(unsigned int n);
+int	ft_puthex(unsigned long num, char *base);
+int	ft_putpoint(void *ptr);
+int	ft_hexanbr(unsigned long ptr, char a);
+int	mix_printer(char caracter, va_list args);
+
 
 char	*get_next_line(int fd);
 
@@ -246,7 +264,13 @@ int 	is_builtin(char *cmd);
 int 	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_err *err);
 void    implement_env(t_env *env);
 int		implement_pwd(t_env *env);
+// cd
 int		implement_cd(t_env **env, t_node *nodes, t_err *err);
+char	*set_oldpwd(t_env *env, char *oldpwd);
+int		set_env(t_env **env, char *pwd_searched, char *pwd_updated);
+char	*fetch_home(t_env **env);
+
+
 int		implement_echo(t_env *env, t_node *nodes);
 int		implement_exit(t_env *my_env, t_node *nodes, t_err *err);
 

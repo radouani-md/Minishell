@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 17:04:03 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/10 18:01:06 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	implement_exit(t_env *my_env, t_node *nodes, t_err *err)
 
 	// exit_state = 0;
 	if (nodes->next && nodes->next->next)
-		return (ft_printf("exit\nminishell: exit: too many arguments\n"), 1);
+		return (ft_printf("exit\nminishell: exit: too many arguments\n"), err->err_status = 1, 1);
 	else if (nodes && nodes->next)
 	{
 		// exit_state = nodes->next->data; // atoi
