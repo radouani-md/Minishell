@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:23:01 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	implement_outfile(t_node *nodes, t_ha *err)
 	int	fd;
 
 	if (!*nodes->data || nodes->type == 1337)
-		return (printf("minishell: ambiguous redirect\n" ),
+		return (write(2, "minishell: ambiguous redirect\n", 30),
 			err->err_status = 1, 3);
 	fd = open(nodes->data, O_RDONLY);
 	if (fd == -1)
 		return (perror("fd "), err->err_status = 1, 3);
+	close(fd);
 	return (0);
 }
 
@@ -30,7 +31,7 @@ int	implement_appending(t_node *nodes, t_ha *err)
 	int	fd;
 
 	if (!*nodes->data || nodes->type == 1337)
-		return (printf("minishell: ambiguous redirect\n" ),
+		return (write(2, "minishell: ambiguous redirect\n", 30),
 			err->err_status = 1, 3);
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
@@ -50,7 +51,7 @@ int	implement_infile(t_node *nodes, t_ha *err)
 	int	fd;
 
 	if (!*nodes->data || nodes->type == 1337)
-		return (printf("minishell: ambiguous redirect\n" ),
+		return (write(2, "minishell: ambiguous redirect\n", 30),
 			err->err_status = 1, 3);
 	fd = open(nodes->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)

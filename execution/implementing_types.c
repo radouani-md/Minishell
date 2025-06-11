@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 20:19:07 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:55:17 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 		line = readline("heredoc> ");
 		if (g_sig_md == 33)
 		{
+			err->err_status = 130;
 			close(err->fd);
 			return (-333);
 		}

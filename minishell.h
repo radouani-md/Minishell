@@ -19,7 +19,7 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
 #endif
-extern volatile sig_atomic_t g_sig_md ;
+extern int g_sig_md ;
 
 typedef struct t_malloc
 {
@@ -49,6 +49,7 @@ typedef struct s_md
 	int 	prev_fd;
 	int 	i;
 	int 	num_groups;
+	int		is_twice;
 	t_node	**groups;
 	char	**cmd;
 	char 	**cmd2;
@@ -220,6 +221,7 @@ void	ft_free(t_list **lst);
 // export, cd, exit
 
 int	    ft_strcmp(char *s1, char *s2);
+long	md_atoi(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*md_strtrim(char *s1, char const *set);
 void	md_putstr(char *str);

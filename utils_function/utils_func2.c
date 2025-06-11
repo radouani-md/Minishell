@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:06:26 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/01 21:53:47 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 10:00:02 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,31 @@ char	**md_split(char const *s, char c)
 		return (NULL);
 	ptr = put_in(ptr, s, c, count);
 	return (ptr);
+}
+
+long	md_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	t;
+
+	i = 0;
+	sign = 1;
+	t = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] <= '9' && str[i] >= '0')
+	{
+		t = t * 10 + (str[i] - 48);
+		if (t > 2147483648)
+			return (2147483648);
+		i++;
+	}
+	return (t * sign);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_work_of_exec.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:04:37 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char **load_env(t_env *my_env)
 void	catch_signals(t_ha *err, pid_t pid)
 {
 	int status;
+	int sig;
 	pid_t wpid;
 	
 	while ((wpid = wait(&status)) > 0)
@@ -51,9 +52,18 @@ void	catch_signals(t_ha *err, pid_t pid)
 		if (wpid == pid)
 		{
 			if (WIFEXITED(status))
+			{
 				err->err_status = WEXITSTATUS(status);
+			}
 			else if (WIFSIGNALED(status))
-				err->err_status = 128 + WTERMSIG(status);
+			{
+				sig = WTERMSIG(status);
+				if (sig == SIGQUIT)
+					write(1, "Quit (core dumped)\n", 19);
+				else if (sig == SIGINT)
+					write(1, "\n", 1);
+				err->err_status = 128 + sig;
+			}
 		}
 	}
 }
@@ -78,10 +88,26 @@ int set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err)
 	*md = gc_malloc(sizeof(t_md), 1);
 	(*md)->prev_fd = -1;
 	(*md)->i = 0;
+	(*md)->is_twice = 0;
 	(*md)->pid = 0;
 	if (spliting_nodes_hd(*md, nodes, my_env, err) == -333)
 		return (-333);
 	return (0);
+}
+
+int	is_repeated_built(char *built_in)
+{
+
+	if (built_in)
+	{
+		if (ft_strcmp(built_in, "cd") == 0)
+			return (0);
+		if (ft_strcmp(built_in, "exit") == 0)
+			return (0);
+		if (ft_strcmp(built_in, "unset") == 0)
+			return (0);
+	}
+	return (1);
 }
 
 void	parent_work(t_md *md)
@@ -97,6 +123,8 @@ void	parent_work(t_md *md)
 int	forking_pip(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
 {
 	int her;
+
+	signal(SIGQUIT, SIG_DFL);
 	if (md->prev_fd != -1)
 	{
 		dup2(md->prev_fd, STDIN_FILENO);
@@ -112,6 +140,8 @@ int	forking_pip(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
 	else if (her == 3)
 		return (3);
 	md->cmd = helper_loop(md->cmd, md->groups[md->i]);
+	if (md->num_groups > 1 && is_repeated_built(md->cmd[0]) == 0)
+		exit(0);
 	if (!md->cmd)
 		exit(1);
 	md->cmd_path = is_accessable(fetch_path(*my_env), md->cmd[0]);

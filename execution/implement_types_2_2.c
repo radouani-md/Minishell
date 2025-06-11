@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:28:43 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,19 @@ void	saving_fds(int saved_fd_in, int saved_fd_out)
 int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
 	t_ha *err)
 {
+	char *str_print;
+
+	str_print = NULL;
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		if (!cmd[1])
 			implement_env(*my_env);
 		else
 		{
-			printf("env: ‘%s’: No such file or directory\n", cmd[1]);
+			str_print = md_strjoin(str_print, "env: ‘");
+			str_print = md_strjoin(str_print, cmd[1]);
+			str_print = md_strjoin(str_print, "’: No such file or directory\n");
+			write(2, str_print, md_strlen(str_print));
 			err->err_status = 127;
 		}
 		return (3);

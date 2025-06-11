@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:23:04 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,17 @@ int	implement_echo(t_env *env, t_node *nodes)
 
 int	implement_exit(t_env *my_env, t_node *nodes, t_ha *err)
 {
-	// int exit_state;
+	int exit_state;
 
-	// exit_state = 0;
+	exit_state = 0;
 	if (nodes->next && nodes->next->next)
-		return (ft_printf("exit\nminishell: exit: too many arguments\n"), err->err_status = 1, 1);
+		return (write(2, "exit\nminishell: exit: too many arguments\n", 41), err->err_status = 1, 1);
 	else if (nodes && nodes->next)
 	{
-		// exit_state = nodes->next->data; // atoi
+		exit_state = md_atoi(nodes->next->data);
 		ft_printf("exit\n");
 		gc_malloc(0, 0);
-		exit(34);
+		exit(exit_state);
 	}
 	ft_printf("exit\n");
 	gc_malloc(0, 0);

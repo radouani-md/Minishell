@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 16:51:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:58:16 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ void	implement_env(t_env *env)
 
 char	*get_env_value(t_env *env, char *pwd)
 {
-	char	*env_value;
+	char	*env_v;
 
-	env_value = NULL;
+	env_v = NULL;
 	while (env)
 	{
 		if (ft_strcmp(env->key, pwd) == 0)
 		{
 			if (env->value)
-				env_value = env->value;
+				env_v = env->value;
 			break ;
 		}
 		env = env->next;
 	}
-	return (env_value);
+	return (env_v);
 }
 
 int	implement_pwd(t_env *env)
@@ -58,6 +58,5 @@ int	implement_pwd(t_env *env)
 	}
 	else
 		ft_printf("%s\n", cwd);
-	free(cwd);
 	return (0);
 }
