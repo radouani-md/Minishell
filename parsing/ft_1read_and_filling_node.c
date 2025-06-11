@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:23:30 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/09 19:56:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:55:36 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ void	handel_qoutation(char *input, int *i, t_handel *handel)
 			break ;
 		}
 		handel->temp[(handel->t)++] = input[(*i)++];
-		if (!input[*i]) // break; دشي علاش مع توصل \0 دير "ls d""skfjfe حيت هدي تبقى تقرى لا م نهاية فية حالة كان
+		if (!input[*i])
 		{
-			printf("eroor\n");
-			gc_malloc(0, 0);
-			exit(1);
+			write(2, "eroor\n", 7);
 		}
 	}
 }
@@ -79,7 +77,7 @@ void	handle_multiple_quotes(char *input, int *i, t_handel *handel)
 	if (((input[*i] == '\"') || input[*i] == '\'') && input[(*i) + 1])
 	{
 		handel->temp[(handel->t)++] = input[(*i)++];
-		if (input[*i]) //  echo "$HOME$"$"youssef"    input[*i] = '\0'  او هدي *i++ حيت هدي نزيد ب
+		if (input[*i])
 		{
 			handel->a = *i;
 			if (input[handel->a] == '\"')

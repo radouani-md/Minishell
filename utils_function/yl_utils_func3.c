@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/10 20:43:27 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 23:02:33 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,7 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	str = gc_malloc(count_key(i, nodes) + 1, 1);//count_key(i, nodes) + 1
 	if(nodes->data[0] >= '0' && nodes->data[0] <= '9')
 	{
-		printf("eroor ft_cpy_key\n");
-		gc_malloc(0, 0);
-		exit(1);
+		return(NULL);
 	}
 	while (nodes->data[i] != '+' && nodes->data[i] != '=' && nodes->data[i]) //ft_Check_key(nodes->data[i])
 	{
@@ -102,9 +100,8 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	str[a] = '\0';
 	if (!key_check(str))
 	{
-		printf("export: `%s': not a valid identifier\n", nodes->data);
-		// gc_malloc(0, 0);
-		// exit(1);
+		ft_print_erorr("bash: export: `", nodes->data, "': not a valid identifier\n", NULL);
+		return(NULL);
 	}
 	return (str);
 }
@@ -137,7 +134,7 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 		(*i)++;
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
 	{
-		printf("mhd: export: `%s': not a valid identifier\n", nodes->data);
+		ft_print_erorr("bash: export: `", nodes->data, "': not a valid identifier\n", NULL);
 		return (NULL);
 	}
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')
@@ -155,6 +152,9 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env)
 		yl_strlen(nodes->data, i);
 	}
 	else
+	{
 		my_env->type = 0;
+		return (NULL);
+	}
 	return (str);
 }

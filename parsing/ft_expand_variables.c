@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/10 20:44:03 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:32:51 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	handle_dollar_quote_case(t_node *lst, t_ha *ha, char *dap)
 void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 {
 	char	*dap;
-	// t_ha	*ha;
 
 	ha = helper_varia(ha);
 	dap = gc_malloc(count_cmd1(lst, my_env, ha) + 1, 1);

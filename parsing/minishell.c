@@ -6,20 +6,38 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/10 20:44:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 23:22:21 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-volatile sig_atomic_t g_sig_md ;
+int	g_sig_md ;
+
+int	get_status(int status, int set_get)
+{
+	static int old_status = 0;
+	
+	if (set_get == 0)
+	{
+		old_status = status;
+	}
+	return (old_status);
+}
 
 int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 {
+	int returned_value;
 
-	if (piping_forking(nodes, my_env, err) == -333)
+	returned_value = piping_forking(nodes, my_env, err);
+	if (returned_value == -333)
 	{
 		return (-333);
+	}
+	else if (returned_value == -1)
+	{
+		gc_malloc(0, 0);
+		exit(1);
 	}
 	return (0);
 }
@@ -27,8 +45,7 @@ int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	// err->err_status = 130; //128 + SIGINT (2)
-	// printf("III%dIII\n", g_sig_md);
+
 	if (g_sig_md == 3)
 	{
 		close(0);
@@ -41,11 +58,9 @@ void	sigint_handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		get_status(130, 0);
 	}
-	if (g_sig_md == 2)
-	{
-		printf("\n");
-	}
+	
 }
 
 void	setup_signals()
@@ -105,7 +120,6 @@ void ft_node(t_node **arg)
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
-	int	saved_fd;
 	t_node	*arg;
 	t_env	*my_envp;
 	t_ha	*err;
@@ -115,33 +129,44 @@ int	main(int argc, char **argv, char **envp)
 	err->err_status = 0;
 	while (1)
 	{
-		saved_fd = dup(0);
+		err->saved_fd = dup(0);
 		setup_signals();
-		g_sig_md = 0;
 		lst = NULL;
+		g_sig_md = 0;
+		err->err_status = get_status(err->err_status, 0);
 		input = readline("minishell> ");
+		err->err_status = get_status(0, 1);
 		if (!input)
-			return (gc_malloc(0,0), printf("exit\n"), exit(0), 0);
+			return (printf("exit\n"), gc_malloc(0,0), close(err->saved_fd), 0);	
 		if (input[0] == '\0')
+		{
+			close(err->saved_fd);
 			continue ;
+		}
 		add_history(input);
 		read_and_filling_node(input, &lst);
 		if (lst == NULL)
-			continue ;
-		syntax_erorr(lst);
-		arg = typed_nodes(lst);
-		if (!my_envp)
-			claiming_env(envp, &my_envp);
-		expand_variables(arg, my_envp, err);
-		ft_node(&arg);
-		delete_qoutation(arg);
-		delete_sinqel_dabel_qoutishen(arg);
-		if (exec_commands(&arg, &my_envp, err) == -333)
 		{
-			dup2(saved_fd, STDIN_FILENO);
-			close(saved_fd);
+			close(err->saved_fd);
 			continue ;
 		}
+		if(syntax_erorr(lst))
+		{
+			arg = typed_nodes(lst);
+			if (!my_envp)
+				claiming_env(envp, &my_envp);
+			expand_variables(arg, my_envp, err);
+			ft_node(&arg);
+			delete_qoutation(arg);
+			delete_sinqel_dabel_qoutishen(arg);
+			if (exec_commands(&arg, &my_envp, err) == -333)
+			{
+				dup2(err->saved_fd, STDIN_FILENO);
+				close(err->saved_fd);
+				continue ;
+			}
+		}
+		close(err->saved_fd);
 	}
 	return (gc_malloc(0, 0), 0);
 }

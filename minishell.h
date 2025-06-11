@@ -108,7 +108,7 @@ typedef struct t_ha
 	int		saved_fd_out;
 	struct t_ha *next;
 }						t_ha;
-
+void ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
 int	count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
 
 void	*gc_malloc(size_t size, int nbr);
@@ -129,7 +129,7 @@ void	handle_multiple_quotes(char *input, int *i, t_handel *handel);
 void	handel_qoutation(char *input, int *i, t_handel *handel);
 int		count_string(char *input, int i, t_handel *handel);
 
-void	syntax_erorr(t_list *lst);
+int	syntax_erorr(t_list *lst);
 int		tchik_pipe(t_list *lst);
 
 t_node	*typed_nodes(t_list *lst);
