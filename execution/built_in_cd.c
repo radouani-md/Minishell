@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/11 16:07:25 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/11 21:23:40 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		oldpwd = set_oldpwd(*env, oldpwd);
-	if (!nodes->next || !nodes->next->data)
+	if (!nodes->next || nodes->next->type != 0)
 	{
 		if (helper_cd(home, env, oldpwd, cwd) == 1)
 			return (free(oldpwd), 1);
@@ -102,6 +102,5 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 		if (cd_absoulute(nodes->next->data, oldpwd, env, err) == 1)
 			return (free(oldpwd), 1);
 	}
-	free(oldpwd);
 	return (0);
 }

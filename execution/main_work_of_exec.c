@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/11 17:04:37 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/11 23:00:11 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	catch_signals(t_ha *err, pid_t pid)
 	
 	while ((wpid = wait(&status)) > 0)
 	{
+		// printf("%d\n", pid);
 		if (wpid == pid)
 		{
 			if (WIFEXITED(status))
@@ -97,7 +98,6 @@ int set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err)
 
 int	is_repeated_built(char *built_in)
 {
-
 	if (built_in)
 	{
 		if (ft_strcmp(built_in, "cd") == 0)
@@ -202,5 +202,5 @@ int	piping_forking(t_node **nodes, t_env **my_env, t_ha *err)
 		else
 			parent_work(md);
 	}
-	return (catch_signals(err, md->pid), 0);
+	return (catch_signals(err, md->pid), close(md->prev_fd), 0);
 }

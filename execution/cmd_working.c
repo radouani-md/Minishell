@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 19:56:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/11 20:10:41 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,20 @@ int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
 	if ((*nodes)->type == 2 || (*nodes)->type == 1337)
 	{
 		arm->in_var = implement_infile((*nodes), err);
-		return (arm->in_var);
+		if (arm->in_var)
+			return (arm->in_var);
 	}
 	if ((*nodes)->type == 1 || (*nodes)->type == 1337)
 	{
 		arm->out_var = implement_outfile((*nodes), err);
-		return (arm->out_var);
+		if (arm->out_var)
+			return (arm->out_var);
 	}
 	if ((*nodes)->type == 4 || (*nodes)->type == 1337)
 	{
 		arm->append_var = implement_appending((*nodes), err);
-		return (arm->append_var);
+		if (arm->append_var)
+			return (arm->append_var);
 	}
 	return (0);
 }

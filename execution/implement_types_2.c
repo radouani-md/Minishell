@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 23:40:09 by rd_md_haker       #+#    #+#             */
-/*   Updated: 2025/06/11 14:23:01 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/11 19:11:11 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	implement_outfile(t_node *nodes, t_ha *err)
 			err->err_status = 1, 3);
 	fd = open(nodes->data, O_RDONLY);
 	if (fd == -1)
-		return (perror("fd "), err->err_status = 1, 3);
+		return (perror("fd "), err->err_status = 1, close(err->saved_fd), 3);
 	close(fd);
 	return (0);
 }

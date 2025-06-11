@@ -103,6 +103,9 @@ typedef struct t_ha
 	int		dbl_qte;// m
 	int		err_status;
 	int		fd;
+	int		saved_fd;
+	int		saved_fd_in;
+	int		saved_fd_out;
 	struct t_ha *next;
 }						t_ha;
 
