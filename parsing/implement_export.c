@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 04:00:59 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:50:56 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i)
 void	lagzouli(t_env *cpy_env, t_node *nodes, int *i)
 {
 	char	*str1;
+	int		type;
 
+	type = cpy_env->type;
 	str1 = ft_cpy_value(i, nodes, cpy_env);
 	if (str1 != NULL)
 		cpy_env->value = str1;
-	else
+	else if (type == 1)
 		cpy_env->type = 1;
 }
 

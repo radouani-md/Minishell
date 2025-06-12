@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/10 20:39:11 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:34:07 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_count_env(char *dap, int read_index)
 {
 	t_ha	*hale;
 
-	hale = helper_varia();
+	hale = helper_varia(0);
 	while (dap[read_index])
 	{
 		conut_dabel_singel_qoutition(dap[read_index], hale);
@@ -89,7 +89,7 @@ void	fill_up_node(char *dap, t_node *lst)
 	t_ha	*hal;
 	char	*tmp;
 
-	hal = helper_varia();
+	hal = helper_varia(0);
 	tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
 	if (dap[hal->read_index] == '\0')
 		lst->data = dap;

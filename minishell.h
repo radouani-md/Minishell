@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 04:17:22 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:17:35 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char	*ft_cpy_key(int i, t_node *nodes);
 int		check_key(char c);
 t_handel	*helper_variables();
-t_ha	*helper_varia();
+t_ha	*helper_varia(int err);
 void	conut_dabel_singel_qoutition(char c, t_ha	*ha);
 
 int		ft_strlen(int a, char *dap);

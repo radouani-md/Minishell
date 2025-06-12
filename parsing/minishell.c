@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/11 23:22:21 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:54:34 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	delete_sinqel_dabel_qoutishen(t_node *arg)
 		arg = arg->next;
 	}
 }
+
 void ft_node(t_node **arg)
 {
 	t_node *tmp;
@@ -117,6 +118,7 @@ void ft_node(t_node **arg)
 		tmp = tmp->next;
 	}
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
@@ -137,7 +139,7 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("minishell> ");
 		err->err_status = get_status(0, 1);
 		if (!input)
-			return (printf("exit\n"), gc_malloc(0,0), close(err->saved_fd), 0);	
+			return (printf("exit\n"), gc_malloc(0, 0), close(err->saved_fd), 0);	
 		if (input[0] == '\0')
 		{
 			close(err->saved_fd);
@@ -150,7 +152,7 @@ int	main(int argc, char **argv, char **envp)
 			close(err->saved_fd);
 			continue ;
 		}
-		if(syntax_erorr(lst))
+		if (syntax_erorr(lst))
 		{
 			arg = typed_nodes(lst);
 			if (!my_envp)
@@ -168,5 +170,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 		close(err->saved_fd);
 	}
-	return (gc_malloc(0, 0), 0);
+	return (gc_malloc(0, 0), free(input),0);
 }

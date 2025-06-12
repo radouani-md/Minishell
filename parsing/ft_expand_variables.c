@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 03:12:20 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:33:23 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	count_cmd(t_node *lst, t_env *my_env, t_ha *err)
 {
 	t_ha	*halel;
 
-	halel = helper_varia();
+	halel = helper_varia(err->err_status);
 	while (lst->data[halel->read_index])
 	{
 		if (lst->data[halel->read_index] == '\''
@@ -57,7 +57,7 @@ void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 {
 	char	*dap;
 
-	ha = helper_varia(ha);
+	ha = helper_varia(ha->err_status);
 	dap = gc_malloc(count_cmd1(lst, my_env, ha) + 1, 1);
 	while (lst->data[ha->read_index])
 	{
@@ -103,7 +103,7 @@ void	expand_variables(t_node *lst, t_env *my_env, t_ha *err)
 {
 	t_ha	*ha;
 
-	ha = helper_varia();
+	ha = helper_varia(err->err_status);
 	while (lst)
 	{
 		ha->read_index = 0;

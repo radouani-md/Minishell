@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:14:54 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/09 21:48:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:26:37 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_count_ec(char *arg)
 	int		m;
 
 	m = 0;
-	hax = helper_varia();
+	hax = helper_varia(0);
 	while (arg[hax->read_index])
 	{
 		if (arg[hax->read_index] == '\'' && hax->dbl_qte % 2 == 0)
@@ -44,7 +44,7 @@ void	delete_qoutation(t_node *arg)
 
 	while (arg)
 	{
-		ha = helper_varia();
+		ha = helper_varia(0);
 		str = gc_malloc(ft_count_ec(arg->data) + 1, 1);
 		while (arg->data[ha->read_index])
 		{

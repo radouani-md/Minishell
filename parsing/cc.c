@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 22:00:18 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 03:15:54 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:21:08 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	count_cmd1(t_node *lst, t_env *my_env, t_ha *err)
 {
 	t_ha	*ha;
 
-	ha = helper_varia();
+	ha = helper_varia(err->err_status);
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);

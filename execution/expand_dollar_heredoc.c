@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 20:13:17 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 15:33:42 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_ha *err)
 {
 	char	*dap;
 
-	err = helper_varia();
+	err = helper_varia(err->err_status);
 	dap = gc_malloc(sizeof(char) * (count_cmd(lst, my_env, err) + 1), 1);
 	if (!dap)
 		return ;

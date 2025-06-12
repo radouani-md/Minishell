@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall #-fsanitize=address -g
+CFLAGS = -Wall -g -fsanitize=address
 NAME = minishell 
 HEADER = minishell.h 
 READ_LINE = -lreadline
