@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/11 12:32:51 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 03:12:20 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	count_cmd(t_node *lst, t_env *my_env, t_ha *err)
 		else if (lst->data[halel->read_index] == '\"'
 			&& halel->snl_qte % 2 == 0)
 			halel->dbl_qte++;
-		if (ft_Check_dollar(lst, halel))
+		if (check_dollar(lst, halel))
 		{
 			if (halel->dbl_qte % 2 == 1)
-				numstr_expand_with_quote(lst, my_env, halel, err);
+				num_expd_qte(lst, my_env, halel, err);
 			else
-				numstr_expand_without_quote(lst, my_env, halel, err);
+				num_expd_out_qte(lst, my_env, halel, err);
 		}
 		else
 		{
@@ -62,7 +62,7 @@ void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
-		if (ft_Check_dollar(lst, ha))
+		if (check_dollar(lst, ha))
 			copy_env_value(lst, my_env, dap, ha);
 		else
 		{

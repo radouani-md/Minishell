@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:10:26 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/11 23:09:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 02:04:08 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	tchik_pipe(t_list *lst)
 	return (0);
 }
 
-void ft_print_erorr(char *str1, char *str2, char *str3, char *str4)
+void	ft_print_erorr(char *str1, char *str2, char *str3, char *str4)
 {
-	char *str_print;
+	char	*str_print;
 
 	str_print = NULL;
 	str_print = md_strjoin(str_print, str1);
@@ -41,12 +41,14 @@ void ft_print_erorr(char *str1, char *str2, char *str3, char *str4)
 	str_print = md_strjoin(str_print, str4);
 	write(2, str_print, md_strlen(str_print));
 }
+
 int	syntax_erorr(t_list *lst)
 {
 	if (tchik_pipe(lst))
 	{
-		ft_print_erorr("bash: syntax error1 `", "|", "'\n", NULL);//lst->content[0]
-		return(0);
+		ft_print_erorr("bash: syntax error1 `", "|", "'\n", NULL);
+		//lst->content[0]
+		return (0);
 	}
 	else
 	{
@@ -55,7 +57,8 @@ int	syntax_erorr(t_list *lst)
 			if ((lst->content[0] == '<' || lst->content[0] == '>')
 				&& (lst->next->content[0] == '|' || lst->next->content[0] == '<'
 					|| lst->next->content[0] == '>'))
-				return (ft_print_erorr("bash: syntax error `", lst->next->content, "'\n", NULL), 0);
+				return (ft_print_erorr("bash: syntax error `",
+						lst->next->content, "'\n", NULL), 0);
 			else if ((lst->content[0] == '|') && (lst->next->content[0] == '|'))
 				return (write(2, "bash: syntax error `|'\n", 23), 0);
 			lst = lst->next;

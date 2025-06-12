@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:02:18 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 21:50:00 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 02:52:39 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,6 @@ void	ft_lstadd_back12(t_env **lst, t_env *new)
 		last = ft_lstlast(*lst);
 		last->next = new;
 	}
-}
-
-t_node	*ft_lstnew5(void)
-{
-	t_node	*new_node;
-
-	new_node = gc_malloc(sizeof(t_node), 1);
-	new_node->data = NULL;
-	new_node->next = NULL;
-	return (new_node);
 }
 
 void	ft_lstadd_back1(t_node **lst, t_node *new_node)

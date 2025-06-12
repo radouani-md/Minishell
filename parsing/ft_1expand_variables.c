@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/10 20:39:52 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 03:08:42 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	store_str_src(t_ha *ha, char *str, char *src)
 	int		dest_index;
 
 	dest_index = 0;
-	while (ft_Check_after_dollar(str[ha->read_index]))
+	while (check_after_dollar(str[ha->read_index]))
 	{
 		src[dest_index++] = str[(ha->read_index)++];
 		if (((str[ha->read_index - 1] >= 48 && str[ha->read_index - 1] <= 57)
@@ -81,7 +81,7 @@ char	*env_key(t_ha *ha, char *str)
 
 	len_key = 0;
 	cpy_index = ha->read_index;
-	while (ft_Check_after_dollar(str[cpy_index]))
+	while (check_after_dollar(str[cpy_index]))
 	{
 		len_key++;
 		if (str[cpy_index - 1] == '$' && ((str[cpy_index] >= 48
