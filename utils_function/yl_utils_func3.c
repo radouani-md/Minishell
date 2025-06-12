@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/11 23:02:33 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 01:13:53 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ int	key_check(char *str)
 		else if (str[i] == 95)
 			i++;
 		else
+		{
 			return (0);
+		}
 	}
 	return (1);
 }
@@ -100,7 +102,7 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	str[a] = '\0';
 	if (!key_check(str))
 	{
-		ft_print_erorr("bash: export: `", nodes->data, "': not a valid identifier\n", NULL);
+		// ft_print_erorr("bash: export: `", nodes->data, "': not a valid identifier\n", NULL);
 		return(NULL);
 	}
 	return (str);

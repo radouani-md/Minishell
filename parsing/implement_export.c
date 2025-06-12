@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/11 21:57:18 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/12 01:21:04 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 	int		i;
 
 	nodes = nodes->next;
+	str = NULL;
 	while (nodes)
 	{
 		i = 0;
@@ -109,7 +110,7 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 				}
 			}
 			else
-				write(2, "not a valid identifier\n", 23);
+				ft_print_erorr("bash: export: `", nodes->data, "': not a valid identifier\n", NULL);
 		}
 		nodes = nodes->next;
 	}
@@ -118,7 +119,7 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 int	implement_export(t_env *my_env, t_node *nodes)
 {
 	char	*str_print;
-	if (nodes->next == NULL || (nodes->next && nodes->next->type != 0))
+	if (nodes->next == NULL || (nodes->next && nodes->next->type != 0))//|| (nodes->next && nodes->next->type != 0)
 	{
 		while (my_env)
 		{
@@ -141,6 +142,9 @@ int	implement_export(t_env *my_env, t_node *nodes)
 		}
 	}
 	else
+	{
+		// exit(1);
 		add_value_export(my_env, nodes);
+	}
 	return (0);
 }
