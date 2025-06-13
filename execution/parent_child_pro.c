@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 19:32:51 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 22:05:10 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 		exit(127);
 	}
 	if (!*md->cmd)
-		exit(127);
+		exit(0);
 	execve(md->cmd_path, md->cmd, load_env(*my_env));
 	exit(126);
 }
