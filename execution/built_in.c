@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/11 15:58:16 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 00:00:28 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ int	implement_pwd(t_env *env)
 	}
 	else
 		ft_printf("%s\n", cwd);
-	return (0);
+	return (free(cwd), 0);
 }

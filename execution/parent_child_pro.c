@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 22:05:10 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 23:59:34 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 	if (!*md->cmd)
 		exit(0);
 	execve(md->cmd_path, md->cmd, load_env(*my_env));
+	if (md->cmd[0][0] == '/')
+		write(2, "mhd: Is a directory\n", 20);
 	exit(126);
 }
 
