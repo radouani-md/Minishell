@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 22:02:37 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 16:23:08 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 23:44:17 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,32 @@ int	ft_ft1(char *input, int *i, t_ha *handel, int *col)
 	return (1);
 }
 
+// int	count_handle_str(char *input, int i)
+// {
+// 	t_ha	*handel;
+// 	int			col;
+
+// 	col = 0;
+// 	handel = helper_varia(0);
+// 	while (input[i] && (input[i] != ' ' && input[i] != '\t')
+// 		&& input[i] != '|' && input[i] != '>' && input[i] != '<')
+// 	{
+// 		if (input[i] == '\"' || input[i] == '\'')
+// 		{
+// 			if (ft_ft1(input, &i, handel, &col) == 0)
+// 				return (0);
+// 		}
+// 		else
+// 		{
+// 			col++;
+// 			i++;
+// 		}
+// 		if (input[i - 1] == '\0' || input[i - 1] == ' '
+// 			|| input[i - 1] == '\t')
+// 			break ;
+// 	}
+// 	return (col);
+// }
 int	count_handle_str(char *input, int i)
 {
 	t_ha	*handel;
@@ -87,22 +113,26 @@ int	count_handle_str(char *input, int i)
 
 	col = 0;
 	handel = helper_varia(0);
-	while (input[i] && (input[i] != ' ' && input[i] != '\t')
+	while (input[i] && (((input[i] != ' ' && input[i] != '\t')
 		&& input[i] != '|' && input[i] != '>' && input[i] != '<')
+		|| handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
 	{
 		if (input[i] == '\"' || input[i] == '\'')
 		{
-			if (ft_ft1(input, &i, handel, &col) == 0)
-				return (0);
+			conut_dabel_singel_qoutition(input[i], handel);
+			col++;
+			i++;
 		}
 		else
 		{
 			col++;
 			i++;
 		}
-		if (input[i - 1] == '\0' || input[i - 1] == ' '
-			|| input[i - 1] == '\t')
-			break ;
+		if(input[i] == '\0' && (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
+		{
+			write(2, "bash : syntax error\n", 20);
+			return (col);
+		}
 	}
 	return (col);
 }

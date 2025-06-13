@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 19:41:00 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 23:13:51 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst)
 			// 	lst->type = 1337;
 			while (str[i] == ' ')
 				i++;
-			if (str[i] != ' ')
+			if (str[i] != ' ' && str[i])
 			{
 				if (i > 0 && str[i - 1] == ' ' && dap[0] != '\0')
 					dap[(ha->dest_index)++] = str[i - 1];

@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 20:26:04 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 23:09:54 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst;
 	t_node	*arg;
+	t_list	*arg1;
 	t_env	*my_envp;
 	t_ha	*err;
 	char	*input;

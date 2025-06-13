@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 02:45:52 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 16:28:14 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 23:30:18 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,6 @@ t_ha	*helper_varia(int err)
 	new_node->quote_count = 0;
 	new_node->snl_qte = 0;
 	new_node->dbl_qte = 0;
-	//
-	// new_node->t = 0;
-	// new_node->a = 0;
 	new_node->q = 1;
 	new_node->quote_count1 = 1;
 	new_node->next = NULL;
