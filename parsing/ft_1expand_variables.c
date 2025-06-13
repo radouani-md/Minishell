@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 03:08:42 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:45:06 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst)
 	{
 		if (m % 2 == 0)
 		{
-			if (lst->type == 1 || lst->type == 2 || lst->type == 4)
-				lst->type = 1337;
+			// if (lst->type == 1 || lst->type == 2 || lst->type == 4)
+			// 	lst->type = 1337;
 			while (str[i] == ' ')
 				i++;
 			if (str[i] != ' ')

@@ -6,11 +6,52 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:31:16 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 12:32:06 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:17:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	get_status(int status, int set_get)
+{
+	static int	old_status = 0;
+
+	if (set_get == 0)
+	{
+		old_status = status;
+	}
+	return (old_status);
+}
+
+void	sigint_handler(int sig)
+{
+	(void)sig;
+	if (g_sig_md == 3)
+	{
+		close(0);
+		write(1, "\n", 1);
+		g_sig_md = 33;
+	}
+	if (g_sig_md == 0)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		get_status(130, 0);
+	}
+}
+
+void	setup_signals(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = sigint_handler;
+	sigemptyset (&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction (SIGINT, &sa, NULL);
+	signal (SIGQUIT, SIG_IGN);
+}
 
 void	catch_signals(t_ha *err, pid_t pid)
 {
