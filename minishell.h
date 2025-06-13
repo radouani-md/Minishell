@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 18:18:19 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:01:35 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,34 +96,26 @@ typedef struct t_export
 	struct t_export	*next;
 }					t_export;
 
-typedef struct t_handel
-{
-	int				t;
-	char			*temp;
-	int				q;
-	int				quote_count;
-	int				a;
-	int				singl_qoute;
-	int				dablla_qoute;
-	int				count;
-	struct t_handel	*next;
-}				t_handel;
 
 typedef struct t_ha
 {
-	char		*line;
-	int			quote_count;
-	int			read_index;
-	int			dest_index;
-	int			snl_qte;
-	int			dbl_qte;
-	int			err_status;
-	int			no_cd;
-	int			fd;
-	int			saved_fd;
-	int			saved_fd_in;
-	int			saved_fd_out;
-	struct t_ha	*next;
+	char	*line;
+	char	*temp;
+	int		quote_count;
+	int		read_index;
+	int		dest_index;
+	int		snl_qte;
+	int		dbl_qte;
+	int		err_status;
+	int		no_cd;
+	int		fd;
+	int		saved_fd;
+	int		saved_fd_in;
+	int		saved_fd_out;
+	int		q;
+	int		quote_count1;
+	int		count;
+	struct	t_ha	*next;
 }						t_ha;
 
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
@@ -131,21 +123,21 @@ int			count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
 
 void		*gc_malloc(size_t size, int nbr);
 int			implement_unset(t_env **my_env, t_node *nodes);
-int			ft_ft1(char *input, int *i, t_handel *handel, int *col);
-int			handel_qoutation1(char *input, int *i, t_handel *handel, int *col);
+int			ft_ft1(char *input, int *i, t_ha *handel, int *col);
+int			handel_qoutation1(char *input, int *i, t_ha *handel, int *col);
 void		handle_multiple_quotes1(char *input, int *i,
-				t_handel *handel, int *col);
+				t_ha *handel, int *col);
 int			count_handle_str(char *input, int i);
 char		*ft_copy_add_dabel_qoutes(char *str);
 
-void		read_and_filling_node(char *input, t_list **lst);
-void		ft_handle_string(char	*input, int	*i, t_list	**lst);
-void		ft_ft(char *input, int *i, t_handel *handel);
+int			read_and_filling_node(char *input, t_list **lst);
+int			ft_handle_string(char	*input, int	*i, t_list	**lst);
+void		ft_ft(char *input, int *i, t_ha *handel);
 void		ft_handle_double_single(char *input, int *i, t_list **lst);
-void		ft_handel_pipe_direction(char *input, int *i, t_list **lst);
-void		handle_multiple_quotes(char *input, int *i, t_handel *handel);
-void		handel_qoutation(char *input, int *i, t_handel *handel);
-int			count_string(char *input, int i, t_handel *handel);
+void		ft_ha_pipe_direction(char *input, int *i, t_list **lst);
+void		handle_multiple_quotes(char *input, int *i, t_ha *handel);
+void		handel_qoutation(char *input, int *i, t_ha *handel);
+int			count_string(char *input, int i, t_ha *handel);
 
 int			syntax_erorr(t_list *lst);
 int			tchik_pipe(t_list *lst);
@@ -186,7 +178,7 @@ int			check_after_dollar(char c);
 void		len_env_value(char *str, t_ha *halel);
 int			ft_strlen_num_err(t_ha *err);
 
-t_handel	*helper_variables(void);
+t_ha	*helper_variables(void);
 char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char		*ft_cpy_key(int i, t_node *nodes);
 int			check_key(char c);

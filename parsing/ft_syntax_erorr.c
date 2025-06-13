@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:10:26 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 02:04:08 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:12:51 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	syntax_erorr(t_list *lst)
 {
 	if (tchik_pipe(lst))
 	{
-		ft_print_erorr("bash: syntax error1 `", "|", "'\n", NULL);
+		ft_print_erorr("bash: syntax error `", "|", "'\n", NULL);
 		//lst->content[0]
 		return (0);
 	}

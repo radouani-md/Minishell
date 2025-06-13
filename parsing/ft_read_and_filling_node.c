@@ -6,93 +6,60 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 22:41:58 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 18:37:26 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_handel_pipe_direction(char *input, int *i, t_list **lst)
+void	ft_ha_pipe_direction(char *input, int *i, t_list **lst)
 {
 	char	*temp;
-	int		n;
 	int		a;
 
 	a = 0;
-	n = *i;
-	if ((input[n] == '>' && input[n + 1] == '>')
-		|| (input[n] == '<' && input[n + 1] == '<'))
+	if (!ft_strncmp(input + *i, "<<", 2) || !ft_strncmp(input + *i, ">>", 2))
 		temp = gc_malloc(3, 1);
 	else
 		temp = gc_malloc(2, 1);
 	a = 0;
 	temp[a++] = input[*i];
-	if ((input[*i] == '>' && input[*i + 1] == '>')
-		|| (input[*i] == '<' && input[*i + 1] == '<'))
+	if (!ft_strncmp(input + *i, "<<", 2) || !ft_strncmp(input + *i, ">>", 2))
 		temp[a++] = input[++(*i)];
 	temp[a] = '\0';
 	ft_lstadd_back(lst, ft_lstnew(temp));
 	(*i)++;
 }
 
-void	ft_handle_double_single(char *input, int *i, t_list **lst)
+int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 {
-	t_handel	*handel;
+	t_ha	*handel;
 
-	handel = helper_variables();
-	handel->temp = gc_malloc(count_string(input, *i, handel) + 1, 1);
-	handel->a = *i;
-	while (input[*i])
-	{
-		handel_qoutation(input, i, handel);
-		handle_multiple_quotes(input, i, handel);
-		if ((input[*i] == ' ' || input[*i] == '\t' || input[*i] == '|'
-				|| input[*i] == '>' || input[*i] == '<' || input[*i] == '\0'))
-		{
-			break ;
-		}
-	}
-	handel->temp[handel->t] = '\0';
-	ft_lstadd_back(lst, ft_lstnew(handel->temp));
-}
-
-void	ft_ft(char *input, int *i, t_handel *handel)
-{
-	handel->a = *i;
-	while (input[*i])
-	{
-		handel_qoutation(input, i, handel);
-		handle_multiple_quotes(input, i, handel);
-		if ((input[*i] == ' ' || input[*i] == '\t' || input[*i] == '|'
-				|| input[*i] == '>' || input[*i] == '<' || input[*i] == '\0'))
-			break ;
-	}
-}
-
-void	ft_handle_string(char	*input, int	*i, t_list	**lst)
-{
-	t_handel	*handel;
-
-	handel = helper_variables();
-	handel->temp = gc_malloc(count_handle_str(input, *i) + 1, 1);
-	while (input[*i] && (input[*i] != ' ' && input[*i] != '\t')
+	handel = helper_varia(0);
+	handel->temp = gc_malloc(100, 1);//count_handle_str(input, *i) + 1
+	while (input[*i] && (((input[*i] != ' ' && input[*i] != '\t')
 		&& input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
+		|| handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
 	{
 		if (input[*i] == '\"' || input[*i] == '\'')
 		{
-			ft_ft(input, i, handel);
+			conut_dabel_singel_qoutition(input[*i], handel);
+			handel->temp[(handel->dest_index)++] = input[(*i)++];
 		}
 		else
-			handel->temp[(handel->t)++] = input[(*i)++];
-		if (input[*i - 1] == '\0' || input[*i - 1] == ' '
-			|| input[*i - 1] == '\t')
-			break ;
+			handel->temp[(handel->dest_index)++] = input[(*i)++];
+		if(input[*i] == '\0' && (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
+		{
+			write(2, "bash : syntax error\n", 20);
+			return (0);
+		}
 	}
-	handel->temp[handel->t] = '\0';
+	handel->temp[handel->dest_index] = '\0';
 	ft_lstadd_back(lst, ft_lstnew(handel->temp));
+	return (1);
 }
 
-void	read_and_filling_node(char *input, t_list **lst)
+int	read_and_filling_node(char *input, t_list **lst)
 {
 	int	i;
 
@@ -103,18 +70,16 @@ void	read_and_filling_node(char *input, t_list **lst)
 		{
 			if (input[i] == '|' || input[i] == '<' || input[i] == '>')
 			{
-				ft_handel_pipe_direction(input, &i, lst);
-			}
-			else if (input[i] == '\"' || input[i] == '\'')
-			{
-				ft_handle_double_single(input, &i, lst);
+				ft_ha_pipe_direction(input, &i, lst);
 			}
 			else
 			{
-				ft_handle_string(input, &i, lst);
+				if(!ft_handle_string(input, &i, lst))
+					return(0);
 			}
 		}
 		if (input[i] == ' ' || input[i] == '\t')
 			i++;
 	}
+	return (1);
 }

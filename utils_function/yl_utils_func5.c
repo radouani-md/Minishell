@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 02:45:52 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 15:31:34 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:28:14 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,11 @@ t_ha	*helper_varia(int err)
 	new_node->quote_count = 0;
 	new_node->snl_qte = 0;
 	new_node->dbl_qte = 0;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-t_handel	*helper_variables(void)
-{
-	t_handel	*new_node;
-
-	new_node = gc_malloc(sizeof(t_handel), 1);
-	new_node->t = 0;
-	new_node->a = 0;
+	//
+	// new_node->t = 0;
+	// new_node->a = 0;
 	new_node->q = 1;
-	new_node->quote_count = 1;
+	new_node->quote_count1 = 1;
 	new_node->next = NULL;
 	return (new_node);
 }

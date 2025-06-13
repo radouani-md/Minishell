@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 19:22:07 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:26:04 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void ft_node(t_node **arg)
 	tmp = *arg;
 	while(tmp)
 	{
-		if (tmp->data[0] == '\0')
+		if (tmp->data[0] == '\0' && tmp->type != 2 && tmp->type != 4)
 		{
 			if(!(*arg)->next)
 			{
@@ -105,26 +105,28 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		add_history(input);
-		read_and_filling_node(input, &lst);
-		if (lst == NULL)
+		if(read_and_filling_node(input, &lst))
 		{
-			close(err->saved_fd);
-			continue ;
-		}
-		if (syntax_erorr(lst))
-		{
-			arg = typed_nodes(lst);
-			if (!my_envp)
-				claiming_env(envp, &my_envp);
-			expand_variables(arg, my_envp, err);
-			ft_node(&arg);
-			delete_qoutation(arg);
-			delete_sinqel_dabel_qoutishen(arg);
-			if (exec_commands(&arg, &my_envp, err) == -333)
+			if (lst == NULL)
 			{
-				dup2(err->saved_fd, STDIN_FILENO);
 				close(err->saved_fd);
 				continue ;
+			}
+			if (syntax_erorr(lst))
+			{
+				arg = typed_nodes(lst);
+				if (!my_envp)
+					claiming_env(envp, &my_envp);
+				expand_variables(arg, my_envp, err);
+				ft_node(&arg);
+				delete_qoutation(arg);
+				delete_sinqel_dabel_qoutishen(arg);
+				if (exec_commands(&arg, &my_envp, err) == -333)
+				{
+					dup2(err->saved_fd, STDIN_FILENO);
+					close(err->saved_fd);
+					continue ;
+				}
 			}
 		}
 		close(err->saved_fd);
