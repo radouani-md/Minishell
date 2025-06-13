@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 15:17:35 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:42:58 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_md
 	int		pip_fd[2];
 	int		prev_fd;
 	int		i;
+	int		is_entred;
 	int		num_groups;
 	int		is_twice;
 	t_node	**groups;
@@ -69,6 +70,13 @@ typedef struct s_md
 	pid_t	id;
 	pid_t	pid;
 }				t_md;
+
+typedef struct s_cd
+{
+	char	*oldpwd;
+	char	*home;
+	char	*cwd;
+}				t_cd;
 
 typedef struct s_var
 {
@@ -107,12 +115,14 @@ typedef struct t_handel
 
 typedef struct t_ha
 {
+	char	*line;
 	int		quote_count;
 	int		read_index;
 	int		dest_index;
 	int		snl_qte;
 	int		dbl_qte;
 	int		err_status;
+	int		no_cd;
 	int		fd;
 	int		saved_fd;
 	int		saved_fd_in;
@@ -260,12 +270,22 @@ int		loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err);
 char	**helper_loop(char **cmd, t_node *nodes);
 char	**loop_through_node_cmd(t_node *nodes);
 char	*is_accessable(char **path, char *cmd);
+char	**load_env(t_env *my_env);
+
+int		piping_forking(t_node **nodes, t_env **my_env, t_ha *err);
+int		child_work(t_md *md, t_env **my_env, t_ha *err, t_node *nodes);
+void	parent_work(t_md *md);
+
+int		set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err);
+void	helper_built(t_md *md, t_ha *err);
+int		spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_ha *err);
 
 char	**fetch_path(t_env *my_env);
 
+void	catch_signals(t_ha *err, pid_t pid);
+
 void	expanding_function_heredoc(t_node *lst, t_env *my_env, t_ha *err);
 int		helper_her(t_node *nodes);
-int		piping_forking(t_node **nodes, t_env **my_env, t_ha *err);
 int		implement_her_doc(t_node *nodes, t_env *env, t_ha *err);
 int		implement_appending(t_node *nodes, t_ha *err);
 int		implement_infile(t_node *nodes, t_ha *err);

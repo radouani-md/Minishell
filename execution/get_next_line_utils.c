@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:19:10 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/12 01:19:59 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:53:26 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_strcmp(char *s1, char *s2)
 
 	i = 0;
 	if (!s2 || !s1)
-		return(1);
+		return (1);
 	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])

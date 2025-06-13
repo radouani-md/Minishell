@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 02:51:53 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 04:00:47 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 12:12:41 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,12 @@ int	count_value(int i, t_node *nodes, t_env *my_env)
 		a += yl_strlen(nodes->data, &i);
 	}
 	return (a);
+}
+
+void	alloc_arm(t_var	**arm)
+{
+	*arm = gc_malloc(sizeof(t_var), 1);
+	(*arm)->in_var = 0;
+	(*arm)->out_var = 0;
+	(*arm)->append_var = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/11 10:55:17 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/13 16:05:45 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,47 +32,40 @@ int	helper_her(t_node *nodes)
 	return (0);
 }
 
-void	expand_hd(char *line, t_node **line_node, t_env *env, int is_quoted, t_ha *err)
+void	expand_hd(t_node **line_node, t_env *env, int is_quoted, t_ha *err)
 {
-	ft_lstadd_front(line_node, ft_lstnew1(line, 0));
+	ft_lstadd_front(line_node, ft_lstnew1(err->line, 0));
 	if (is_quoted == 0)
 		expanding_function_heredoc(*line_node, env, err);
 }
 
-int helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
+int	helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 {
-	char	*line;
 	t_node	*line_node;
 
 	line_node = NULL;
-	line = NULL;
 	g_sig_md = 3;
 	while (1)
 	{
-		line = readline("heredoc> ");
+		err->line = readline("heredoc> ");
 		if (g_sig_md == 33)
+			return (close(err->fd), err->err_status = 130, -333);
+		if (!err->line)
 		{
-			err->err_status = 130;
-			close(err->fd);
-			return (-333);
-		}
-		if (!line)
-		{
-			printf("bash: warning: here-document delimited by");
-			printf(" end-of-file (wanted `%s')\n", del);
+			ft_print_erorr("bash: warning: here-document delimited by",
+				" end-of-file (wanted `", del, "')\n");
 			break ;
 		}
-		if (ft_strcmp(line, del) == 0)
+		if (ft_strcmp(err->line, del) == 0)
 			break ;
-		expand_hd(line, &line_node, env, is_quoted, err);
+		expand_hd(&line_node, env, is_quoted, err);
 		write(err->fd, line_node->data, md_strlen(line_node->data));
 		write(err->fd, "\n", 1);
 	}
-	close(err->fd);
-	return (0);
+	return (close(err->fd), 0);
 }
 
-int	count_heredoc(t_node *nodes)
+void	count_heredoc(t_node *nodes)
 {
 	int	num_heredocs;
 
@@ -85,16 +78,14 @@ int	count_heredoc(t_node *nodes)
 			exit(2);
 		nodes = nodes->next;
 	}
-	return (num_heredocs);
 }
 
 int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 {
 	char	*tmp_name;
-	int		num_heredocs;
 
 	tmp_name = NULL;
-	num_heredocs = count_heredoc(nodes);
+	count_heredoc(nodes);
 	while (nodes)
 	{
 		if (nodes->type == 3)

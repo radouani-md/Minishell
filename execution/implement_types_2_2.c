@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/12 01:05:47 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/13 11:56:14 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,40 @@ void	saving_fds(int saved_fd_in, int saved_fd_out)
 	close(saved_fd_out);
 }
 
-int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
-	t_ha *err)
+int	env_implement(char **cmd, t_env **my_env, t_ha *err)
 {
-	char *str_print;
+	char	*str_print;
+	int		i;
 
+	i = 1;
 	str_print = NULL;
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
-		if (!cmd[1])
-			implement_env(*my_env);
-		else
+		while (cmd[i])
 		{
-			str_print = md_strjoin(str_print, "env: ‘");
-			str_print = md_strjoin(str_print, cmd[1]);
-			str_print = md_strjoin(str_print, "’: No such file or directory\n");
-			write(2, str_print, md_strlen(str_print));
-			err->err_status = 127;
+			if (ft_strcmp(cmd[i], "env") != 0)
+			{
+				str_print = md_strjoin(str_print, "env: ‘");
+				str_print = md_strjoin(str_print, cmd[1]);
+				str_print = md_strjoin(str_print,
+						"’: No such file or directory\n");
+				write(2, str_print, md_strlen(str_print));
+				err->err_status = 127;
+				return (3);
+			}
+			i++;
 		}
+		implement_env(*my_env);
 		return (3);
 	}
+	return (0);
+}
+
+int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
+	t_ha *err)
+{
+	if (env_implement(cmd, my_env, err) == 3)
+		return (3);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 	{
 		if (implement_exit(*my_env, *nodes, err) == 1)
@@ -77,16 +91,21 @@ int	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err)
 	err->saved_fd_out = dup(STDOUT_FILENO);
 	her = loop_through_node_builtin(*nodes, *my_env, err);
 	if (her == 1)
-		return (saving_fds(err->saved_fd_in, err->saved_fd_out), close(err->saved_fd_in), close(err->saved_fd_out), 1);
+		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
+			close(err->saved_fd_in), close(err->saved_fd_out), 1);
 	else if (her == 3)
-		return (saving_fds(err->saved_fd_in, err->saved_fd_out), close(err->saved_fd_in), close(err->saved_fd_out), 3);
+		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
+			close(err->saved_fd_in), close(err->saved_fd_out), 3);
 	if (countinue_exec_builtin(cmd, my_env, nodes, err) == 1)
-		return (saving_fds(err->saved_fd_in, err->saved_fd_out), close(err->saved_fd_in), close(err->saved_fd_out), 1);
+		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
+			close(err->saved_fd_in), close(err->saved_fd_out), 1);
 	if (countinue_exec_builtin_2(cmd, my_env, nodes, err) == 3)
-		return (saving_fds(err->saved_fd_in, err->saved_fd_out), close(err->saved_fd_in), close(err->saved_fd_out), 0);
+		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
+			close(err->saved_fd_in), close(err->saved_fd_out), 0);
 	if (ft_strcmp(cmd[0], "export") == 0)
 		implement_export(*my_env, *nodes);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		implement_unset(my_env, *nodes);
-	return (saving_fds(err->saved_fd_in, err->saved_fd_out), close(err->saved_fd_in), close(err->saved_fd_out), 0);
+	return (saving_fds(err->saved_fd_in, err->saved_fd_out),
+		close(err->saved_fd_in), close(err->saved_fd_out), 0);
 }
