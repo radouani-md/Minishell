@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 00:00:28 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:17:53 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	implement_pwd(t_env *env)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
+	cwd = safe_getcwd();
 	if (!cwd)
 	{
 		cwd = get_env_value(env, "PWD");
@@ -58,5 +58,5 @@ int	implement_pwd(t_env *env)
 	}
 	else
 		ft_printf("%s\n", cwd);
-	return (free(cwd), 0);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 20:01:35 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:17:09 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int			check_after_dollar(char c);
 void		len_env_value(char *str, t_ha *halel);
 int			ft_strlen_num_err(t_ha *err);
 
-t_ha	*helper_variables(void);
+t_ha		*helper_variables(void);
 char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char		*ft_cpy_key(int i, t_node *nodes);
 int			check_key(char c);
@@ -274,7 +274,8 @@ int			implement_echo(t_env *env, t_node *nodes);
 int			implement_exit(t_env *my_env, t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
-char		*set_oldpwd(t_env *env, char *oldpwd);
+char		*set_oldpwd(t_env *env, t_cd *cd);
+char		*safe_getcwd(void);
 int			set_env(t_env **env, char *pwd_searched, char *pwd_updated);
 char		*fetch_home(t_env **env);
 

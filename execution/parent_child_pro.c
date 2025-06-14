@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 23:59:34 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 10:13:28 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 	md->cmd_path = is_accessable(fetch_path(*my_env), md->cmd[0]);
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
-		ft_printf("mhd %s: command not found\n", md->cmd[0]);
+		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");
 		exit(127);
 	}
 	if (!*md->cmd)
 		exit(0);
 	execve(md->cmd_path, md->cmd, load_env(*my_env));
 	if (md->cmd[0][0] == '/')
-		write(2, "mhd: Is a directory\n", 20);
+		ft_print_erorr("mhd: ", md->cmd[0], ": Is a directory", "\n");
 	exit(126);
 }
 

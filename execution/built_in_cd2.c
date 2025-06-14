@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:51:37 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/04 16:52:11 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 11:08:54 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ int	set_env(t_env **env, char *pwd_searched, char *pwd_updated)
 	return (0);
 }
 
-char	*set_oldpwd(t_env *env, char *oldpwd)
+char	*set_oldpwd(t_env *env, t_cd *cd)
 {
+	cd->oldpwd = NULL;
 	while (env)
 	{
 		if (ft_strcmp(env->key, "PWD") == 0)
 		{
 			if (env->value)
-				oldpwd = md_strdup(env->value);
-			return (oldpwd);
+				cd->oldpwd = md_strdup(env->value);
+			return (cd->oldpwd);
 		}
 		env = env->next;
 	}
