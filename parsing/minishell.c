@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 23:56:23 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 14:47:09 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void ft_node(t_node **arg)
 	t_node *tmp1;
 
 	tmp = *arg;
+	tmp1 = NULL;
 	while(tmp)
 	{
 		if (tmp->data[0] == '\0' && tmp->type != 2 && tmp->type != 4)
@@ -67,6 +68,10 @@ void ft_node(t_node **arg)
 			if(!(*arg)->next)
 			{
 				*arg = NULL;
+			}
+			else if (!tmp1)
+			{
+				*arg = tmp->next;
 			}
 			else
 				tmp1->next = tmp->next;
@@ -86,6 +91,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+		return (1);
 	err = gc_malloc(sizeof(t_ha), 1);
 	err->err_status = 0;
 	while (1)
