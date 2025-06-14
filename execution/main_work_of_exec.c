@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 16:40:49 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:21:33 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_ha *err)
 	if (!md->groups)
 	{
 		gc_malloc(0, 0);
+		close(err->saved_fd);
 		exit(1);
 	}
 	return (0);
@@ -70,7 +71,7 @@ int	forking(t_md *md, t_ha *err, t_env **my_env)
 	}
 	else
 		parent_work(md);
-	return (0);
+	return (close(err->saved_fd), 0);
 }
 
 int	built_fork_work(t_md *md, t_ha *err, t_env **my_env, t_node **nodes)
@@ -83,7 +84,11 @@ int	built_fork_work(t_md *md, t_ha *err, t_env **my_env, t_node **nodes)
 			if ((*nodes)->next && (*nodes)->next->type == 5)
 				err->no_cd = 1;
 			if (exec_builtin(md->cmd2, my_env, &md->groups[md->i], err) == 1)
+			{
+				close(err->saved_fd);
+				gc_malloc(0, 0);
 				exit(1);
+			}
 			err->no_cd = 0;
 			md->i++;
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:27:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 12:29:51 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 15:34:05 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	helper_built(t_md *md, t_ha *err)
 	md->cmd2 = loop_through_node_cmd(md->groups[md->i]);
 	if (!md->cmd2)
 	{
+		close(err->saved_fd);
 		gc_malloc(0, 0);
 		exit(127);
 	}

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 16:05:45 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:27:39 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 	{
 		err->line = readline("heredoc> ");
 		if (g_sig_md == 33)
-			return (close(err->fd), err->err_status = 130, -333);
+			return (free(err->line), close(err->fd), err->err_status = 130, -333);
 		if (!err->line)
 		{
 			ft_print_erorr("bash: warning: here-document delimited by",
@@ -62,10 +62,10 @@ int	helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 		write(err->fd, line_node->data, md_strlen(line_node->data));
 		write(err->fd, "\n", 1);
 	}
-	return (close(err->fd), 0);
+	return (free(err->line), close(err->fd), 0);
 }
 
-void	count_heredoc(t_node *nodes)
+void	count_heredoc(t_node *nodes, t_ha *err)
 {
 	int	num_heredocs;
 
@@ -75,7 +75,10 @@ void	count_heredoc(t_node *nodes)
 		if (nodes->type == 3)
 			num_heredocs++;
 		if (num_heredocs > 16)
+		{
+			close(err->saved_fd);
 			exit(2);
+		}
 		nodes = nodes->next;
 	}
 }
@@ -85,7 +88,7 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 	char	*tmp_name;
 
 	tmp_name = NULL;
-	count_heredoc(nodes);
+	count_heredoc(nodes, err);
 	while (nodes)
 	{
 		if (nodes->type == 3)
@@ -97,8 +100,6 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 			if (helper_her_doc(nodes->data, env, nodes->is_quoted, err) == -333)
 				return (-333);
 			nodes->tmp_file = md_strdup(tmp_name);
-			if (!nodes->tmp_file)
-				return (perror("malloc "), 1);
 		}
 		nodes = nodes->next;
 	}

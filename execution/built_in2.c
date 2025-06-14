@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 11:49:58 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 12:55:32 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int	implement_exit(t_env *my_env, t_node *nodes, t_ha *err)
 		gc_malloc(0, 0);
 		exit(exit_state);
 	}
-	ft_printf("exit\n");
 	gc_malloc(0, 0);
 	exit(127);
 }

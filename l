@@ -1,0 +1,10 @@
+execution
+l
+Makefile
+minishell
+minishell.h
+my_printf
+parsing
+test
+utils_function
+valgrind.log

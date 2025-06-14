@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 10:13:28 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 15:47:44 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,20 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 	if (is_builtin(md->cmd[0]))
 	{
 		if (exec_builtin(md->cmd, my_env, &md->groups[md->i], err) == 1)
+		{
+			close(err->saved_fd);
 			exit(1);
+		}
+		close(err->saved_fd);
 		exit(0);
 	}
 	if (!md->cmd)
-		exit(1);
+		exit(0);
 	md->cmd_path = is_accessable(fetch_path(*my_env), md->cmd[0]);
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
 		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");
+		close(err->saved_fd);
 		exit(127);
 	}
 	if (!*md->cmd)
@@ -63,9 +68,12 @@ int	child_work(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
 	md->cmd = helper_loop(md->cmd, md->groups[md->i]);
 	her = loop_through_node_builtin(md->groups[md->i], *my_env, err);
 	if (her == 1)
+	{
+		close(err->saved_fd);
 		exit(1);
+	}
 	else if (her == 3)
-		return (3);
+		return (close(err->saved_fd), 3);
 	child_work_helper(md, my_env, err);
 	return (0);
 }

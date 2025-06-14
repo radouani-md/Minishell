@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 14:47:09 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:21:23 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 	else if (returned_value == -1)
 	{
 		gc_malloc(0, 0);
+		close(err->saved_fd);
 		exit(1);
 	}
 	return (0);
