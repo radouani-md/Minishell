@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:06:46 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 22:08:53 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:32:47 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*gc_malloc(size_t size, int nbr)
 	{
 		mlc = malloc(size);
 		if (!mlc)
-			return (exit(1), NULL);
+			return (exit(1), NULL);//free previose allocs
 		tmp = ft_lstnew_malloc(mlc);
 		ft_lstadd_back_malloc(&ptr, tmp);
 	}

@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 14:35:27 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 16:49:36 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,14 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 		{
 			copy_to_dap(dap, my_env->value, ha, lst);
 			break ;
+		}
+	}
+	if(!my_env)
+	{
+		if (((lst)->type == 1 || (lst)->type == 2 || (lst)->type == 4))
+		{
+			lst->back_type = lst->type;
+			(lst)->type = 1337;
 		}
 	}
 	if (ft_strncmp1(src, "?", 1))

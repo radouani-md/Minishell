@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 23:44:59 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 21:52:13 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	t_ha	*handel;
 
 	handel = helper_varia(0);
-	handel->temp = gc_malloc(100, 1);//count_handle_str(input, *i) + 1
+	handel->temp = gc_malloc(count_handle_str(input, *i) + 2, 1);
 	while (input[*i] && (((input[*i] != ' ' && input[*i] != '\t')
-		&& input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
-		|| handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
+				&& input[*i] != '|' && input[*i] != '>' && input[*i] != '<')
+			|| handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
 	{
 		if (input[*i] == '\"' || input[*i] == '\'')
 		{
@@ -48,7 +48,8 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 		}
 		else
 			handel->temp[(handel->dest_index)++] = input[(*i)++];
-		if(input[*i] == '\0' && (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
+		if (input[*i] == '\0'
+			&& (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
 		{
 			write(2, "bash : syntax error\n", 20);
 			return (0);
@@ -74,8 +75,8 @@ int	read_and_filling_node(char *input, t_list **lst)
 			}
 			else
 			{
-				if(!ft_handle_string(input, &i, lst))
-					return(0);
+				if (!ft_handle_string(input, &i, lst))
+					return (0);
 			}
 		}
 		if (input[i] == ' ' || input[i] == '\t')

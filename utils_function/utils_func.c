@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 10:42:55 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/12 02:30:06 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 18:32:00 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ char	*md_strdup(char *src)
 	if (!src)
 		return (NULL);
 	str = gc_malloc(md_strlen(src) + 1, 1);
-	if (!str)
-		return (NULL);
 	while (src[i])
 	{
 		str[i] = src[i];

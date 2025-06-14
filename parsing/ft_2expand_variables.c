@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:57:09 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 14:36:37 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 22:59:53 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	add_node(char *dap, t_node **lst, t_ha	*hal, char *tmp)
 	if (dap[hal->read_index])
 	{
 		if ((*lst)->type == 1 || (*lst)->type == 2 || (*lst)->type == 4)
-				(*lst)->type = 1337;
+			(*lst)->type = 1337;
 		lst1 = (*lst)->next;
 		(*lst)->next = ft_lstnew5();
 		(*lst)->next->next = lst1;

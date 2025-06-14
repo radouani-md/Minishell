@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 12:20:56 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 22:55:53 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	handel_cd(char *cwd, char *abs_path, t_env **env)
 
 	temp = NULL;
 	ft_print_erorr("cd: error retrieving current directory:",
-			" getcwd: cannot access parent directories:",
-			" No such file or directory", "\n");
+		" getcwd: cannot access parent directories:",
+		" No such file or directory", "\n");
 	if (!cwd)
 		temp = md_strdup("/");
 	else
@@ -77,22 +77,23 @@ int	helper_cd(t_cd *cd, t_env **env, t_ha *err)
 	return (0);
 }
 
-char *safe_getcwd(void)
+char	*safe_getcwd(void)
 {
-	char *cwd;
-	char *dup;
+	char	*cwd;
+	char	*dup;
 
-    cwd = getcwd(NULL, 0);
-    if (!cwd)
-        return (NULL);
-    dup = md_strdup(cwd);
-    free(cwd);
-    return (dup);
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (NULL);
+	dup = md_strdup(cwd);
+	free(cwd);
+	return (dup);
 }
+
 int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 {
 	t_cd	*cd;
-	
+
 	cd = gc_malloc(sizeof(t_cd), 1);
 	while (nodes && ft_strcmp(nodes->data, "cd") != 0)
 		nodes = nodes->next;

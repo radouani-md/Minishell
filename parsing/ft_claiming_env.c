@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:12:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/01 16:20:21 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/14 23:06:06 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	filling_tmp(char *key, char *env, int size)
 	key[i] = '\0';
 }
 
+void	claiming_env_helper(t_env **my_env)
+{
+	ft_lstadd_back12(my_env, ft_lstnewt("OLDPWD",
+			"/home/mradouan/Desktop/minishell"));
+	ft_lstadd_back12(my_env, ft_lstnewt("PWD",
+			"/home/mradouan/Desktop/minishell"));
+	ft_lstadd_back12(my_env, ft_lstnewt("PATH",
+			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
+}
+
 void	claiming_env(char **env_p, t_env **my_env)
 {
 	char	*tmp_key;
@@ -32,13 +42,13 @@ void	claiming_env(char **env_p, t_env **my_env)
 	int		in_equal;
 	int		i;
 
-	i = 0;
-	ft_lstadd_back12(my_env, ft_lstnewt("OLDPWD", "/home/mradouan/Desktop/minishell"));
-	ft_lstadd_back12(my_env, ft_lstnewt("PWD", "/home/mradouan/Desktop/minishell"));
-	ft_lstadd_back12(my_env, ft_lstnewt("PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
-	while (env_p[i])
+	i = -1;
+	claiming_env_helper(my_env);
+	while (env_p[++i])
 	{
-		if (ft_strncmp(env_p[i], "PWD=", 4) == 0 || ft_strncmp(env_p[i], "OLDPWD", 6) == 0 || ft_strncmp(env_p[i], "PATH=", 5) == 0)
+		if (!ft_strncmp(env_p[i], "PWD=", 4)
+			|| !ft_strncmp(env_p[i], "OLDPWD", 6)
+			|| !ft_strncmp(env_p[i], "PATH=", 5))
 		{
 			i++;
 			continue ;
@@ -51,6 +61,5 @@ void	claiming_env(char **env_p, t_env **my_env)
 		if (env_p[i][in_equal] == '=')
 			tmp_value = md_strdup(env_p[i] + in_equal + 1);
 		ft_lstadd_back12(my_env, ft_lstnewt(tmp_key, tmp_value));
-		i++;
 	}
 }

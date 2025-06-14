@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implementing_types.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:27:39 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 22:56:15 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 	{
 		err->line = readline("heredoc> ");
 		if (g_sig_md == 33)
-			return (free(err->line), close(err->fd), err->err_status = 130, -333);
+			return (free(err->line), close(err->fd),
+				err->err_status = 130, -333);
 		if (!err->line)
 		{
 			ft_print_erorr("bash: warning: here-document delimited by",
@@ -61,6 +62,7 @@ int	helper_her_doc(char *del, t_env *env, int is_quoted, t_ha *err)
 		expand_hd(&line_node, env, is_quoted, err);
 		write(err->fd, line_node->data, md_strlen(line_node->data));
 		write(err->fd, "\n", 1);
+		free(err->line);
 	}
 	return (free(err->line), close(err->fd), 0);
 }

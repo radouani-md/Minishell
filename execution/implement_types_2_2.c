@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 11:56:14 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 22:23:44 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,16 @@ void	saving_fds(int saved_fd_in, int saved_fd_out)
 
 int	env_implement(char **cmd, t_env **my_env, t_ha *err)
 {
-	char	*str_print;
 	int		i;
 
 	i = 1;
-	str_print = NULL;
 	if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		while (cmd[i])
 		{
 			if (ft_strcmp(cmd[i], "env") != 0)
 			{
-				str_print = md_strjoin(str_print, "env: ‘");
-				str_print = md_strjoin(str_print, cmd[1]);
-				str_print = md_strjoin(str_print,
-						"’: No such file or directory\n");
-				write(2, str_print, md_strlen(str_print));
+				write(2, "Too many arguments !\n", 21);
 				err->err_status = 127;
 				return (3);
 			}

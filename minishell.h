@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 16:21:39 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/14 22:54:14 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct t_node
 {
 	char			*data;
 	int				type;
+	int				back_type;
 	int				is_quoted;
 	char			*tmp_file;
 	struct t_node	*next;
@@ -85,6 +86,7 @@ typedef struct s_var
 typedef struct t_env
 {
 	char			*key;
+	char			**envp;
 	char			*value;
 	int				type;
 	struct t_env	*next;
@@ -97,27 +99,34 @@ typedef struct t_export
 	struct t_export	*next;
 }					t_export;
 
-
 typedef struct t_ha
 {
-	char	*line;
-	char	*temp;
-	int		quote_count;
-	int		read_index;
-	int		dest_index;
-	int		snl_qte;
-	int		dbl_qte;
-	int		err_status;
-	int		no_cd;
-	int		fd;
-	int		saved_fd;
-	int		saved_fd_in;
-	int		saved_fd_out;
-	int		q;
-	int		quote_count1;
-	int		count;
-	struct	t_ha	*next;
-}						t_ha;
+	char		*line;
+	char		*temp;
+	int			quote_count;
+	int			read_index;
+	int			dest_index;
+	int			snl_qte;
+	int			dbl_qte;
+	int			err_status;
+	int			no_cd;
+	int			fd;
+	int			saved_fd;
+	int			saved_fd_in;
+	int			saved_fd_out;
+	int			q;
+	int			quote_count1;
+	int			count;
+	struct t_ha	*next;
+}				t_ha;
+
+typedef struct s_all
+{
+	t_node	*arg;
+	t_list	*lst;
+	t_ha	*err;
+	t_env	*my_env;
+}				t_all;
 
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
 int			count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
@@ -130,6 +139,7 @@ void		handle_multiple_quotes1(char *input, int *i,
 				t_ha *handel, int *col);
 int			count_handle_str(char *input, int i);
 char		*ft_copy_add_dabel_qoutes(char *str);
+void		ft_node(t_node **arg);
 
 int			read_and_filling_node(char *input, t_list **lst);
 int			ft_handle_string(char	*input, int	*i, t_list	**lst);
