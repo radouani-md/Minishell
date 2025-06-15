@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 22:52:40 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 01:33:22 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	node->arg = NULL;
+	node->my_env = NULL;
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 		return (1);
 	node->err = gc_malloc(sizeof(t_ha), 1);
@@ -116,7 +117,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = safe_readline(node->err, &(node->lst));
-		if (input && read_and_filling_node(input, &(node->lst)))
+		if (!input)
+			continue ;
+		if (read_and_filling_node(input, &(node->lst)))
 		{
 			if (helper_main(envp, node))
 				continue ;

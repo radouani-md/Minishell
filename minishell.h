@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 22:54:14 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 01:56:56 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef struct s_all
 	t_env	*my_env;
 }				t_all;
 
+void		check_ambegous(t_node *lst, t_env *my_env);
+void		check_ambigous2(char *dap, t_node *lst);
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
 int			count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
 

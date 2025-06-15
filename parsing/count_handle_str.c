@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 22:02:37 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 22:51:33 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 02:05:31 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_node(t_node **arg)
 		tmp = tmp->next;
 	}
 }
-
 
 void	handle_multiple_quotes1(char *input, int *i, t_ha *handel, int *col)
 {

@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 21:02:18 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 02:52:39 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 00:19:58 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_node	*ft_lstnew1(char *content, int type)
 	new_node = gc_malloc(sizeof(t_node), 1);
 	new_node->data = content;
 	new_node->type = type;
+	new_node->back_type = 0;
 	new_node->next = NULL;
 	return (new_node);
 }

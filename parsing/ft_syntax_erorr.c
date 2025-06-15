@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:10:26 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/13 18:12:51 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 02:04:04 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,25 @@ void	ft_print_erorr(char *str1, char *str2, char *str3, char *str4)
 	write(2, str_print, md_strlen(str_print));
 }
 
+void	ft_print_erorr2(char *str1, char str, char *str3)
+{
+	char	*str_print;
+	char	str2[2];
+
+	str2[0] = str;
+	str2[1] = '\0';
+	str_print = NULL;
+	str_print = md_strjoin(str_print, str1);
+	str_print = md_strjoin(str_print, str2);
+	str_print = md_strjoin(str_print, str3);
+	write(2, str_print, md_strlen(str_print));
+}
+
 int	syntax_erorr(t_list *lst)
 {
 	if (tchik_pipe(lst))
 	{
-		ft_print_erorr("bash: syntax error `", "|", "'\n", NULL);
-		//lst->content[0]
+		ft_print_erorr2("bash: syntax error `", lst->content[0], "'\n");
 		return (0);
 	}
 	else

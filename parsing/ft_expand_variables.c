@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:13:58 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 21:49:56 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 02:04:36 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 		}
 	}
 	dap[ha->dest_index] = '\0';
-	if(dap[0] != '\0' && lst->type == 1337)
-	{
-		lst->type = lst->back_type;
-		printf("------{%s}----{%d}\n",dap,lst->type);
-	}
+	check_ambigous2(dap, lst);
 	fill_up_node(dap, lst);
 }
 
