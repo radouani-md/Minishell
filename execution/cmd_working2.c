@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 08:59:49 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/10 09:02:12 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:48:06 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups)
 		}
 		else
 			ft_lstadd_back1(&group,
-				ft_lstnew2(head->data, head->type, head->tmp_file));
+				ft_lstnew2(head->data, head->type, head->tmp_file, head->heredoc_fd));
 		head = head->next;
 	}
 	groups[i] = group;

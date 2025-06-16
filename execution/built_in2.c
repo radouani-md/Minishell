@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 18:24:38 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:00:02 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	implement_echo(t_node *nodes)
 	newline = check_newline_flag(&head);
 	while (head && head->type == 0)
 	{
-		printf(head->data);
+		md_putstr(head->data);
 		if (head->next && head->next->type == 0)
 			printf(" ");
 		head = head->next;

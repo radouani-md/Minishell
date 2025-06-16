@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 11:22:09 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:47:56 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct t_node
 	char			*data;
 	int				type;
 	int				back_type;
+	int				heredoc_fd;
 	int				is_quoted;
 	char			*tmp_file;
 	struct t_node	*next;
@@ -212,7 +213,7 @@ t_env		*ft_lstnew_env(void);
 size_t		yl_strlen(char *s, int *i);
 char		*yl_strcpy(char *dest, const char *src);
 t_node		*ft_lstnew1(char *content, int type);
-t_node		*ft_lstnew2(char *content, int type, char *tmp_file);
+t_node		*ft_lstnew2(char *content, int type, char *tmp_file, int heredoc_fd);
 char		*move_node(t_node *nodes);
 void		ft_lstadd_back1(t_node **lst, t_node *new_node);
 void		ft_lstadd_front(t_node **lst, t_node *new);
