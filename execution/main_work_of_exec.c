@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 17:55:34 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:05:41 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	forking(t_md *md, t_ha *err, t_env **my_env)
 		if (child_work(md, my_env, err) == 3)
 		{
 			md->i++;
+			gc_malloc(0, 0);
 			exit(1);
 		}
 	}

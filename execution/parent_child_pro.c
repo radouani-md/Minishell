@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 17:54:24 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:50:35 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	execve_cmd(t_md *md, t_env *my_env)
 {
 	execve(md->cmd_path, md->cmd, load_env(my_env));
 	ft_print_erorr("minishell: ", md->cmd_path, ": Execution error\n", NULL);
+	gc_malloc(0, 0);
 	exit(127);
 }
 
@@ -36,25 +37,38 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 		if (exec_builtin(md->cmd, my_env, &md->groups[md->i], err) == 1)
 		{
 			close(err->saved_fd);
+			gc_malloc(0, 0);
 			exit(1);
 		}
 		close(err->saved_fd);
+		gc_malloc(0, 0);
 		exit(0);
 	}
 	if (!md->cmd)
+	{
+		close(err->saved_fd);
+		gc_malloc(0, 0);
 		exit(0);
+	}
 	md->cmd_path = is_accessable(fetch_path(*my_env), md->cmd[0]);
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
 		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");
 		close(err->saved_fd);
+		gc_malloc(0, 0);
 		exit(127);
 	}
 	if (!*md->cmd)
+	{
+		gc_malloc(0, 0);
 		exit(0);
+	}
 	md->err_code = check_exec_errors(md->cmd_path);
 	if (md->err_code != 0)
+	{
+		gc_malloc(0, 0);
 		exit(md->err_code);
+	}
 	execve_cmd(md, *my_env);
 }
 
@@ -77,6 +91,7 @@ int	child_work(t_md *md, t_env **my_env, t_ha *err)
 	if (her == 1)
 	{
 		close(err->saved_fd);
+		gc_malloc(0, 0);
 		exit(1);
 	}
 	else if (her == 3)
