@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/12 03:07:35 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:00:29 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*ft_cpy_key(int i, t_node *nodes)
 
 	a = 0;
 	str = gc_malloc(count_key(i, nodes) + 1, 1);
-	if (nodes->data[0] >= '0' && nodes->data[0] <= '9')
+	if ((nodes->data[0] >= '0' && nodes->data[0] <= '9')
+		|| (nodes->data[0] == '+' || nodes->data[0] == '='))
 	{
 		return (NULL);
 	}

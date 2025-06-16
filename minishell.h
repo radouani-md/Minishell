@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 18:24:49 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:22:09 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int			tchik_pipe(t_list *lst);
 
 t_node		*typed_nodes(t_list *lst);
 
-void		claiming_env(char **env_p, t_env **my_env);
+void		claiming_env(char **env_p, t_env **my_env, int is_entered);
 void		filling_tmp(char *key, char *env, int size);
 
 void		expand_variables(t_node *lst, t_env *my_env, t_ha *err);

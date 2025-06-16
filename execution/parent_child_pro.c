@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child_pro.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 17:11:30 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:44:12 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	parent_work(t_md *md)
 	close(md->pip_fd[1]);
 	md->pid = md->id;
 	md->i++;
+}
+
+void	execve_cmd(t_md *md, t_env *my_env)
+{
+	execve(md->cmd_path, md->cmd, load_env(my_env));
+	ft_print_erorr("minishell: ", md->cmd_path, ": Execution error\n", NULL);
+	exit(127);
 }
 
 void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
@@ -48,9 +55,7 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 	md->err_code = check_exec_errors(md->cmd_path);
 	if (md->err_code != 0)
 		exit(md->err_code);
-	execve(md->cmd_path, md->cmd, load_env(*my_env));
-	ft_print_erorr("minishell: ", md->cmd_path, ": Execution error\n", NULL);
-	exit(127);
+	execve_cmd(md, *my_env);
 }
 
 int	child_work(t_md *md, t_env **my_env, t_ha *err)

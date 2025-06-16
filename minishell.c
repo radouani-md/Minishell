@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 19:22:09 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:21:59 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ char	*safe_readline(t_ha *err, t_list **lst)
 
 int	helper_main(char **envp, t_all *node)
 {
+	static int	is_entred = 0;
+
 	if (node->lst == NULL)
 		return (close(node->err->saved_fd), 1);
 	if (syntax_erorr(node->lst))
 	{
 		node->arg = typed_nodes(node->lst);
 		if (!node->my_env)
-			claiming_env(envp, &(node->my_env));
+			claiming_env(envp, &(node->my_env), is_entred);
+		is_entred = 1;
 		expand_variables(node->arg, node->my_env, node->err);
 		ft_node(&node->arg);
 		delete_qoutation(node->arg);

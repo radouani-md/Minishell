@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_claiming_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:12:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 10:29:07 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:41:34 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	claiming_env_helper(t_env **my_env)
 			"/home/mradouan/Desktop/minishell"));
 	ft_lstadd_back12(my_env, ft_lstnewt("PATH",
 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
+	ft_lstadd_back12(my_env, ft_lstnewt("_", "./minishell"));
 }
 
 int	check_env(char *env_p)
@@ -44,7 +45,7 @@ int	check_env(char *env_p)
 	return (0);
 }
 
-void	claiming_env(char **env_p, t_env **my_env)
+void	claiming_env(char **env_p, t_env **my_env, int is_entered)
 {
 	char	*tmp_key;
 	char	*tmp_value;
@@ -52,7 +53,8 @@ void	claiming_env(char **env_p, t_env **my_env)
 	int		i;
 
 	i = 0;
-	claiming_env_helper(my_env);
+	if (!is_entered)
+		claiming_env_helper(my_env);
 	while (env_p[i])
 	{
 		if (check_env(env_p[i]) == 1)
