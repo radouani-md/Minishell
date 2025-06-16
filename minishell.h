@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 01:56:56 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:24:49 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_md
 	int		pip_fd[2];
 	int		prev_fd;
 	int		i;
+	int		err_code;
 	int		is_entred;
 	int		num_groups;
 	int		is_twice;
@@ -131,6 +132,7 @@ typedef struct s_all
 void		check_ambegous(t_node *lst, t_env *my_env);
 void		check_ambigous2(char *dap, t_node *lst);
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
+void		ft_print_erorr2(char *str1, char str, char *str3);
 int			count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
 
 void		*gc_malloc(size_t size, int nbr);
@@ -142,7 +144,7 @@ void		handle_multiple_quotes1(char *input, int *i,
 int			count_handle_str(char *input, int i);
 char		*ft_copy_add_dabel_qoutes(char *str);
 void		ft_node(t_node **arg);
-
+int			md_isalpha(int c);
 int			read_and_filling_node(char *input, t_list **lst);
 int			ft_handle_string(char	*input, int	*i, t_list	**lst);
 void		ft_ft(char *input, int *i, t_ha *handel);
@@ -166,7 +168,7 @@ void		count_dollare(t_ha	*ha, char *lst);
 int			count_cmd(t_node *lst, t_env *my_env, t_ha *err);
 void		copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha);
 char		*env_key(t_ha *ha, char *str);
-void		copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst);
+void		copy_to_dap(char *dap, char *str, t_ha *ha);
 void		ft_functin_env(char *dap, t_ha *ha);
 void		fill_up_node(char *dap, t_node *lst);
 int			ft_count_env(char *dap, int read_index);
@@ -209,7 +211,6 @@ void		ft_lstadd_back_env(t_env **lst, t_env *new_node);
 t_env		*ft_lstnew_env(void);
 size_t		yl_strlen(char *s, int *i);
 char		*yl_strcpy(char *dest, const char *src);
-
 t_node		*ft_lstnew1(char *content, int type);
 t_node		*ft_lstnew2(char *content, int type, char *tmp_file);
 char		*move_node(t_node *nodes);
@@ -235,11 +236,10 @@ char		*md_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strncmp1(const char *s1, const char *s2, size_t n);
 int			ft_strcmp(char *s1, char *s2);
-long		md_atoi(const char *str);
+long long	md_atoi(char *str);
 char		*ft_strchr(const char *s, int c);
 char		*md_strtrim(char *s1, char const *set);
 void		md_putstr(char *str);
-int			ft_printf(const char *format, ...);
 int			ft_putchar(char c);
 int			ft_putstr(char *str);
 int			ft_putnbr(int n);
@@ -251,7 +251,7 @@ int			mix_printer(char caracter, va_list args);
 
 char		**each_group_cmd(t_node *nodes);
 t_node		**split_nodes_by_pipe(t_node *nodes, int *num_groups);
-int			loop_through_node_builtin(t_node *nodes, t_env *env, t_ha *err);
+int			loop_through_node_builtin(t_node *nodes, t_ha *err);
 int			loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err);
 char		**helper_loop(char **cmd, t_node *nodes);
 char		**loop_through_node_cmd(t_node *nodes);
@@ -259,13 +259,15 @@ char		*is_accessable(char **path, char *cmd);
 char		**load_env(t_env *my_env);
 
 int			piping_forking(t_node **nodes, t_env **my_env, t_ha *err);
-int			child_work(t_md *md, t_env **my_env, t_ha *err, t_node *nodes);
+int			child_work(t_md *md, t_env **my_env, t_ha *err);
 void		parent_work(t_md *md);
 
 int			set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err);
 void		helper_built(t_md *md, t_ha *err);
 int			spliting_nodes_hd(t_md *md, t_node *nodes,
 				t_env *my_env, t_ha *err);
+
+int			check_exec_errors(char *path);
 
 void		catch_signals(t_ha *err, pid_t pid);
 void		setup_signals(void);
@@ -283,8 +285,8 @@ int			is_builtin(char *cmd);
 int			exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err);
 void		implement_env(t_env *env);
 int			implement_pwd(t_env *env);
-int			implement_echo(t_env *env, t_node *nodes);
-int			implement_exit(t_env *my_env, t_node *nodes, t_ha *err);
+int			implement_echo(t_node *nodes);
+int			implement_exit(t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
 char		*set_oldpwd(t_env *env, t_cd *cd);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 16:21:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:10:17 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	forking(t_md *md, t_ha *err, t_env **my_env)
 		return (-1);
 	if (md->id == 0)
 	{
-		if (child_work(md, my_env, err, md->groups[md->i]) == 3)
+		if (child_work(md, my_env, err) == 3)
 		{
 			md->i++;
 			exit(0);
@@ -71,25 +71,22 @@ int	forking(t_md *md, t_ha *err, t_env **my_env)
 	}
 	else
 		parent_work(md);
-	return (close(err->saved_fd), 0);
+	return (0);
 }
 
-int	built_fork_work(t_md *md, t_ha *err, t_env **my_env, t_node **nodes)
+int	built_fork_work(t_md *md, t_ha *err, t_env **my_env)
 {
 	while (md->i < md->num_groups)
 	{
 		helper_built(md, err);
 		if (is_builtin(md->cmd2[0]) && md->num_groups == 1)
 		{
-			if ((*nodes)->next && (*nodes)->next->type == 5)
-				err->no_cd = 1;
 			if (exec_builtin(md->cmd2, my_env, &md->groups[md->i], err) == 1)
 			{
 				close(err->saved_fd);
 				gc_malloc(0, 0);
 				exit(1);
 			}
-			err->no_cd = 0;
 			md->i++;
 			continue ;
 		}
@@ -110,7 +107,7 @@ int	piping_forking(t_node **nodes, t_env **my_env, t_ha *err)
 	md = NULL;
 	if (set_md(&md, *nodes, *my_env, err) == -333)
 		return (-333);
-	if (built_fork_work(md, err, my_env, nodes) == -1)
+	if (built_fork_work(md, err, my_env) == -1)
 		return (-1);
 	if (md->prev_fd != -1)
 		close(md->prev_fd);

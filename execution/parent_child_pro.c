@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 15:47:44 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:11:30 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 	}
 	if (!*md->cmd)
 		exit(0);
+	md->err_code = check_exec_errors(md->cmd_path);
+	if (md->err_code != 0)
+		exit(md->err_code);
 	execve(md->cmd_path, md->cmd, load_env(*my_env));
-	if (md->cmd[0][0] == '/')
-		ft_print_erorr("mhd: ", md->cmd[0], ": Is a directory", "\n");
-	exit(126);
+	ft_print_erorr("minishell: ", md->cmd_path, ": Execution error\n", NULL);
+	exit(127);
 }
 
-int	child_work(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
+int	child_work(t_md *md, t_env **my_env, t_ha *err)
 {
 	int	her;
 
@@ -66,7 +68,7 @@ int	child_work(t_md *md, t_env **my_env, t_ha *err, t_node *nodes)
 	close(md->pip_fd[1]);
 	close(md->pip_fd[0]);
 	md->cmd = helper_loop(md->cmd, md->groups[md->i]);
-	her = loop_through_node_builtin(md->groups[md->i], *my_env, err);
+	her = loop_through_node_builtin(md->groups[md->i], err);
 	if (her == 1)
 	{
 		close(err->saved_fd);

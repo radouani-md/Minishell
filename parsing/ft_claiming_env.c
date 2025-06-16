@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_claiming_env.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:12:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 23:06:06 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:29:07 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	claiming_env_helper(t_env **my_env)
 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
 }
 
+int	check_env(char *env_p)
+{
+	if (!ft_strncmp(env_p, "PWD=", 4)
+		|| !ft_strncmp(env_p, "OLDPWD", 6)
+		|| !ft_strncmp(env_p, "PATH=", 5))
+		return (1);
+	return (0);
+}
+
 void	claiming_env(char **env_p, t_env **my_env)
 {
 	char	*tmp_key;
@@ -42,13 +51,11 @@ void	claiming_env(char **env_p, t_env **my_env)
 	int		in_equal;
 	int		i;
 
-	i = -1;
+	i = 0;
 	claiming_env_helper(my_env);
-	while (env_p[++i])
+	while (env_p[i])
 	{
-		if (!ft_strncmp(env_p[i], "PWD=", 4)
-			|| !ft_strncmp(env_p[i], "OLDPWD", 6)
-			|| !ft_strncmp(env_p[i], "PATH=", 5))
+		if (check_env(env_p[i]) == 1)
 		{
 			i++;
 			continue ;
@@ -61,5 +68,6 @@ void	claiming_env(char **env_p, t_env **my_env)
 		if (env_p[i][in_equal] == '=')
 			tmp_value = md_strdup(env_p[i] + in_equal + 1);
 		ft_lstadd_back12(my_env, ft_lstnewt(tmp_key, tmp_value));
+		i++;
 	}
 }

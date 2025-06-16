@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 22:55:53 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 10:10:37 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env, t_ha *err)
 		err->err_status = 1;
 		return (0);
 	}
-	cwd = getcwd(NULL, 0);
+	cwd = safe_getcwd();
 	if (cwd == NULL)
 	{
 		if (handel_cd(oldpwd, abs_path, env) == 1)
@@ -51,11 +51,10 @@ int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env, t_ha *err)
 	else
 	{
 		if (set_env(env, "PWD", cwd) == 1)
-			return (free(cwd), 1);
+			return (1);
 	}
 	if (set_env(env, "OLDPWD", oldpwd) == 1)
-		return (free(cwd), 1);
-	free(cwd);
+		return (1);
 	return (0);
 }
 
@@ -103,7 +102,7 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 	cd->oldpwd = safe_getcwd();
 	if (!cd->oldpwd)
 		cd->oldpwd = set_oldpwd(*env, cd);
-	if (err->no_cd || (nodes->next && !nodes->next->data[0]))
+	if (nodes->next && !nodes->next->data[0])
 		return (0);
 	else if (!nodes->next || nodes->next->type != 0)
 	{

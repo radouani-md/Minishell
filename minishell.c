@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 01:33:22 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:22:09 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*safe_readline(t_ha *err, t_list **lst)
 {
 	char	*line;
 	char	*input;
+	int		status;
 
 	err->saved_fd = dup(0);
 	setup_signals();
@@ -66,9 +67,10 @@ char	*safe_readline(t_ha *err, t_list **lst)
 	err->err_status = get_status(err->err_status, 0);
 	line = readline("minishell> ");
 	err->err_status = get_status(0, 1);
+	status = err->err_status;
 	if (!line)
 		return (printf("exit\n"), close(err->saved_fd),
-			gc_malloc(0, 0), exit(0), NULL);
+			gc_malloc(0, 0), exit(status), NULL);
 	input = md_strdup(line);
 	free(line);
 	if (input[0] == '\0')

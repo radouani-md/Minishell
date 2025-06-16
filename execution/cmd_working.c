@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 01:44:21 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 15:27:49 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,27 @@ int	loop_through_node2(t_node **nodes, t_ha *err)
 	return (0);
 }
 
-int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err)
-{
-	t_node	*head;
-	int		is_entred;
+// int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err)
+// {
+// 	t_node	*head;
+// 	int		is_entred;
 
-	head = nodes;
-	cmd = NULL;
-	is_entred = 0;
-	while (head)
-	{
-		if (head->type == 3 && is_entred != 1)
-		{
-			if (helper_her(head) == 1)
-				return (1);
-			is_entred = 1;
-		}
-		if (loop_through_node2(&nodes, err) == 1)
-			return (1);
-		head = head->next;
-	}
-	return (0);
-}
+// 	head = nodes;
+// 	is_entred = 0;
+// 	while (head)
+// 	{
+// 		if (head->type == 3 && is_entred != 1)
+// 		{
+// 			if (helper_her(head) == 1)
+// 				return (1);
+// 			is_entred = 1;
+// 		}
+// 		if (loop_through_node2(&nodes, err) == 1)
+// 			return (1);
+// 		head = head->next;
+// 	}
+// 	return (0);
+// }
 
 int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
 {
@@ -78,7 +77,7 @@ int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
 	return (0);
 }
 
-int	loop_through_node_builtin(t_node *nodes, t_env *env, t_ha *err)
+int	loop_through_node_builtin(t_node *nodes, t_ha *err)
 {
 	t_var	*arm;
 	int		is_entred;
@@ -112,6 +111,8 @@ char	*is_accessable(char **path, char *cmd)
 	i = 0;
 	if (!path)
 		return (NULL);
+	if (ft_strchr(cmd, '/'))
+		return (cmd);
 	while (path[i])
 	{
 		if (access(cmd, X_OK) == 0)

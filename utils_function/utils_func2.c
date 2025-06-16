@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:06:26 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/11 10:00:02 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:55:59 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ char	**md_split(char const *s, char c)
 	return (ptr);
 }
 
-long	md_atoi(const char *str)
+long long	md_atoi(char *str)
 {
-	int		i;
-	int		sign;
-	long	t;
+	int			i;
+	int			sign;
+	long long	t;
 
 	i = 0;
 	sign = 1;
@@ -107,8 +107,6 @@ long	md_atoi(const char *str)
 	while (str[i] <= '9' && str[i] >= '0')
 	{
 		t = t * 10 + (str[i] - 48);
-		if (t > 2147483648)
-			return (2147483648);
 		i++;
 	}
 	return (t * sign);

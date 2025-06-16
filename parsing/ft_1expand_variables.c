@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 01:48:59 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 11:42:53 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	store_dap(char *dap, char *str, t_ha *ha, int *i)
 		dap[(ha->dest_index)++] = str[(*i)++];
 }
 
-void	copy_to_dap(char *dap, char *str, t_ha *ha, t_node *lst)
+void	copy_to_dap(char *dap, char *str, t_ha *ha)
 {
 	int	i;
 	int	m;
@@ -112,7 +112,7 @@ void	copy_env_value(t_node *lst, t_env *my_env, char *dap, t_ha *ha)
 			my_env = my_env->next;
 		else
 		{
-			copy_to_dap(dap, my_env->value, ha, lst);
+			copy_to_dap(dap, my_env->value, ha);
 			break ;
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_types_2_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 22:23:44 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 15:58:39 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
 		return (3);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 	{
-		if (implement_exit(*my_env, *nodes, err) == 1)
+		if (implement_exit(*nodes, err) == 1)
 			return (3);
 	}
 	return (0);
@@ -71,7 +71,7 @@ int	countinue_exec_builtin(char **cmd, t_env **my_env, t_node **nodes,
 	}
 	if (ft_strcmp(cmd[0], "echo") == 0)
 	{
-		if (implement_echo(*my_env, *nodes) == 1)
+		if (implement_echo(*nodes) == 1)
 			return (1);
 	}
 	return (0);
@@ -83,7 +83,7 @@ int	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err)
 
 	err->saved_fd_in = dup(STDIN_FILENO);
 	err->saved_fd_out = dup(STDOUT_FILENO);
-	her = loop_through_node_builtin(*nodes, *my_env, err);
+	her = loop_through_node_builtin(*nodes, err);
 	if (her == 1)
 		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
 			close(err->saved_fd_in), close(err->saved_fd_out), 1);

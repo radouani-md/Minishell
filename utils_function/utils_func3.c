@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:09:05 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/03 11:22:09 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/15 14:21:51 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*random_num(void)
 	char		*num_str;
 	char		*new_str;
 
+	new_str = NULL;
 	tmp = md_strdup("/tmp/tmp_");
 	if (!tmp)
 		return (NULL);

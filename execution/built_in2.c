@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 01:41:16 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/15 18:24:38 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	helper_echo(t_env *env, char *nodes_data)
 		if (ft_strcmp(trimmed, env->key) == 0)
 		{
 			if (env->value)
-				ft_printf("%s", env->value);
+				printf("%s", env->value);
 			break ;
 		}
 		env = env->next;
@@ -62,7 +62,7 @@ int	check_newline_flag(t_node **nodes)
 	return (newline);
 }
 
-int	implement_echo(t_env *env, t_node *nodes)
+int	implement_echo(t_node *nodes)
 {
 	int		newline;
 	t_node	*head;
@@ -71,36 +71,40 @@ int	implement_echo(t_env *env, t_node *nodes)
 	while (head && ft_strcmp(head->data, "echo") != 0)
 		head = head->next;
 	if (!head || !head->next)
-		return (ft_printf("\n"), 0);
+		return (printf("\n"), 0);
 	head = head->next;
 	newline = check_newline_flag(&head);
 	while (head && head->type == 0)
 	{
-		ft_printf(head->data);
+		printf(head->data);
 		if (head->next && head->next->type == 0)
-			ft_printf(" ");
+			printf(" ");
 		head = head->next;
 	}
 	if (newline)
-		ft_printf("\n");
+		printf("\n");
 	return (0);
 }
 
-int	implement_exit(t_env *my_env, t_node *nodes, t_ha *err)
+int	implement_exit(t_node *nodes, t_ha *err)
 {
-	int	exit_state;
+	long long	exit_state;
 
 	exit_state = 0;
 	close(err->saved_fd_in);
 	close(err->saved_fd_out);
 	close(err->saved_fd);
+	if (nodes->next && md_isalpha(nodes->next->data[0]))
+		return (ft_print_erorr("exit\nmhd: exit: ", nodes->next->data,
+				": numeric argument required", "\n"),
+			gc_malloc(0, 0), exit(2), 1);
 	if (nodes->next && nodes->next->next)
 		return (write(2, "exit\nminishell: exit: too many arguments\n", 41),
 			err->err_status = 1, 1);
 	else if (nodes && nodes->next)
 	{
 		exit_state = md_atoi(nodes->next->data);
-		ft_printf("exit\n");
+		printf("exit\n");
 		gc_malloc(0, 0);
 		exit(exit_state);
 	}
