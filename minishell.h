@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 14:47:56 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:12:13 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,10 @@ int			ft_count_env(char *dap, int read_index);
 void		delete_qoutation(t_node *arg);
 int			ft_count_ec(char *arg);
 
-int			implement_export(t_env *my_env, t_node *nodes);
+int			implement_export(t_env *my_env, t_node *nodes, t_ha *err);
 int			count_value(int i, t_node *nodes, t_env *my_env);
-void		add_value_export(t_env *my_env, t_node *nodes);
-char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
+void		add_value_export(t_env *my_env, t_node *nodes, t_ha *err);
+char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env, t_ha *err);
 
 int			count_key(int i, t_node *nodes);
 
@@ -195,7 +195,6 @@ void		len_env_value(char *str, t_ha *halel);
 int			ft_strlen_num_err(t_ha *err);
 
 t_ha		*helper_variables(void);
-char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env);
 char		*ft_cpy_key(int i, t_node *nodes);
 int			check_key(char c);
 t_ha		*helper_varia(int err);

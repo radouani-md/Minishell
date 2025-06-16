@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 15:58:39 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:07:28 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err)
 		return (saving_fds(err->saved_fd_in, err->saved_fd_out),
 			close(err->saved_fd_in), close(err->saved_fd_out), 0);
 	if (ft_strcmp(cmd[0], "export") == 0)
-		implement_export(*my_env, *nodes);
+		implement_export(*my_env, *nodes, err);
 	if (ft_strcmp(cmd[0], "unset") == 0)
 		implement_unset(my_env, *nodes);
 	return (saving_fds(err->saved_fd_in, err->saved_fd_out),

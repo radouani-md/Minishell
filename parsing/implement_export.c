@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   implement_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 22:56:31 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:11:32 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i)
+void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
 {
 	char	*str;
 
@@ -25,30 +25,33 @@ void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i)
 			if (!cpy_env1->next)
 			{
 				cpy_env1->key = str;
-				cpy_env1->value = ft_cpy_value(i, nodes, cpy_env1);
+				cpy_env1->value = ft_cpy_value(i, nodes, cpy_env1, err);
 			}
 			cpy_env1 = cpy_env1->next;
 		}
 	}
 	else
+	{
+		err->err_status = 1;
 		ft_print_erorr("bash: export: `", nodes->data,
 			"': not a valid identifier\n", NULL);
+	}
 }
 
-void	lagzouli(t_env *cpy_env, t_node *nodes, int *i)
+void	lagzouli(t_env *cpy_env, t_node *nodes, int *i, t_ha *err)
 {
 	char	*str1;
 	int		type;
 
 	type = cpy_env->type;
-	str1 = ft_cpy_value(i, nodes, cpy_env);
+	str1 = ft_cpy_value(i, nodes, cpy_env, err);
 	if (str1 != NULL)
 		cpy_env->value = str1;
 	else if (type == 1)
 		cpy_env->type = 1;
 }
 
-void	add_value_export(t_env *my_env, t_node *nodes)
+void	add_value_export(t_env *my_env, t_node *nodes, t_ha *err)
 {
 	t_env	*cpy_env;
 	t_env	*cpy_env1;
@@ -64,13 +67,13 @@ void	add_value_export(t_env *my_env, t_node *nodes)
 		{
 			if (!ft_strcmp(cpy_env->key, ft_cpy_key(i, nodes)))
 			{
-				lagzouli(cpy_env, nodes, &i);
+				lagzouli(cpy_env, nodes, &i, err);
 				break ;
 			}
 			cpy_env = cpy_env->next;
 		}
 		if (cpy_env == NULL)
-			ft_youssef(nodes, cpy_env1, &i);
+			ft_youssef(nodes, cpy_env1, &i, err);
 		nodes = nodes->next;
 	}
 }
@@ -83,7 +86,7 @@ char	*ft_str_join_err(char *str1, char *str2, char *str3, char	*str_print)
 	return (str_print);
 }
 
-int	implement_export(t_env *my_env, t_node *nodes)
+int	implement_export(t_env *my_env, t_node *nodes, t_ha *err)
 {
 	char	*str_print;
 
@@ -107,6 +110,6 @@ int	implement_export(t_env *my_env, t_node *nodes)
 		}
 	}
 	else
-		add_value_export(my_env, nodes);
+		add_value_export(my_env, nodes, err);
 	return (0);
 }

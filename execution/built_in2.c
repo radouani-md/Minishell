@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 17:00:02 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:00:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int	implement_echo(t_node *nodes)
 	{
 		md_putstr(head->data);
 		if (head->next && head->next->type == 0)
-			printf(" ");
+			md_putstr(" ");
 		head = head->next;
 	}
 	if (newline)
-		printf("\n");
+		md_putstr("\n");
 	return (0);
 }
 
