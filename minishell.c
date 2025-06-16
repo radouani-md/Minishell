@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 17:04:25 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:17:45 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	node->arg = NULL;
 	node->my_env = NULL;
-	// if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
-	// 	return (1);
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+		return (1);
 	node->err = gc_malloc(sizeof(t_ha), 1);
 	node->err->err_status = 0;
 	while (1)
