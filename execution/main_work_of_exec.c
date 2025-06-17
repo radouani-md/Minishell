@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 19:05:41 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:18:52 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ int	forking(t_md *md, t_ha *err, t_env **my_env)
 		if (child_work(md, my_env, err) == 3)
 		{
 			md->i++;
+			close(err->saved_fd);
 			gc_malloc(0, 0);
 			exit(1);
 		}
+		close(err->saved_fd);
 	}
 	else
-		parent_work(md);
+		parent_work(md, err);
 	return (0);
 }
 
@@ -84,7 +86,6 @@ int	built_fork_work(t_md *md, t_ha *err, t_env **my_env)
 		{
 			if (exec_builtin(md->cmd2, my_env, &md->groups[md->i], err) == 1)
 			{
-				close(err->saved_fd);
 				gc_malloc(0, 0);
 				exit(1);
 			}

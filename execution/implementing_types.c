@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 20:49:45 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:04:42 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 
 	tmp_name = NULL;
 	count_heredoc(nodes, err);
+	nodes->tmp_file = NULL;
 	while (nodes)
 	{
 		if (nodes->type == 3)

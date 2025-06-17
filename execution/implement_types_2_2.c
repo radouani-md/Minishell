@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 10:09:33 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 18:07:28 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/17 23:18:59 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	saving_fds(int saved_fd_in, int saved_fd_out)
 {
 	dup2(saved_fd_in, STDIN_FILENO);
 	dup2(saved_fd_out, STDOUT_FILENO);
-	close(saved_fd_in);
-	close(saved_fd_out);
 }
 
 int	env_implement(char **cmd, t_env **my_env, t_ha *err)

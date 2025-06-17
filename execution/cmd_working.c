@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 22:19:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:13:44 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	loop_through_node_builtin(t_node *nodes, t_ha *err)
 		{
 			if (helper_her(nodes) == 1)
 				return (1);
+			close(err->saved_fd);
 			is_entred = 1;
 		}
 		nodes = nodes->next;
@@ -87,10 +88,12 @@ char	*is_accessable(char **path, char *cmd)
 	char	*temp;
 
 	i = 0;
-	if (!path)
+	if (!cmd || !*cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
+	if (!path)
+		return (NULL);
 	while (path[i])
 	{
 		if (access(cmd, X_OK) == 0)

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parent_child_pro.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 21:58:27 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:19:24 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parent_work(t_md *md)
+void	parent_work(t_md *md, t_ha *err)
 {
+	(void)err;
 	if (md->prev_fd != -1)
 		close(md->prev_fd);
 	md->prev_fd = md->pip_fd[0];
@@ -32,7 +33,12 @@ void	execve_cmd(t_md *md, t_env *my_env)
 
 void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err)
 {
+	t_node	**node;
+
+	node = md->groups;
 	md->cmd_path = is_accessable(fetch_path(my_env), md->cmd[0]);
+	if ((*node)->type != 0)
+		exit(0);
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
 		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");

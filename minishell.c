@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 21:27:54 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/17 23:54:52 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sig_md ;
-
+// GOL LYOUSSEF I9AD EXIT_STATUS DYAL SYNTAX ERROR
 int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 {
 	int	returned_value;
