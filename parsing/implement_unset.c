@@ -6,11 +6,24 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 11:35:51 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:17:10 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ft_functin_env(char *dap, t_ha *ha)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = md_itoa(ha->err_status);
+	while (str[i])
+	{
+		dap[(ha->dest_index)++] = str[i++];
+	}
+}
 
 int	implement_unset(t_env **my_env, t_node *nodes)
 {

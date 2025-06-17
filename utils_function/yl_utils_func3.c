@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 11:47:14 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 18:10:26 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:59:48 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,6 @@ char	*ft_cpy_key(int i, t_node *nodes)
 	return (str);
 }
 
-char	*ft_copy_add_dabel_qoutes(char *str)
-{
-	char	*copy;
-	int		read_index;
-	int		dest_index;
-
-	read_index = 0;
-	dest_index = 0;
-	copy = gc_malloc(md_strlen(str) + 3, 1);
-	copy[dest_index++] = '\"';
-	while (str[read_index])
-	{
-		copy[dest_index++] = str[read_index++];
-	}
-	copy[dest_index++] = '\"';
-	copy[dest_index] = '\0';
-	return (copy);
-}
-
 char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env, t_ha *err)
 {
 	char	*str;
@@ -99,8 +80,8 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env, t_ha *err)
 	while (check_key(nodes->data[*i]))
 		(*i)++;
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
-		return (err->err_status = 1,ft_print_erorr("bash: export: `",
-			nodes->data, "': not a valid identifier\n", NULL), NULL);
+		return (err->err_status = 1, ft_print_erorr("bash: export: `",
+				nodes->data, "': not a valid identifier\n", NULL), NULL);
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '=')
 	{
 		*i = *i + 2;

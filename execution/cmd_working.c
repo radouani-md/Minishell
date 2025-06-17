@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 14:40:27 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:19:32 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,6 @@ int	loop_through_node2(t_node **nodes, t_ha *err)
 	}
 	return (0);
 }
-
-// int	loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err)
-// {
-// 	t_node	*head;
-// 	int		is_entred;
-
-// 	head = nodes;
-// 	is_entred = 0;
-// 	while (head)
-// 	{
-// 		if (head->type == 3 && is_entred != 1)
-// 		{
-// 			if (helper_her(head) == 1)
-// 				return (1);
-// 			is_entred = 1;
-// 		}
-// 		if (loop_through_node2(&nodes, err) == 1)
-// 			return (1);
-// 		head = head->next;
-// 	}
-// 	return (0);
-// }
 
 int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
 {

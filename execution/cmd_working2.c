@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 08:59:49 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 14:48:06 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:31:14 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups)
 		}
 		else
 			ft_lstadd_back1(&group,
-				ft_lstnew2(head->data, head->type, head->tmp_file, head->heredoc_fd));
+				ft_lstnew2(head->data, head->type,
+					head->tmp_file, head->heredoc_fd));
 		head = head->next;
 	}
 	groups[i] = group;

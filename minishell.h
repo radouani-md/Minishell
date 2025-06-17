@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 18:12:13 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:31:50 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,34 +135,20 @@ void		check_ambigous2(char *dap, t_node *lst);
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
 void		ft_print_erorr2(char *str1, char str, char *str3);
 int			count_cmd1(t_node *lst, t_env *my_env, t_ha *err);
-
 void		*gc_malloc(size_t size, int nbr);
 int			implement_unset(t_env **my_env, t_node *nodes);
-int			ft_ft1(char *input, int *i, t_ha *handel, int *col);
-int			handel_qoutation1(char *input, int *i, t_ha *handel, int *col);
-void		handle_multiple_quotes1(char *input, int *i,
-				t_ha *handel, int *col);
 int			count_handle_str(char *input, int i);
-char		*ft_copy_add_dabel_qoutes(char *str);
 void		ft_node(t_node **arg);
 int			md_isalpha(int c);
 int			read_and_filling_node(char *input, t_list **lst);
 int			ft_handle_string(char	*input, int	*i, t_list	**lst);
-void		ft_ft(char *input, int *i, t_ha *handel);
-void		ft_handle_double_single(char *input, int *i, t_list **lst);
 void		ft_ha_pipe_direction(char *input, int *i, t_list **lst);
-void		handle_multiple_quotes(char *input, int *i, t_ha *handel);
-void		handel_qoutation(char *input, int *i, t_ha *handel);
-int			count_string(char *input, int i, t_ha *handel);
-
 int			syntax_erorr(t_list *lst);
 int			tchik_pipe(t_list *lst);
 
 t_node		*typed_nodes(t_list *lst);
-
 void		claiming_env(char **env_p, t_env **my_env, int is_entered);
 void		filling_tmp(char *key, char *env, int size);
-
 void		expand_variables(t_node *lst, t_env *my_env, t_ha *err);
 void		expanding_function(t_node *lst, t_env *my_env, t_ha *err);
 void		count_dollare(t_ha	*ha, char *lst);
@@ -183,9 +169,7 @@ void		add_value_export(t_env *my_env, t_node *nodes, t_ha *err);
 char		*ft_cpy_value(int *i, t_node *nodes, t_env *my_env, t_ha *err);
 
 int			count_key(int i, t_node *nodes);
-
 void		len_env_value_without_space(char *str, t_ha *halel);
-
 void		num_expd_qte(t_node *lst, t_env *my_env, t_ha *halel, t_ha *err);
 void		num_expd_out_qte(t_node *lst, t_env *my_env,
 				t_ha *halel, t_ha *err);
@@ -194,7 +178,6 @@ int			check_after_dollar(char c);
 void		len_env_value(char *str, t_ha *halel);
 int			ft_strlen_num_err(t_ha *err);
 
-t_ha		*helper_variables(void);
 char		*ft_cpy_key(int i, t_node *nodes);
 int			check_key(char c);
 t_ha		*helper_varia(int err);
@@ -212,7 +195,8 @@ t_env		*ft_lstnew_env(void);
 size_t		yl_strlen(char *s, int *i);
 char		*yl_strcpy(char *dest, const char *src);
 t_node		*ft_lstnew1(char *content, int type);
-t_node		*ft_lstnew2(char *content, int type, char *tmp_file, int heredoc_fd);
+t_node		*ft_lstnew2(char *content, int type,
+				char *tmp_file, int heredoc_fd);
 char		*move_node(t_node *nodes);
 void		ft_lstadd_back1(t_node **lst, t_node *new_node);
 void		ft_lstadd_front(t_node **lst, t_node *new);
@@ -240,14 +224,6 @@ long long	md_atoi(char *str);
 char		*ft_strchr(const char *s, int c);
 char		*md_strtrim(char *s1, char const *set);
 void		md_putstr(char *str);
-int			ft_putchar(char c);
-int			ft_putstr(char *str);
-int			ft_putnbr(int n);
-int			ft_uns_putnbr(unsigned int n);
-int			ft_puthex(unsigned long num, char *base);
-int			ft_putpoint(void *ptr);
-int			ft_hexanbr(unsigned long ptr, char a);
-int			mix_printer(char caracter, va_list args);
 
 char		**each_group_cmd(t_node *nodes);
 t_node		**split_nodes_by_pipe(t_node *nodes, int *num_groups);

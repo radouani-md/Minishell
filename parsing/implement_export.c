@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   implement_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:29:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 18:11:32 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:46:54 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
+void	follow_export2(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
 {
 	char	*str;
 
@@ -38,7 +38,7 @@ void	ft_youssef(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
 	}
 }
 
-void	lagzouli(t_env *cpy_env, t_node *nodes, int *i, t_ha *err)
+void	follow_export1(t_env *cpy_env, t_node *nodes, int *i, t_ha *err)
 {
 	char	*str1;
 	int		type;
@@ -67,13 +67,13 @@ void	add_value_export(t_env *my_env, t_node *nodes, t_ha *err)
 		{
 			if (!ft_strcmp(cpy_env->key, ft_cpy_key(i, nodes)))
 			{
-				lagzouli(cpy_env, nodes, &i, err);
+				follow_export1(cpy_env, nodes, &i, err);
 				break ;
 			}
 			cpy_env = cpy_env->next;
 		}
 		if (cpy_env == NULL)
-			ft_youssef(nodes, cpy_env1, &i, err);
+			follow_export2(nodes, cpy_env1, &i, err);
 		nodes = nodes->next;
 	}
 }

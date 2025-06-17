@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_1expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:51:43 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 11:42:53 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:09:09 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha)
 	{
 		if (m % 2 == 0)
 		{
-			while (str[i] == ' ')
+			while (str[i] == ' ' || str[i] == '\t')
 				i++;
-			if (str[i] != ' ' && str[i])
+			if ((str[i] != ' ' || str[i] != '\t') && str[i])
 			{
-				if (i > 0 && str[i - 1] == ' ' && dap[0] != '\0')
+				if (i > 0 && (str[i - 1] == ' ' || str[i - 1] == '\t')
+					&& dap[0] != '\0')
 					dap[(ha->dest_index)++] = str[i - 1];
 				store_dap(dap, str, ha, &i);
 			}

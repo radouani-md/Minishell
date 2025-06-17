@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 22:06:46 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/15 01:56:44 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:00:17 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*gc_malloc(size_t size, int nbr)
 	static t_malloc	*ptr;
 	t_malloc		*tmp;
 
+	mlc = NULL;
 	if (nbr == 1)
 	{
 		mlc = malloc(size);
