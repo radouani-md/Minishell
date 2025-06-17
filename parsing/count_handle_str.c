@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 22:02:37 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/16 20:53:28 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:59:01 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	count_handle_str(char *input, int i)
 		}
 		if (input[i] == '\0'
 			&& (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
-			return (write(2, "bash : syntax error\n", 20), col);
+			return (col);
 	}
 	return (col);
 }
