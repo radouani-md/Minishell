@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:38 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:23:39 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:34:40 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	copy_env_value_you(t_node *lst, t_env *my_env, t_ha *ha, t_ha *err)
 			break ;
 		}
 	}
-	if (ft_strncmp1(src, "?", 1))
+	if (!ft_strncmp(src, "?", 1))
 		ft_functin_env_you(ha, err);
 }
 

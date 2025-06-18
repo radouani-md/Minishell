@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 14:12:19 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:35:03 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,6 @@ int			count_word(char const *s, char c);
 char		*md_strjoin(char *s1, char *s2);
 char		*md_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-int			ft_strncmp1(const char *s1, const char *s2, size_t n);
 int			ft_strcmp(char *s1, char *s2);
 long long	md_atoi(char *str);
 char		*ft_strchr(const char *s, int c);

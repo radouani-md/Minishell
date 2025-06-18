@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_dollar_heredoc.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:55:54 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/12 15:29:32 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:34:29 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	copy_env_value_heredoc(t_node *lst, t_env *my_env, char *dap, t_ha *err)
 			break ;
 		}
 	}
-	if (ft_strncmp1(src, "?", 1))
+	if (!ft_strncmp(src, "?", 1))
 		ft_functin_env(dap, err);
 }
 

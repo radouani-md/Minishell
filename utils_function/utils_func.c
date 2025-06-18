@@ -6,25 +6,11 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:25:31 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:25:33 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 18:34:58 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_strncmp1(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n && (s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
