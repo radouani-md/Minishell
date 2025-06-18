@@ -6,11 +6,32 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 17:56:26 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:12:40 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	has_actual_command(t_node *group)
+{
+	while (group)
+	{
+		if (group->type == 0)
+			return (1);
+		group = group->next;
+	}
+	return (0);
+}
+
+void	check_cmd(t_md *md, t_ha *err)
+{
+	if (!has_actual_command(md->groups[md->i]))
+	{
+		close(err->saved_fd);
+		gc_malloc(0, 0);
+		exit(0);
+	}
+}
 
 int	check_exec_errors(char *path)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:02:16 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:32:29 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	main(int argc, char **argv, char **envp)
 	node->arg = NULL;
 	node->my_env = NULL;
 	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
-		return (1);
+		return (gc_malloc(0, 0), 1);
 	node->err = gc_malloc(sizeof(t_ha), 1);
 	node->err->err_status = 0;
 	while (1)

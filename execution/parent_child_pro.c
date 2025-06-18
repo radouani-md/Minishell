@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 00:19:24 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:12:33 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	execve_cmd(t_md *md, t_env *my_env)
 
 void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err)
 {
-	t_node	**node;
-
-	node = md->groups;
+	check_cmd(md, err);
 	md->cmd_path = is_accessable(fetch_path(my_env), md->cmd[0]);
-	if ((*node)->type != 0)
+	if (md->groups[md->i]->type != 0)
 		exit(0);
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{

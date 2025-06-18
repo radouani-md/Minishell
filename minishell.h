@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:02:44 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:12:19 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ char		**load_env(t_env *my_env);
 
 int			piping_forking(t_node **nodes, t_env **my_env, t_ha *err);
 int			child_work(t_md *md, t_env **my_env, t_ha *err);
+void		check_cmd(t_md *md, t_ha *err);
 void		parent_work(t_md *md, t_ha *err);
 
 int			set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err);
