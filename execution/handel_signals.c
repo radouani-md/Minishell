@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:31:16 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/13 18:17:36 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:09:00 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	sigint_handler(int sig)
 	if (g_sig_md == 3)
 	{
 		close(0);
-		write(1, "\n", 1);
 		g_sig_md = 33;
 	}
 	if (g_sig_md == 0)

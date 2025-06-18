@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 13:32:29 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:08:16 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*safe_readline(t_ha *err, t_list **lst)
 	err->saved_fd = dup(0);
 	setup_signals();
 	*lst = NULL;
+	rl_catch_signals = 0;
 	g_sig_md = 0;
 	err->err_status = get_status(err->err_status, 0);
 	line = readline("minishell> ");
