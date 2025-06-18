@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:17:33 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/14 21:52:13 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:01:16 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_ha_pipe_direction(char *input, int *i, t_list **lst)
 	(*i)++;
 }
 
-int	ft_handle_string(char	*input, int	*i, t_list	**lst)
+int	ft_handle_string(char	*input, int	*i, t_list	**lst, t_ha *err)
 {
 	t_ha	*handel;
 
@@ -52,7 +52,7 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 			&& (handel->dbl_qte % 2 == 1 || handel->snl_qte % 2 == 1))
 		{
 			write(2, "bash : syntax error\n", 20);
-			return (0);
+			return (err->err_status = 2, 0);
 		}
 	}
 	handel->temp[handel->dest_index] = '\0';
@@ -60,7 +60,7 @@ int	ft_handle_string(char	*input, int	*i, t_list	**lst)
 	return (1);
 }
 
-int	read_and_filling_node(char *input, t_list **lst)
+int	read_and_filling_node(char *input, t_list **lst, t_ha *err)
 {
 	int	i;
 
@@ -75,7 +75,7 @@ int	read_and_filling_node(char *input, t_list **lst)
 			}
 			else
 			{
-				if (!ft_handle_string(input, &i, lst))
+				if (!ft_handle_string(input, &i, lst, err))
 					return (0);
 			}
 		}

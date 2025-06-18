@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/17 23:39:29 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:02:44 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ int			implement_unset(t_env **my_env, t_node *nodes);
 int			count_handle_str(char *input, int i);
 void		ft_node(t_node **arg);
 int			md_isalpha(int c);
-int			read_and_filling_node(char *input, t_list **lst);
-int			ft_handle_string(char	*input, int	*i, t_list	**lst);
+int			read_and_filling_node(char *input, t_list **lst, t_ha	*err);
+int			ft_handle_string(char	*input, int	*i, t_list	**lst, t_ha *err);
 void		ft_ha_pipe_direction(char *input, int *i, t_list **lst);
 int			syntax_erorr(t_list *lst);
 int			tchik_pipe(t_list *lst);

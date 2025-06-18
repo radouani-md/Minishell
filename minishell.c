@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/17 23:54:52 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/18 11:02:16 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sig_md ;
-// GOL LYOUSSEF I9AD EXIT_STATUS DYAL SYNTAX ERROR
+
 int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 {
 	int	returned_value;
@@ -125,7 +125,7 @@ int	main(int argc, char **argv, char **envp)
 		input = safe_readline(node->err, &(node->lst));
 		if (!input)
 			continue ;
-		if (read_and_filling_node(input, &(node->lst)))
+		if (read_and_filling_node(input, &(node->lst), node->err))
 		{
 			if (helper_main(envp, node))
 				continue ;
