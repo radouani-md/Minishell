@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/15 18:24:11 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:27:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,10 @@ int	implement_pwd(t_env *env)
 	cwd = safe_getcwd();
 	if (!cwd)
 	{
-		cwd = get_env_value(env, "PWD");
-		if (cwd)
-			printf("%s\n", cwd);
+		if (env->cww)
+			printf("(%s)\n", env->cww);
 		else
-		{
-			perror("pwd");
-			return (1);
-		}
+			printf("HANDEL\n");
 	}
 	else
 		printf("%s\n", cwd);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 00:18:52 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:54:22 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,21 @@ char	**load_env(t_env *my_env)
 
 int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_ha *err)
 {
-	if (implement_her_doc(nodes, my_env, err) == -333)
+	if (nodes && nodes->data && nodes->data[0])
 	{
-		return (-333);
+		if (implement_her_doc(nodes, my_env, err) == -333)
+		{
+			return (-333);
+		}
+		md->groups = split_nodes_by_pipe(nodes, &md->num_groups);
+		if (!md->groups)
+		{
+			gc_malloc(0, 0);
+			close(err->saved_fd);
+			exit(1);
+		}
 	}
-	md->groups = split_nodes_by_pipe(nodes, &md->num_groups);
-	if (!md->groups)
-	{
-		gc_malloc(0, 0);
-		close(err->saved_fd);
-		exit(1);
-	}
+	err->err_status = 0;
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 18:35:03 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:05:25 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_var
 
 typedef struct t_env
 {
+	char			*cww;
 	char			*key;
 	char			**envp;
 	char			*value;
@@ -265,9 +266,10 @@ int			implement_echo(t_node *nodes);
 int			implement_exit(t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
+void		save_cwd(t_env **env);
 char		*set_oldpwd(t_env *env, t_cd *cd);
 char		*safe_getcwd(void);
-int			set_env(t_env **env, char *pwd_searched, char *pwd_updated);
+void		set_env(t_env **env, char *pwd_searched, char *pwd_updated);
 char		*fetch_home(t_env **env);
 
 #endif

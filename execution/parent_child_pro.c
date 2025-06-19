@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 14:12:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:43:47 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,16 @@ void	execve_cmd(t_md *md, t_env *my_env)
 
 void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err)
 {
+	int err_code;
+
+	err_code = 0;
 	check_cmd(md, err);
 	md->cmd_path = is_accessable(fetch_path(my_env), md->cmd[0]);
 	if (md->groups[md->i]->type != 0)
+	{
+		gc_malloc(0, 0);
 		exit(0);
+	}
 	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
 		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");
@@ -49,11 +55,11 @@ void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err)
 		gc_malloc(0, 0);
 		exit(0);
 	}
-	md->err_code = check_exec_errors(md->cmd_path);
-	if (md->err_code != 0)
+	err_code = check_exec_errors(md->cmd_path);
+	if (err_code != 0)
 	{
 		gc_malloc(0, 0);
-		exit(md->err_code);
+		exit(err_code);
 	}
 	execve_cmd(md, my_env);
 }

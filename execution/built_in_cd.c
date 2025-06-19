@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 10:10:37 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:53:10 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,21 @@ int	handel_cd(char *cwd, char *abs_path, t_env **env)
 	else
 		temp = md_strjoin(cwd, "/");
 	new_cwd = md_strjoin(temp, abs_path);
-	if (set_env(env, "PWD", new_cwd) == 1)
-		return (1);
+	set_env(env, "PWD", new_cwd);
 	return (0);
 }
 
 int	cd_absoulute(char *abs_path, char *oldpwd, t_env **env, t_ha *err)
 {
-	char	*cwd;
-
-	cwd = NULL;
 	if (chdir(abs_path) == -1)
 	{
 		perror("mhd :");
 		err->err_status = 1;
 		return (0);
 	}
-	cwd = safe_getcwd();
-	if (cwd == NULL)
-	{
-		if (handel_cd(oldpwd, abs_path, env) == 1)
-			return (1);
-	}
-	else
-	{
-		if (set_env(env, "PWD", cwd) == 1)
-			return (1);
-	}
-	if (set_env(env, "OLDPWD", oldpwd) == 1)
-		return (1);
+	set_env(env, "OLDPWD", oldpwd);
+	save_cwd(env);
+	set_env(env, "PWD", (*env)->cww);
 	return (0);
 }
 
@@ -67,12 +53,9 @@ int	helper_cd(t_cd *cd, t_env **env, t_ha *err)
 		err->err_status = 1;
 		return (0);
 	}
-	if (set_env(env, "OLDPWD", cd->oldpwd) == 1)
-		return (1);
-	cd->cwd = getcwd(NULL, 0);
-	if (set_env(env, "PWD", cd->cwd) == 1)
-		return (free(cd->cwd), 1);
-	free(cd->cwd);
+	set_env(env, "OLDPWD", (*env)->cww);
+	save_cwd(env);
+	set_env(env, "PWD", (*env)->cww);
 	return (0);
 }
 
@@ -92,6 +75,7 @@ char	*safe_getcwd(void)
 int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 {
 	t_cd	*cd;
+	static int entered = 0;
 
 	cd = gc_malloc(sizeof(t_cd), 1);
 	while (nodes && ft_strcmp(nodes->data, "cd") != 0)
@@ -101,7 +85,12 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 			err->err_status = 1, 0);
 	cd->oldpwd = safe_getcwd();
 	if (!cd->oldpwd)
-		cd->oldpwd = set_oldpwd(*env, cd);
+		cd->oldpwd = (*env)->cww;
+	if (!entered)
+	{
+		entered = 1;
+		ft_lstadd_back12(env, ft_lstnewt("OLDPWD", (*env)->cww));
+	}
 	if (nodes->next && !nodes->next->data[0])
 		return (0);
 	else if (!nodes->next || nodes->next->type != 0)
@@ -115,4 +104,50 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 			return (1);
 	}
 	return (0);
+}
+
+void	update_pwd(t_env **env)
+{
+	t_env	*head;
+	int		is_her;
+
+	head = *env;
+	is_her = 0; 
+	while (head)
+	{
+		if (ft_strcmp(head->key, "PWD") == 0)
+		{
+			is_her = 1;
+			break ;
+		}
+		head = head->next;
+	}
+	if (!is_her)
+		ft_lstadd_back12(env, ft_lstnewt("PWD", (*env)->cww));
+}
+
+void    save_cwd(t_env **env)
+{
+    char    *cwd;
+    char    *old;
+
+    cwd = safe_getcwd();
+	if (!*env)
+        return ;
+    old = (*env)->cww;
+    if (cwd)
+        (*env)->cww = cwd;
+    else if (old)
+    {
+        perror("cd: error retrieving current directory"
+            ": getcwd: cannot access parent directories");
+        (*env)->cww = md_strjoin(old, "/..");
+    }
+    else
+    {
+        printf("getcwd: cannot access parent directories:"
+            " No such file or directory\n");
+        (*env)->cww = NULL;
+    }
+	update_pwd(env);
 }
