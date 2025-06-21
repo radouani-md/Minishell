@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:27:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/20 10:38:13 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:32:23 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,4 @@ void	helper_built(t_md *md, t_ha *err)
 		gc_malloc(0, 0);
 		exit(127);
 	}
-	// err->err_status = 0;
 }

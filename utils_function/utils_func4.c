@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:25:06 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:25:07 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:29:51 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_node	*ft_lstnew2(char *content, int type, char *tmp_file, int heredoc_fd)
 	t_node	*new_node;
 
 	new_node = gc_malloc(sizeof(t_node), 1);
-	new_node->data = md_strdup(content);
+	new_node->data = content;
 	new_node->type = type;
 	new_node->heredoc_fd = heredoc_fd;
 	new_node->tmp_file = tmp_file;

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 14:12:40 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:39:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	has_actual_command(t_node *group)
 
 void	check_cmd(t_md *md, t_ha *err)
 {
-	if (!has_actual_command(md->groups[md->i]))
+	if (!has_actual_command(md->groups[md->i])
+		&& md->groups[0]->type != -1)
 	{
 		close(err->saved_fd);
 		gc_malloc(0, 0);

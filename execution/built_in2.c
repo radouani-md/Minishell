@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 15:08:38 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:42:32 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	implement_exit(t_node *nodes, t_ha *err)
 	close(err->saved_fd_in);
 	close(err->saved_fd_out);
 	close(err->saved_fd);
-	if (nodes->next && md_isalpha(nodes->next->data[0]))
+	if (nodes->next && (md_isalpha(nodes->next->data[0])
+			&& nodes->next->type == 0))
 		return (ft_print_erorr("exit\nmhd: exit: ", nodes->next->data,
 				": numeric argument required", "\n"),
 			gc_malloc(0, 0), exit(2), 1);
@@ -107,5 +108,5 @@ int	implement_exit(t_node *nodes, t_ha *err)
 		exit(exit_state);
 	}
 	gc_malloc(0, 0);
-	exit(127);
+	exit(0);
 }

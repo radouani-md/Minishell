@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:31:16 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 16:09:00 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:38:16 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	sigint_handler(int sig)
 	if (g_sig_md == 3)
 	{
 		close(0);
+		write(1, "^C", 2);
 		g_sig_md = 33;
 	}
 	if (g_sig_md == 0)
 	{
-		write(1, "\n", 1);
+		write(1, "^C\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -63,20 +64,19 @@ void	catch_signals(t_ha *err, pid_t pid)
 	{
 		if (wpid == pid)
 		{
-			if (WIFEXITED(status))
-			{
-				err->err_status = WEXITSTATUS(status);
-			}
-			else if (WIFSIGNALED(status))
+			if (WIFSIGNALED(status))
 			{
 				sig = WTERMSIG(status);
 				if (sig == SIGQUIT)
-					write(1, "Quit (core dumped)\n", 19);
-				else if (sig == SIGINT)
-					write(1, "\n", 1);
+					write(2, "Quit (core dumped)\n", 19);
 				err->err_status = 128 + sig;
 			}
+			else if (WIFEXITED(status))
+				err->err_status = WEXITSTATUS(status);
 		}
+		sig = WTERMSIG(status);
+		if (WIFSIGNALED(status) && sig == SIGINT)
+			write (2, "\n", 1);
 		wpid = wait(&status);
 	}
 }

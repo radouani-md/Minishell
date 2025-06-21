@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/20 10:51:06 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:34:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**load_env(t_env *my_env)
 
 int	spliting_nodes_hd(t_md *md, t_node *nodes, t_env *my_env, t_ha *err)
 {
-	if (nodes && nodes->data && nodes->data[0])
+	if (nodes && nodes->data)
 	{
 		if (implement_her_doc(nodes, my_env, err) == -333)
 		{

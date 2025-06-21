@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/21 12:41:54 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 19:58:30 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,12 +259,23 @@ int			implement_outfile(t_node *nodes, t_ha *err);
 
 int			is_builtin(char *cmd);
 int			exec_builtin(char **cmd, t_env **my_env, t_node **nodes, t_ha *err);
+int			countinue_exec_builtin_2(char **cmd, t_env **my_env, t_node **nodes,
+				t_ha *err);
+void		saving_fds(int saved_fd_in, int saved_fd_out);
+int			exec_builtin_child(char **cmd, t_env **my_env, t_node **nodes,
+				t_ha *err);
+int			countinue_exec_builtin_child(char **cmd, t_env **my_env,
+				t_node **nodes, t_ha *err);
 void		implement_env(t_env *env);
 int			implement_pwd(t_env *env);
 int			implement_echo(t_node *nodes);
 int			implement_exit(t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
+int			implement_cd_child(t_env **env, t_node *nodes, t_ha *err);
+void		cd_helper(t_cd *cd, t_env **env, int entered);
+int			helper_cd(t_cd *cd, t_env **env, t_ha *err);
+int			cd_absoulute(char *abs_path, char *oldpwd, t_env **env, t_ha *err);
 void		save_cwd(t_env **env);
 void		update_pwd(t_env **env, int entred);
 char		*set_oldpwd(t_env *env, t_cd *cd);

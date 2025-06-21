@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 15:42:22 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:40:52 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	execve_cmd(t_md *md, t_env *my_env)
 	exit(127);
 }
 
-void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err, t_node *node)
+void	child_work_helper2(t_md *md, t_env *my_env, t_ha *err)
 {
-	int err_code;
+	int	err_code;
 
 	err_code = 0;
 	check_cmd(md, err);
 	md->cmd_path = is_accessable(fetch_path(my_env), md->cmd[0]);
-	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]) || node->type == -1)
+	if (!md->cmd_path || (md->cmd[0] && !*md->cmd[0]))
 	{
 		ft_print_erorr("mhd: ", md->cmd[0], ": command not found", "\n");
 		close(err->saved_fd);
@@ -63,7 +63,7 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 {
 	if (is_builtin(md->cmd[0]))
 	{
-		if (exec_builtin(md->cmd, my_env, &md->groups[md->i], err) == 1)
+		if (exec_builtin_child(md->cmd, my_env, &md->groups[md->i], err) == 1)
 		{
 			close(err->saved_fd);
 			gc_malloc(0, 0);
@@ -79,7 +79,7 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 		gc_malloc(0, 0);
 		exit(0);
 	}
-	child_work_helper2(md, *my_env, err, md->groups[md->i]);
+	child_work_helper2(md, *my_env, err);
 }
 
 int	child_work(t_md *md, t_env **my_env, t_ha *err)
