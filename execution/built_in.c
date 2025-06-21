@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 12:49:48 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:46:29 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int	implement_pwd(t_env *env)
 	if (!cwd)
 	{
 		if (env->cww)
-			printf("-->%s\n", env->cww);
+			printf("%s\n", env->cww);
 	}
 	else
-		printf("==}%s\n", cwd);
+		printf("%s\n", cwd);
 	return (0);
 }
