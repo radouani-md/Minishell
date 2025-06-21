@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:38 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 18:34:40 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:49:50 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	copy_to_dap_you(char *str, t_ha *ha)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return ;
 	while (str[i])
 	{
 		(ha->dest_index)++;

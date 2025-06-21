@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:22 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:23:24 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:56:58 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_count_env(char *dap, int read_index)
 				|| dap[read_index] == '\t'))
 		{
 			read_index++;
-			conut++;
 		}
 		if ((hale->dbl_qte % 2 == 1 || hale->snl_qte % 2 == 1)
 			|| ((dap[read_index] != ' ' || dap[read_index] != '\t')
@@ -66,12 +65,12 @@ int	ft_count_env(char *dap, int read_index)
 	return (conut);
 }
 
-void	add_node(char *dap, t_node **lst, t_ha	*hal, char *tmp)
+void	add_node(char *dap, t_node **lst, t_ha	*hal, char **tmp)
 {
 	t_node	*lst1;
 
-	(*lst)->data = md_strdup(tmp);
-	tmp = NULL;
+	(*lst)->data = md_strdup(*tmp);
+	*tmp = NULL;
 	if (dap[hal->read_index] == ' ' || dap[hal->read_index] == '\t')
 		hal->read_index++;
 	if (dap[hal->read_index])
@@ -83,7 +82,7 @@ void	add_node(char *dap, t_node **lst, t_ha	*hal, char *tmp)
 		(*lst)->next->next = lst1;
 		*lst = (*lst)->next;
 		(*lst)->type = 0;
-		tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 2, 1);
+		*tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
 		hal->dest_index = 0;
 	}
 }
@@ -94,7 +93,7 @@ void	fill_up_node(char *dap, t_node *lst)
 	char	*tmp;
 
 	hal = helper_varia(0);
-	tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 2, 1);
+	tmp = gc_malloc(ft_count_env(dap, hal->read_index) + 1, 1);
 	if (dap[hal->read_index] == '\0')
 		lst->data = dap;
 	while (dap[hal->read_index])
@@ -112,7 +111,7 @@ void	fill_up_node(char *dap, t_node *lst)
 				|| dap[hal->read_index] == '\0'))
 		{
 			tmp[hal->dest_index] = '\0';
-			add_node(dap, &lst, hal, tmp);
+			add_node(dap, &lst, hal, &tmp);
 		}
 	}
 }

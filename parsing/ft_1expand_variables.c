@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:28 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 18:34:52 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 17:57:11 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,24 @@ void	copy_to_dap(char *dap, char *str, t_ha *ha)
 
 	i = 0;
 	m = ft_strlen(ha->dest_index, dap);
-	while (str[i])
+	if (str)
 	{
-		if (m % 2 == 0)
+		while (str[i])
 		{
-			while (str[i] == ' ' || str[i] == '\t')
-				i++;
-			if ((str[i] != ' ' || str[i] != '\t') && str[i])
+			if (m % 2 == 0)
 			{
-				if (i > 0 && (str[i - 1] == ' ' || str[i - 1] == '\t')
-					&& dap[0] != '\0')
-					dap[(ha->dest_index)++] = str[i - 1];
-				store_dap(dap, str, ha, &i);
+				while (str[i] == ' ' || str[i] == '\t')
+					i++;
+				if ((str[i] != ' ' || str[i] != '\t') && str[i])
+				{
+					if (i > 0 && (str[i - 1] == ' ' || str[i - 1] == '\t')
+						&& dap[0] != '\0')
+						dap[(ha->dest_index)++] = str[i - 1];
+					store_dap(dap, str, ha, &i);
+				}
 			}
-		}
-		else
-		{
-			store_dap(dap, str, ha, &i);
+			else
+				store_dap(dap, str, ha, &i);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:53 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:23:54 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 18:12:48 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	ft_node(t_node **arg)
 			&& tmp->type != 4 && tmp->type != 1337)
 		{
 			if (!(*arg)->next)
-			{
 				*arg = NULL;
-			}
 			else if (!tmp1)
 			{
 				*arg = tmp->next;
@@ -35,6 +33,8 @@ void	ft_node(t_node **arg)
 			else
 				tmp1->next = tmp->next;
 		}
+		if (!ft_strcmp(tmp->data, "\"\""))
+			tmp->type = -1;
 		tmp1 = tmp;
 		tmp = tmp->next;
 	}
