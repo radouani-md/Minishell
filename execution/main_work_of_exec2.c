@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:27:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/14 15:34:05 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:38:13 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	set_md(t_md **md, t_node *nodes, t_env *my_env, t_ha *err)
 	(*md)->prev_fd = -1;
 	(*md)->is_entred = 0;
 	(*md)->i = 0;
-	(*md)->is_twice = 0;
 	(*md)->pid = 0;
 	if (spliting_nodes_hd(*md, nodes, my_env, err) == -333)
 		return (-333);
@@ -34,5 +33,5 @@ void	helper_built(t_md *md, t_ha *err)
 		gc_malloc(0, 0);
 		exit(127);
 	}
-	err->err_status = 0;
+	// err->err_status = 0;
 }

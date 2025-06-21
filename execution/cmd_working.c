@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 00:13:44 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:40:00 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ int	loop_through_node2(t_node **nodes, t_ha *err)
 	return (0);
 }
 
-int	loop_through_node_builtin2(t_node **nodes, t_ha *err, t_var *arm)
+int	loop_through_node_builtin2(t_node *nodes, t_ha *err, t_var *arm)
 {
-	if ((*nodes)->type == 2 || (*nodes)->type == 1337)
+	if (nodes->type == 2 || nodes->type == 1337)
 	{
-		arm->in_var = implement_infile((*nodes), err);
+		arm->in_var = implement_infile(nodes, err);
 		if (arm->in_var)
 			return (arm->in_var);
 	}
-	if ((*nodes)->type == 1 || (*nodes)->type == 1337)
+	if (nodes->type == 1 || nodes->type == 1337)
 	{
-		arm->out_var = implement_outfile((*nodes), err);
+		arm->out_var = implement_outfile(nodes, err);
 		if (arm->out_var)
 			return (arm->out_var);
 	}
-	if ((*nodes)->type == 4 || (*nodes)->type == 1337)
+	if (nodes->type == 4 || nodes->type == 1337)
 	{
-		arm->append_var = implement_appending((*nodes), err);
+		arm->append_var = implement_appending(nodes, err);
 		if (arm->append_var)
 			return (arm->append_var);
 	}
@@ -66,7 +66,7 @@ int	loop_through_node_builtin(t_node *nodes, t_ha *err)
 	is_entred = 0;
 	while (nodes)
 	{
-		returned_value = loop_through_node_builtin2(&nodes, err, arm);
+		returned_value = loop_through_node_builtin2(nodes, err, arm);
 		if (returned_value)
 			return (returned_value);
 		if (nodes->type == 3 && is_entred != 1)

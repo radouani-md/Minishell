@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/18 00:04:42 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:54:11 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	count_heredoc(t_node *nodes, t_ha *err)
 		if (num_heredocs > 16)
 		{
 			close(err->saved_fd);
+			gc_malloc(0, 0);
 			exit(2);
 		}
 		nodes = nodes->next;

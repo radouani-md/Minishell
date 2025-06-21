@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/19 16:53:10 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:43:22 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,33 +103,31 @@ int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 		if (cd_absoulute(nodes->next->data, cd->oldpwd, env, err) == 1)
 			return (1);
 	}
+	update_pwd(env, entered);
 	return (0);
 }
 
-void	update_pwd(t_env **env)
+void	update_pwd(t_env **env, int entred)
 {
 	t_env	*head;
-	int		is_her;
 
+	entred++;
 	head = *env;
-	is_her = 0; 
 	while (head)
 	{
 		if (ft_strcmp(head->key, "PWD") == 0)
-		{
-			is_her = 1;
 			break ;
-		}
 		head = head->next;
 	}
-	if (!is_her)
+	if (!head)
 		ft_lstadd_back12(env, ft_lstnewt("PWD", (*env)->cww));
 }
 
 void    save_cwd(t_env **env)
 {
-    char    *cwd;
-    char    *old;
+    char    	*cwd;
+    char    	*old;
+	static int	entred = 0;
 
     cwd = safe_getcwd();
 	if (!*env)
@@ -149,5 +147,6 @@ void    save_cwd(t_env **env)
             " No such file or directory\n");
         (*env)->cww = NULL;
     }
-	update_pwd(env);
+	if (!entred)
+		update_pwd(env, entred);
 }

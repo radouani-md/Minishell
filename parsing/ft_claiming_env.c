@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:11 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/19 16:55:33 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/20 12:36:01 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	claiming_env_helper(t_env **my_env)
 	ft_lstadd_back12(my_env, ft_lstnewt("PATH",
 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"));
 	ft_lstadd_back12(my_env, ft_lstnewt("_", "./minishell"));
+	(*my_env)->cww = NULL;
 	save_cwd(my_env);
 }
 

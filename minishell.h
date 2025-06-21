@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/19 17:05:25 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 12:41:54 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_md
 	int		err_code;
 	int		is_entred;
 	int		num_groups;
-	int		is_twice;
 	t_node	**groups;
 	char	**cmd;
 	char	**cmd2;
@@ -267,6 +266,7 @@ int			implement_exit(t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
 void		save_cwd(t_env **env);
+void		update_pwd(t_env **env, int entred);
 char		*set_oldpwd(t_env *env, t_cd *cd);
 char		*safe_getcwd(void);
 void		set_env(t_env **env, char *pwd_searched, char *pwd_updated);

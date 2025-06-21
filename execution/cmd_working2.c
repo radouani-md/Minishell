@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_working2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 08:59:49 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/16 21:31:14 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/20 10:05:21 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,23 @@ t_node	**split_nodes_by_pipe(t_node *nodes, int *num_groups)
 	t_node	**groups;
 	t_node	*group;
 	int		i;
-	t_node	*head;
 
 	i = 0;
 	group = NULL;
 	*num_groups = help_split_node(nodes);
 	groups = gc_malloc((*num_groups + 1) * sizeof(t_node *), 1);
-	head = nodes;
-	while (head)
+	while (nodes)
 	{
-		if (head->type == 5)
+		if (nodes->type == 5)
 		{
 			groups[i++] = group;
 			group = NULL;
 		}
 		else
 			ft_lstadd_back1(&group,
-				ft_lstnew2(head->data, head->type,
-					head->tmp_file, head->heredoc_fd));
-		head = head->next;
+				ft_lstnew2(nodes->data, nodes->type,
+					nodes->tmp_file, nodes->heredoc_fd));
+		nodes = nodes->next;
 	}
 	groups[i] = group;
 	return (groups[i + 1] = NULL, groups);

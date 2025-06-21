@@ -6,14 +6,14 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 16:08:16 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/20 15:39:43 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sig_md ;
-
+// .. command not found
 int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 {
 	int	returned_value;

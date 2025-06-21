@@ -1,0 +1,71 @@
+minishell> export arr="a b c"
+minishell> $arr=$arr
+----------------------------------
+minishell> $arr""
+minishell> l$arr;l
+=================================================================
+==2507==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5020000084b3 at pc 0x56079709e2ab bp 0x7ffebc780530 sp 0x7ffebc780520
+WRITE of size 1 at 0x5020000084b3 thread T0
+    #0 0x56079709e2aa in fill_up_node parsing/ft_2expand_variables.c:114
+    #1 0x56079709b430 in expanding_function parsing/ft_expand_variables.c:82
+    #2 0x56079709b8c2 in expand_variables parsing/ft_expand_variables.c:117
+    #3 0x5607970ae6a5 in helper_main /home/mradouan/Desktop/mohammed/minishell.c:99
+    #4 0x5607970aea2a in main /home/mradouan/Desktop/mohammed/minishell.c:131
+    #5 0x7f10a63a9187 in __libc_start_call_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a187) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #6 0x7f10a63a924a in __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a24a) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #7 0x560797096324 in _start ../sysdeps/x86_64/start.S:115
+
+------------------------------------------------------------------------------
+
+minishell> export a
+minishell> export arr="a b c"
+minishell> export g
+minishell> "asdsdsad$g"=$arr
+||
+minishell> export a
+minishell> export b=$a
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==4692==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55561c79d044 bp 0x7fffcdba00c0 sp 0x7fffcdba00a0 T0)
+==4692==The signal is caused by a READ memory access.
+==4692==Hint: address points to the zero page.
+    #0 0x55561c79d044 in copy_to_dap_you parsing/dollar_handel.c:35
+    #1 0x55561c79d45e in copy_env_value_you parsing/dollar_handel.c:76
+    #2 0x55561c79d5ed in count_cmd1 parsing/dollar_handel.c:93
+    #3 0x55561c797e16 in expanding_function parsing/ft_expand_variables.c:61
+    #4 0x55561c7988c2 in expand_variables parsing/ft_expand_variables.c:117
+    #5 0x55561c7ab6a5 in helper_main /home/mradouan/Desktop/mohammed/minishell.c:99
+    #6 0x55561c7aba2a in main /home/mradouan/Desktop/mohammed/minishell.c:131
+    #7 0x7ff391810187 in __libc_start_call_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a187) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #8 0x7ff39181024a in __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a24a) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #9 0x55561c793324 in _start ../sysdeps/x86_64/start.S:115
+
+----------------------------------------------------------------------------
+
+minishell> export arr="a b c"
+minishell> export cmd="d e f"
+minishell> $arr"$cmd"
+minishell> $cmd"$arr"
+
+
+  #0 0x5583e00be048 in fill_up_node parsing/ft_2expand_variables.c:109
+    #1 0x5583e00bb430 in expanding_function parsing/ft_expand_variables.c:82
+    #2 0x5583e00bb8c2 in expand_variables parsing/ft_expand_variables.c:117
+    #3 0x5583e00ce6a5 in helper_main /home/mradouan/Desktop/mohammed/minishell.c:99
+    #4 0x5583e00cea2a in main /home/mradouan/Desktop/mohammed/minishell.c:131
+    #5 0x7f933e032187 in __libc_start_call_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a187) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #6 0x7f933e03224a in __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a24a) (BuildId: 2890b41de26262042831874e91ff2f647c9db3a5)
+    #7 0x5583e00b6324 in _start ../sysdeps/x86_64/start.S:115
+
+-------------------------------------------------------------------------------
+cat << a == << a cat
+
+< fille cat
+-------------------------------------------------------------------------------
+    exit 14l
+
+    exit -9223372036854775809 : long long max and min
+
+
+    ""
+    bash: : command not found
