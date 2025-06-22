@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:21:52 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:51:40 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 void	follow_export2(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
 {
 	char	*str;
+	t_env *cpy_env2;
 
 	str = ft_cpy_key(*i, nodes);
+	cpy_env2 = cpy_env1;
 	if (str != NULL)
 	{
 		ft_lstadd_back_env(&cpy_env1, ft_lstnew_env());
-		while (cpy_env1)
+		while (cpy_env2)
 		{
-			if (!cpy_env1->next)
+			if (cpy_env2->next == NULL)
 			{
-				cpy_env1->key = str;
-				cpy_env1->value = ft_cpy_value(i, nodes, cpy_env1, err);
+				cpy_env2->key = str;
+				cpy_env2->value = ft_cpy_value13(i, nodes, cpy_env2, err);
 			}
-			cpy_env1 = cpy_env1->next;
+			cpy_env2 = cpy_env2->next;
 		}
 	}
 	else

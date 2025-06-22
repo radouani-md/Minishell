@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/21 21:26:54 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:50:06 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,10 @@ typedef struct s_all
 	t_ha	*err;
 	t_env	*my_env;
 }				t_all;
+
+char	*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err);
+int	count_value13(int i, t_node *nodes);
+
 
 void		check_ambegous(t_node *lst, t_env *my_env);
 void		check_ambigous2(char *dap, t_node *lst);

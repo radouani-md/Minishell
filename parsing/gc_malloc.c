@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:56 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:21:58 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:46:29 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_malloc	*ft_lstnew_malloc(void *mlc)
 
 	new_node = malloc(sizeof(t_malloc));
 	if (!new_node)
-		return (exit(1), NULL);
+		return (free(mlc), gc_malloc(0, 0), exit(1), NULL);
 	new_node->data = mlc;
 	new_node->next = NULL;
 	return (new_node);
@@ -64,6 +64,7 @@ void	*gc_malloc(size_t size, int nbr)
 	t_malloc		*tmp;
 
 	mlc = NULL;
+	
 	if (nbr == 1)
 	{
 		mlc = malloc(size);

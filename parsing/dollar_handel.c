@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:38 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/21 17:49:50 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:54:09 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	handle_dollar_quote_case_you(t_node *lst, t_ha *ha)
 {
+	ha->quote_count = 0;
 	if (lst->data[ha->read_index + 1] == '\'' && ha->dbl_qte % 2 == 0)
 		ha->quote_count = ha->snl_qte + 1;
 	else if (lst->data[ha->read_index + 1] == '\"' && ha->snl_qte % 2 == 0)

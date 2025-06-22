@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:24:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:24:49 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:55:31 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,30 @@ char	*ft_cpy_value(int *i, t_node *nodes, t_env *my_env, t_ha *err)
 	}
 	else if (nodes->data[*i] == '=')
 	{
+		(*i)++;
+		my_env->type = 1;
+		str = yl_strcpy(str, nodes->data + (*i));
+		yl_strlen(nodes->data, i);
+	}
+	else
+		return (my_env->type = 0, NULL);
+	return (str);
+}
+
+char	*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err)
+{
+	char	*str;
+
+	str = gc_malloc(count_value13(*i, nodes) + 2, 1);
+	while (check_key(nodes->data[*i]))
+		(*i)++;
+	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
+		return (err->err_status = 1, ft_print_erorr("bash: export: `",
+				nodes->data, "': not a valid identifier\n", NULL), NULL);
+	if (nodes->data[*i] == '=' || (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '='))
+	{
+		if (nodes->data[*i] == '+' && nodes->data[*i + 1] == '=')
+			(*i)++;
 		(*i)++;
 		my_env->type = 1;
 		str = yl_strcpy(str, nodes->data + (*i));
