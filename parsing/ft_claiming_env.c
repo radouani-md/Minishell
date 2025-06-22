@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:11 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/20 12:36:01 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:48:45 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	check_env(char *env_p)
 {
 	if (!ft_strncmp(env_p, "PWD=", 4)
 		|| !ft_strncmp(env_p, "OLDPWD", 6)
+		|| !ft_strncmp(env_p, "_=", 2)
 		|| !ft_strncmp(env_p, "PATH=", 5))
 		return (1);
 	return (0);

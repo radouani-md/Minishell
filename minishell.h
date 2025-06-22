@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/21 19:58:30 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 21:26:54 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ int			implement_exit(t_node *nodes, t_ha *err);
 
 int			implement_cd(t_env **env, t_node *nodes, t_ha *err);
 int			implement_cd_child(t_env **env, t_node *nodes, t_ha *err);
-void		cd_helper(t_cd *cd, t_env **env, int entered);
+void		cd_helper(t_cd *cd, t_env **env);
 int			helper_cd(t_cd *cd, t_env **env, t_ha *err);
 int			cd_absoulute(char *abs_path, char *oldpwd, t_env **env, t_ha *err);
 void		save_cwd(t_env **env);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 12:31:16 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 19:38:16 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 20:46:04 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,13 @@ void	catch_signals(t_ha *err, pid_t pid)
 				sig = WTERMSIG(status);
 				if (sig == SIGQUIT)
 					write(2, "Quit (core dumped)\n", 19);
+				else if (sig == SIGINT)
+					write(2, "\n", 1);
 				err->err_status = 128 + sig;
 			}
 			else if (WIFEXITED(status))
 				err->err_status = WEXITSTATUS(status);
 		}
-		sig = WTERMSIG(status);
-		if (WIFSIGNALED(status) && sig == SIGINT)
-			write (2, "\n", 1);
 		wpid = wait(&status);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 16:50:21 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 19:59:53 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 21:28:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,16 @@ char	*safe_getcwd(void)
 int	implement_cd(t_env **env, t_node *nodes, t_ha *err)
 {
 	t_cd		*cd;
-	static int	entered = 0;
+	int			entered;
 
+	entered = 0;
 	cd = gc_malloc(sizeof(t_cd), 1);
 	while (nodes && ft_strcmp(nodes->data, "cd") != 0)
 		nodes = nodes->next;
 	if (nodes->next && nodes->next->next)
 		return (write(2, "cd: too many arguments\n", 24),
 			err->err_status = 1, 0);
-	cd_helper(cd, env, entered);
+	cd_helper(cd, env);
 	if (nodes->next && !nodes->next->data[0])
 		return (0);
 	else if (!nodes->next || nodes->next->type != 0)

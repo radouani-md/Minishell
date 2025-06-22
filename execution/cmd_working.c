@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 15:53:19 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:42:43 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,6 @@ char	*is_accessable(char **path, char *cmd)
 		return (NULL);
 	while (path[i])
 	{
-		if (access(cmd, X_OK) == 0)
-			return (md_strdup(cmd));
 		temp = md_strjoin(path[i], "/");
 		full_path = md_strjoin(temp, cmd);
 		if (access(full_path, X_OK) == 0)

@@ -6,14 +6,20 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 19:45:50 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 20:03:52 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/21 21:38:47 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	cd_helper(t_cd *cd, t_env **env, int entered)
+void	cd_helper(t_cd *cd, t_env **env)
 {
+	t_env		*head;
+	static int	entered = 0;
+	int			not_in;
+
+	not_in = 1;
+	head = *env;
 	cd->oldpwd = safe_getcwd();
 	if (!cd->oldpwd)
 		cd->oldpwd = (*env)->cww;
@@ -21,7 +27,16 @@ void	cd_helper(t_cd *cd, t_env **env, int entered)
 	{
 		entered = 1;
 		ft_lstadd_back12(env, ft_lstnewt("OLDPWD", (*env)->cww));
+		return ;
 	}
+	while (head)
+	{
+		if (ft_strcmp(head->key, "OLDPWD") == 0)
+			not_in = 0;
+		head = head->next;
+	}
+	if (not_in)
+		ft_lstadd_back12(env, ft_lstnewt("OLDPWD", (*env)->cww));
 }
 
 void	update_pwd(t_env **env, int entred)
@@ -71,15 +86,16 @@ void	save_cwd(t_env **env)
 int	implement_cd_child(t_env **env, t_node *nodes, t_ha *err)
 {
 	t_cd		*cd;
-	static int	entered = 0;
+	int			entered;
 
+	entered = 0;
 	cd = gc_malloc(sizeof(t_cd), 1);
 	while (nodes && ft_strcmp(nodes->data, "cd") != 0)
 		nodes = nodes->next;
 	if (nodes->next && nodes->next->next)
 		return (write(2, "cd: too many arguments\n", 24),
 			err->err_status = 1, 1);
-	cd_helper(cd, env, entered);
+	cd_helper(cd, env);
 	if (nodes->next && !nodes->next->data[0])
 		return (0);
 	else if (!nodes->next || nodes->next->type != 0)
