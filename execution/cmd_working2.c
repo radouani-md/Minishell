@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 08:59:49 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 20:34:30 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:11:13 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ char	**helper_loop(char **cmd, t_node *nodes)
 	num_cmd = 0;
 	while (head)
 	{
-		if (head->type == 0)
+		if (head->type == 0 || head->type == -1)
 			num_cmd++;
 		head = head->next;
 	}
 	cmd = gc_malloc(((num_cmd + 1) * sizeof(char *)), 1);
 	while (nodes)
 	{
-		if (nodes->type == 0)
+		if (nodes->type == 0 || nodes->type == -1)
 			cmd[i++] = nodes->data;
 		nodes = nodes->next;
 	}

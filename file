@@ -1,0 +1,18 @@
+mradouan $USER mradouan USER mradouan 'mradouan' 'USER' 'mradouan''' 'mradouan'''
+mradouan $USER mradouan USER mradouan 'mradouan' $'USER' 'mradouan''' 'mradouan'''
+
+$USER $"USER" "$USER" "$"USER"" "$USER""" mradouan $USER mradouan mradouan
+$USER $"USER" "$USER" "$"USER"" "$USER""" mradouan $USER mradouan mradouan
+
+ls > ""
+export b+=a
+
+minishell> env | grep _=
+_=./minishell
+_=./minishell
+
+exit | exit  1000
+
+touch ls
+chmod +x ls
+ls

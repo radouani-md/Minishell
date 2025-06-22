@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:24:48 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 21:55:31 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:23:16 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ char	*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err)
 	if (nodes->data[*i] == '+' && nodes->data[(*i) + 1] != '=')
 		return (err->err_status = 1, ft_print_erorr("bash: export: `",
 				nodes->data, "': not a valid identifier\n", NULL), NULL);
-	if (nodes->data[*i] == '=' || (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '='))
+	if (nodes->data[*i] == '='
+		|| (nodes->data[*i] == '+' && nodes->data[(*i) + 1] == '='))
 	{
 		if (nodes->data[*i] == '+' && nodes->data[*i + 1] == '=')
 			(*i)++;

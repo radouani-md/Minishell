@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 19:45:50 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/21 21:38:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:24:35 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,12 @@ int	implement_cd_child(t_env **env, t_node *nodes, t_ha *err)
 	}
 	update_pwd(env, entered);
 	return (0);
+}
+
+void	alloc_arm(t_var	**arm)
+{
+	*arm = gc_malloc(sizeof(t_var), 1);
+	(*arm)->in_var = 0;
+	(*arm)->out_var = 0;
+	(*arm)->append_var = 0;
 }

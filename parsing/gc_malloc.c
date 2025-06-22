@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gc_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:56 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 20:46:29 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:18:58 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	*gc_malloc(size_t size, int nbr)
 	t_malloc		*tmp;
 
 	mlc = NULL;
-	
 	if (nbr == 1)
 	{
 		mlc = malloc(size);

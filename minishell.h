@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 21:50:06 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:18:26 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -130,10 +129,8 @@ typedef struct s_all
 	t_env	*my_env;
 }				t_all;
 
-char	*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err);
-int	count_value13(int i, t_node *nodes);
-
-
+char		*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err);
+int			count_value13(int i, t_node *nodes);
 void		check_ambegous(t_node *lst, t_env *my_env);
 void		check_ambigous2(char *dap, t_node *lst);
 void		ft_print_erorr(char *str1, char *str2, char *str3, char *str4);
@@ -231,7 +228,6 @@ void		md_putstr(char *str);
 char		**each_group_cmd(t_node *nodes);
 t_node		**split_nodes_by_pipe(t_node *nodes, int *num_groups);
 int			loop_through_node_builtin(t_node *nodes, t_ha *err);
-int			loop_through_node(t_node *nodes, char **cmd, t_env *env, t_ha *err);
 char		**helper_loop(char **cmd, t_node *nodes);
 char		**loop_through_node_cmd(t_node *nodes);
 char		*is_accessable(char **path, char *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yl_utils_func6.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:24:06 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 21:57:16 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:23:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	count_value(int i, t_node *nodes, t_env *my_env)
 	return (a);
 }
 
-
 int	count_value13(int i, t_node *nodes)
 {
 	int	a;
@@ -76,20 +75,13 @@ int	count_value13(int i, t_node *nodes)
 		i++;
 	if (nodes->data[i] == '+' && nodes->data[i + 1] == '+')
 		return (0);
-	if (nodes->data[i] == '=' || (nodes->data[i] == '+' && nodes->data[i + 1] == '='))
+	if (nodes->data[i] == '='
+		|| (nodes->data[i] == '+' && nodes->data[i + 1] == '='))
 	{
-		if(nodes->data[i] == '+' && nodes->data[i + 1] == '=')
+		if (nodes->data[i] == '+' && nodes->data[i + 1] == '=')
 			i++;
 		i++;
 		a += yl_strlen(nodes->data, &i);
 	}
 	return (a);
-}
-
-void	alloc_arm(t_var	**arm)
-{
-	*arm = gc_malloc(sizeof(t_var), 1);
-	(*arm)->in_var = 0;
-	(*arm)->out_var = 0;
-	(*arm)->append_var = 0;
 }

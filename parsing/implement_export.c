@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 21:51:40 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/22 23:19:30 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	follow_export2(t_node *nodes, t_env *cpy_env1, int *i, t_ha *err)
 {
 	char	*str;
-	t_env *cpy_env2;
+	t_env	*cpy_env2;
 
 	str = ft_cpy_key(*i, nodes);
 	cpy_env2 = cpy_env1;
