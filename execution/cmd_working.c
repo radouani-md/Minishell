@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:14:02 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/22 21:42:43 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:54:25 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	loop_through_node_builtin(t_node *nodes, t_ha *err)
 		returned_value = loop_through_node_builtin2(nodes, err, arm);
 		if (returned_value)
 			return (returned_value);
-		if (nodes->type == 3 && is_entred != 1)
+		if ((nodes->type == 3 || nodes->type == -1) && is_entred != 1)
 		{
 			if (helper_her(nodes) == 1)
 				return (1);

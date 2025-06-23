@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_func2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:25:21 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:25:22 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:48:10 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,46 @@ char	**md_split(char const *s, char c)
 	return (ptr);
 }
 
-long long	md_atoi(char *str)
+long	md_atoi_helper(char *str, long *exit_status, int sign, int *i)
 {
-	int			i;
-	int			sign;
-	long long	t;
+	int				check;
+	unsigned long	t;
 
-	i = 0;
-	sign = 1;
+	check = 0;
 	t = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while (str[*i] && (str[*i] <= '9' && str[*i] >= '0'))
+	{
+		check = 1;
+		if (t > (unsigned long)((9223372036854775807
+				- (str[*i] - 48)) / 10))
+			return (1);
+		t = t * 10 + (str[*i] - 48);
+		(*i)++;
+	}
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		(*i)++;
+	if (str[*i] != '\0' || !check)
+		return (1);
+	*exit_status = t * sign;
+	return (0);
+}
+
+long	md_atoi(char *str, long *exit_status)
+{
+	int				i;
+	int				sign;
+
+	i = -1;
+	sign = 1;
+	while (str[++i])
+	{
+		if ((str[i] > '9' || str[i] < '0')
+		&& str[i] != '-' && str[i] != '+'
+		&& str[i] != ' ' && str[i] != '\t')
+			return (1);
+	}
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -104,10 +134,7 @@ long long	md_atoi(char *str)
 			sign = -1;
 		i++;
 	}
-	while (str[i] <= '9' && str[i] >= '0')
-	{
-		t = t * 10 + (str[i] - 48);
-		i++;
-	}
-	return (t * sign);
+	if (md_atoi_helper(str, exit_status, sign, &i) == 1)
+		return (1);
+	return (0);
 }

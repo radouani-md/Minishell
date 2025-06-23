@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/23 13:06:56 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:02:54 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ int	md_isalpha(char *str)
 	int i;
 
 	i = 0;
+	while (str && str[i] == '+')
+		i++;
 	while (str[i])
 	{
 		if ((str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= 'a' && str[i] <= 'z'))
+			|| (str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] == '+')
+			|| (str[i] == '-'))
 			return (1);
 		i++;
 	}

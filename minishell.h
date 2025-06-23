@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/23 12:57:21 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:11:58 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ char		*md_strjoin(char *s1, char *s2);
 char		*md_strdup(char *src);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strcmp(char *s1, char *s2);
-long long	md_atoi(char *str);
+long		md_atoi(char *str, long *exit_status);
 char		*ft_strchr(const char *s, int c);
 char		*md_strtrim(char *s1, char const *set);
 void		md_putstr(char *str);

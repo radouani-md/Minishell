@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_handle_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:53 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/23 16:19:37 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:14:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	ft_node(t_node **arg)
 		}
 		else
 		{
-			if (!ft_strcmp(tmp->data, "\"\"")
-				|| !ft_strcmp(tmp->data, "\'\'"))
-				tmp->type = -1;
 			tmp1 = tmp;
 			tmp = tmp->next;
 		}

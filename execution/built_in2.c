@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/23 12:53:23 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:19:47 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,13 @@ int	implement_echo(t_node *nodes)
 
 int	implement_exit(t_node *nodes, t_ha *err)
 {
-	long long	exit_state;
+	long	exit_state;
 
 	exit_state = 0;
 	close(err->saved_fd_in);
 	close(err->saved_fd_out);
 	close(err->saved_fd);
-	if (nodes->next && (md_isalpha(nodes->next->data)
-			&& nodes->next->type == 0))
+	if (md_atoi(nodes->next->data, &exit_state) == 1)
 		return (ft_print_erorr("exit\nmhd: exit: ", nodes->next->data,
 				": numeric argument required", "\n"),
 			gc_malloc(0, 0), exit(2), 1);
@@ -102,7 +101,6 @@ int	implement_exit(t_node *nodes, t_ha *err)
 			err->err_status = 1, 1);
 	else if (nodes && nodes->next)
 	{
-		exit_state = md_atoi(nodes->next->data);
 		printf("exit\n");
 		gc_malloc(0, 0);
 		exit(exit_state);
