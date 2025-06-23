@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   implement_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/23 14:28:48 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:57:32 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	implement_export(t_env *my_env, t_node *nodes, t_ha *err)
 {
 	char	*str_print;
 
-	while(ft_strcmp(nodes->data, "export"))
+	while (ft_strcmp(nodes->data, "export"))
 		nodes = nodes->next;
 	if (nodes->next == NULL || (nodes->next && nodes->next->type != 0))
 	{

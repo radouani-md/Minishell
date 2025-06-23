@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:22:34 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 19:54:42 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:57:15 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,31 @@ void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 	fill_up_node(dap, lst);
 }
 
+void	handel_dolllar(t_node *lst)
+{
+	char	*tmp;
+	t_ha	*ha;
+
+	tmp = gc_malloc(md_strlen(lst->data) + 1, 1);
+	ha = helper_varia(0);
+	while (lst->data[ha->read_index])
+	{
+		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
+		if (lst->data[ha->read_index] == '$'
+			&& (lst->data[ha->read_index + 1] == '\"'
+				|| lst->data[ha->read_index + 1] == '\''))
+		{
+			ha->read_index++;
+		}
+		else
+		{
+			tmp[ha->dest_index++] = lst->data[ha->read_index++];
+		}
+	}
+	tmp[ha->dest_index] = '\0';
+	lst->data = md_strdup(tmp);
+}
+
 void	is_quoted(t_node *lst)
 {
 	int	a;
@@ -120,6 +145,7 @@ void	expand_variables(t_node *lst, t_env *my_env, t_ha *err)
 			}
 			else if (lst->type == 3)
 			{
+				handel_dolllar(lst);
 				is_quoted(lst);
 				break ;
 			}
