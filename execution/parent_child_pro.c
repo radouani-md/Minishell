@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 15:30:36 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/22 23:10:24 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:18:03 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	child_work_helper(t_md *md, t_env **my_env, t_ha *err)
 		gc_malloc(0, 0);
 		exit(0);
 	}
-	if (!md->cmd)
+	if (!md->cmd || !md->cmd[0])
 	{
 		close(err->saved_fd);
 		gc_malloc(0, 0);

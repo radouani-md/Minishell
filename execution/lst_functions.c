@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:49:42 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/22 23:02:35 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:06:56 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	has_actual_command(t_node *group)
 void	check_cmd(t_md *md, t_ha *err)
 {
 	if (!has_actual_command(md->groups[md->i])
-		&& md->groups[0]->type != -1)
+		&& (md->groups[0] && md->groups[0]->type != -1))
 	{
 		close(err->saved_fd);
 		gc_malloc(0, 0);
@@ -57,11 +57,17 @@ int	check_exec_errors(char *path)
 	return (0);
 }
 
-int	md_isalpha(int c)
+int	md_isalpha(char *str)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+	int i;
+
+	i = 0;
+	while (str[i])
 	{
-		return (1);
+		if ((str[i] >= 'A' && str[i] <= 'Z')
+			|| (str[i] >= 'a' && str[i] <= 'z'))
+			return (1);
+		i++;
 	}
 	return (0);
 }

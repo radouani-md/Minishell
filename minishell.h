@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/22 23:18:26 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:57:21 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void		*gc_malloc(size_t size, int nbr);
 int			implement_unset(t_env **my_env, t_node *nodes);
 int			count_handle_str(char *input, int i);
 void		ft_node(t_node **arg);
-int			md_isalpha(int c);
+int			md_isalpha(char *str);
 int			read_and_filling_node(char *input, t_list **lst, t_ha	*err);
 int			ft_handle_string(char	*input, int	*i, t_list	**lst, t_ha *err);
 void		ft_ha_pipe_direction(char *input, int *i, t_list **lst);
