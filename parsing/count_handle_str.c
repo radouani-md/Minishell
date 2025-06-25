@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_handle_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:23:53 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/23 18:14:57 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/24 11:31:04 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void	ft_node(t_node **arg)
 			&& tmp->type != 4 && tmp->type != 1337)
 		{
 			if (!(*arg)->next)
+			{
 				*arg = NULL;
-			else if (!tmp1)
+				break ;
+			}
+			if (!tmp1)
 				*arg = tmp->next;
 			else
 			{
