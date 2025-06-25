@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 17:07:29 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/24 13:26:05 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:16:31 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ int	built_fork_work(t_md *md, t_ha *err, t_env **my_env)
 		g_sig_md = 2;
 		md->id = fork();
 		if (forking(md, err, my_env) == -1)
+		{
+			get_close();
 			return (-1);
+		}
 	}
 	return (0);
 }

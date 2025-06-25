@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/25 17:11:57 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:20:00 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <sys/resource.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <dirent.h>
@@ -214,6 +215,7 @@ void		alloc_arm(t_var	**arm);
 char		*md_itoa(int n);
 int			get_length(int n);
 char		*ft_strcat(char *dest, char *src);
+void		get_close();
 
 char		**md_split(char const *s, char c);
 char		**put_in(char **ptr, const char *s, char c, size_t count);
