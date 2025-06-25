@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:25 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/23 16:19:47 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:17:57 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	implement_exit(t_node *nodes, t_ha *err)
 	close(err->saved_fd_in);
 	close(err->saved_fd_out);
 	close(err->saved_fd);
-	if (md_atoi(nodes->next->data, &exit_state) == 1)
+	if (nodes->next && md_atoi(nodes->next->data, &exit_state) == 1)
 		return (ft_print_erorr("exit\nmhd: exit: ", nodes->next->data,
 				": numeric argument required", "\n"),
 			gc_malloc(0, 0), exit(2), 1);

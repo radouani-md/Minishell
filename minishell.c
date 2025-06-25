@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/24 11:30:07 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/21 20:16:03 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,11 @@ int	helper_main(char **envp, t_all *node)
 		is_entred = 1;
 		expand_variables(node->arg, node->my_env, node->err);
 		ft_node(&node->arg);
-		if(node->arg)
-		{
-			delete_qoutation(node->arg);
-			delete_sinqel_dabel_qoutishen(node->arg);
-			if (exec_commands(&node->arg, &node->my_env, node->err) == -333)
-				return (dup2(node->err->saved_fd, STDIN_FILENO),
-					close(node->err->saved_fd), 1);
-		}
+		delete_qoutation(node->arg);
+		delete_sinqel_dabel_qoutishen(node->arg);
+		if (exec_commands(&node->arg, &node->my_env, node->err) == -333)
+			return (dup2(node->err->saved_fd, STDIN_FILENO),
+				close(node->err->saved_fd), 1);
 	}
 	return (0);
 }

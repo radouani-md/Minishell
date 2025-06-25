@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:22:34 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/24 12:08:41 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:57:15 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,49 +83,26 @@ void	expanding_function(t_node *lst, t_env *my_env, t_ha *ha)
 	fill_up_node(dap, lst);
 }
 
-void	handle_dollar_quote_case11(t_node *lst, t_ha *ha, char *dap)
-{
-	ha->quote_count = 0;
-	if (lst->data[ha->read_index + 1] == '\'' && ha->dbl_qte % 2 == 0)
-		ha->quote_count = ha->snl_qte + 1;
-	else if (lst->data[ha->read_index + 1] == '\"' && ha->snl_qte % 2 == 0)
-		ha->quote_count = ha->dbl_qte + 1;
-	if (ha->quote_count % 2 == 1)
-		ha->read_index++;
-	else
-		dap[ha->dest_index++] = lst->data[ha->read_index++];
-}
-
 void	handel_dolllar(t_node *lst)
 {
 	char	*tmp;
-	char	*tmp1;
 	t_ha	*ha;
-	int		a;
 
-	a = 0;
 	tmp = gc_malloc(md_strlen(lst->data) + 1, 1);
-	tmp1 = gc_malloc(md_strlen(lst->data) + 1, 1);
 	ha = helper_varia(0);
 	while (lst->data[ha->read_index])
 	{
 		conut_dabel_singel_qoutition(lst->data[ha->read_index], ha);
-		if (ha->dbl_qte % 2 != 1 && ha->snl_qte % 2 != 1 && lst->data[ha->read_index] == '$')
-			tmp1[a++] = lst->data[ha->read_index];
 		if (lst->data[ha->read_index] == '$'
 			&& (lst->data[ha->read_index + 1] == '\"'
 				|| lst->data[ha->read_index + 1] == '\''))
 		{
-			tmp1[a] = '\0';
-			if (md_strlen(tmp1) % 2 == 0)
-				tmp[ha->dest_index++] = lst->data[ha->read_index++];
-			else
-				handle_dollar_quote_case11(lst, ha, tmp);
+			ha->read_index++;
 		}
 		else
+		{
 			tmp[ha->dest_index++] = lst->data[ha->read_index++];
-		if (lst->data[ha->read_index] != '$')
-			a = 0;
+		}
 	}
 	tmp[ha->dest_index] = '\0';
 	lst->data = md_strdup(tmp);

@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:07:48 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/23 18:12:35 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/23 18:23:09 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	implement_her_doc(t_node *nodes, t_env *env, t_ha *err)
 	nodes->tmp_file = NULL;
 	while (nodes)
 	{
-		printf("%s %d\n", nodes->data, nodes->type);
 		if (nodes->type == 3)
 		{
 			tmp_name = random_num();
