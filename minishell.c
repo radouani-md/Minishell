@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 12:01:57 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/25 17:07:45 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:09:18 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exec_commands(t_node **nodes, t_env **my_env, t_ha *err)
 	return (0);
 }
 
-void	delete_sinqel_dabel_qoutishen(t_node *arg)
+void	set_quote(t_node *arg)
 {
 	int	i;
 
@@ -99,7 +99,7 @@ int	helper_main(char **envp, t_all *node)
 		expand_variables(node->arg, node->my_env, node->err);
 		ft_node(&node->arg);
 		delete_qoutation(node->arg);
-		delete_sinqel_dabel_qoutishen(node->arg);
+		set_quote(node->arg);
 		if (exec_commands(&node->arg, &node->my_env, node->err) == -333)
 			return (dup2(node->err->saved_fd, STDIN_FILENO),
 				close(node->err->saved_fd), 1);

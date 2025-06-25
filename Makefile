@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address 
+CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 HEADER = minishell.h 
 READ_LINE = -lreadline
@@ -8,7 +8,7 @@ SRC = 	parsing/gc_malloc.c parsing/implement_unset.c parsing/implement_export.c 
 		parsing/ft_expand_variables.c parsing/ft_1expand_variables.c parsing/ft_2expand_variables.c parsing/ft_delete_qoutation.c parsing/count_handle_str.c parsing/dollar_handel.c\
 		utils_function/utils_func.c utils_function/utils_func2.c utils_function/utils_func3.c utils_function/utils_func4.c \
 		utils_function/yl_utils_func.c utils_function/yl_utils_func2.c utils_function/yl_utils_func3.c utils_function/yl_utils_func4.c \
-		utils_function/yl_utils_func5.c utils_function/yl_utils_func6.c\
+		utils_function/yl_utils_func5.c utils_function/yl_utils_func6.c utils_function/utils_func5.c \
 		execution/cmd_working.c execution/lst_functions.c execution/fetching.c execution/main_work_of_exec.c execution/implementing_types.c \
 		execution/expand_dollar_heredoc.c execution/implement_types_2.c execution/built_in.c execution/built_in2.c execution/get_next_line_utils.c \
 		execution/parent_child_pro.c  execution/built_in_cd3.c execution/implement_type_2_3.c\

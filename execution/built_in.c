@@ -6,7 +6,7 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:32:53 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/24 12:56:42 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:11:05 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	implement_pwd(t_env *env)
 			printf("%s\n", env->cww);
 		else
 			printf("getcwd: cannot access parent directories:"
-			" No such file or directory\n");
+				" No such file or directory\n");
 	}
 	else
 		printf("%s\n", cwd);

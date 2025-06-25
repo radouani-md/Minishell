@@ -6,18 +6,18 @@
 /*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 16:26:39 by mradouan          #+#    #+#             */
-/*   Updated: 2025/06/25 17:16:20 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:11:36 by mradouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	get_close()
+void	get_close(void)
 {
 	int	i;
 
-	i = 3;
-	while (i < RLIMIT_NOFILE)
+	i = 4;
+	while (i < OPEN_MAX)
 	{
 		close(i);
 		i++;
