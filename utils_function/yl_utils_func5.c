@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:24:34 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/18 11:24:35 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:09:03 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,22 @@ t_ha	*helper_varia(int err)
 	new_node->quote_count1 = 1;
 	new_node->next = NULL;
 	return (new_node);
+}
+
+void	is_quoted(t_node *lst)
+{
+	int	a;
+
+	a = 0;
+	while (lst->data[a])
+	{
+		if (lst->data[a] == '\"' || lst->data[a] == '\'')
+		{
+			lst->is_quoted = 1;
+			break ;
+		}
+		else
+			lst->is_quoted = 0;
+		a++;
+	}
 }

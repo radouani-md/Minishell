@@ -6,7 +6,7 @@
 /*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 11:21:50 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/23 17:57:32 by ylagzoul         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:50:29 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,8 @@ int	implement_export(t_env *my_env, t_node *nodes, t_ha *err)
 		{
 			str_print = NULL;
 			if (my_env->key)
-			{
-				str_print = md_strjoin(str_print, "declare -x ");
-				str_print = md_strjoin(str_print, my_env->key);
-			}
+				str_print = ft_str_join_err("declare -x ",
+						my_env->key, NULL, str_print);
 			if (my_env->type == 1)
 				str_print = ft_str_join_err("=\"",
 						my_env->value, "\"\n", str_print);

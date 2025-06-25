@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mradouan <mradouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ylagzoul <ylagzoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 04:15:29 by ylagzoul          #+#    #+#             */
-/*   Updated: 2025/06/24 13:26:16 by mradouan         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:11:57 by ylagzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ typedef struct s_all
 	t_ha	*err;
 	t_env	*my_env;
 }				t_all;
+
+void		is_quoted(t_node *lst);
+void		handel_dolllar(t_node *lst);
+void		handle_dollar_quote_case11(t_node *lst, t_ha *ha, char *dap);
 
 char		*ft_cpy_value13(int *i, t_node *nodes, t_env *my_env, t_ha *err);
 int			count_value13(int i, t_node *nodes);
